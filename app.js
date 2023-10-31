@@ -22,4 +22,4 @@ app.listen(port, () => {
   console.log(`app is running on http://localhost:${port}`)
 })
 
-module.exports = app;
+module.exports = app
