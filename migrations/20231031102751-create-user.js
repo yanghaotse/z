@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      account: {
+        type: Sequelize.STRING
+      },
       name: {
         type: Sequelize.STRING
       },
@@ -19,13 +22,20 @@ module.exports = {
         type: Sequelize.STRING
       },
       avatar: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue: "https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand"
       },
       introduction: {
         type: Sequelize.TEXT
       },
       role: {
         type: Sequelize.STRING
+      },
+      cover: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue: "https://i.imgur.com/yLZPe7q.jpg"
       },
       created_at: {
         allowNull: false,
