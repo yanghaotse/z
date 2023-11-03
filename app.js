@@ -8,6 +8,7 @@ const session = require('express-session')
 const passport = require('passport')
 
 const routes = require('./routes/index')
+const { getUser } = require('./helpers/auth-helper')
 const port = 3000
 const SESSION_SECRET = 'secret'
 
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
   res.locals.error_messages = req.flash('error_messages')
   res.locals.warning_messages = req.flash('warning_messages')
   res.locals.notice_messages = req.flash('notice_messages')
+  res.locals.user = getUser(req)
   next()
 })
 
