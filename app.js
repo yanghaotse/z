@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 const bcrypt = require('bcryptjs')
 const flash = require('connect-flash')
 const session = require('express-session')
+const passport = require('passport')
 
 const routes = require('./routes/index')
 const port = 3000
@@ -23,6 +24,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
