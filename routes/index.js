@@ -4,15 +4,23 @@ const passport = require('../config/passport')
 
 const tweetController = require('../controllers/tweet-controller')
 const userController = require('../controllers/user-controller')
+const adminController = require('../controllers/admin-controller')
 const admin = require('./modules/admin')
 const { generalErrorHandler } = require('../middleware/error-handler')
+const { authenticated, authenticatedAdmin } = require('../middleware/auth')
 
-router.use('/admin', admin)
+// 後臺登入 
+router.get('/admin/signin', adminController.adminSignInPage)
+router.post('/admin/signin', passport.authenticate('local', { failureRedirect: '/admin/signin', failureFlash: true }), adminController.adminSignIn)
+router.use('/admin', authenticatedAdmin, admin)
+// 前台登入
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
-router.get('/tweets', tweetController.getTweets)
+
+router.get('/logout', userController.logout)
+router.get('/tweets', authenticated, tweetController.getTweets)
 router.use('/', (req, res) => res.redirect('/tweets'))
 router.use('/', generalErrorHandler)
 module.exports = router
