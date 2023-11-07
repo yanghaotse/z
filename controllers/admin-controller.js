@@ -8,6 +8,9 @@ const adminController = {
   adminSignIn: (req, res) => {
     req.flash('success_messages', '成功登入!')
     res.render('admin/tweets')
+  },
+  getUsers: (req, res, next) => {
+    res.render('admin/users')
   }
 }
 
