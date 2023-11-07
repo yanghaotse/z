@@ -4,39 +4,27 @@
 const faker = require('faker')
 const { User } = require('../models')
 
-
-const getUsers = async() => {
-  try {
-    const Users = await User.findAll({
-      raw: true,
-      nest: true
-    })
-    return Users
-  } catch (err) {
-    console.log(err)
-  } 
-}
-
+// 每個使用者10篇 tweet
 module.exports = {
   async up (queryInterface, Sequelize) {
     try {
-      const Tweets = []
-      const Users = await getUsers()
-      const perUserTweets = 10
+      const users = await User.findAll({ raw: true, nest:true })
+      const tweets = []
+      const tweetPerUser = 10
 
-      Users.forEach(user => {
+      users.forEach(user => {
         const maxLength = 160
-        for (let i = 0; i < perUserTweets; i++) {
+        for (let i = 0; i < tweetPerUser; i++) {
           let tweet = {
             user_id: user.id,
             description: faker.lorem.text().slice(0, maxLength),
             created_at: new Date(),
             updated_at: new Date()
           }
-          Tweets.push(tweet)
+          tweets.push(tweet)
         }
       })
-      queryInterface.bulkInsert('Tweets', Tweets, {})
+      await queryInterface.bulkInsert('Tweets', tweets, {})
 
     } catch(err) {
       console.log(err)
@@ -44,6 +32,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    queryInterface.bulkDelete('Tweets', {})
+    await queryInterface.bulkDelete('Tweets', {})
   }
 }

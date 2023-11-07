@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs')
 const faker = require('faker')
 
+// 建立 User: admin * 1, user * 5
 const Users = [{
   email: 'root@example.com.tw',
   password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10)),
