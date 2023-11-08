@@ -8,11 +8,13 @@ const session = require('express-session')
 const passport = require('passport')
 
 const routes = require('./routes/index')
-const { getUser } = require('./helpers/auth-helper')
+const { getUser } = require('./helpers/auth-helpers')
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
+
 const port = 3000
 const SESSION_SECRET = 'secret'
 
-app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 
 
