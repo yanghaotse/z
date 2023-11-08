@@ -1,5 +1,6 @@
 const { getUser, ensureAuthenticated } = require('../helpers/auth-helpers')
 
+// 前台驗證
 const authenticated = (req, res, next) => {
   if (ensureAuthenticated(req)) {
     if (getUser(req).role === 'user') return next()
@@ -12,7 +13,7 @@ const authenticated = (req, res, next) => {
   }
   res.redirect('/signin')
 }
-
+// 後台驗證
 const authenticatedAdmin = (req, res, next) => {
   if (ensureAuthenticated(req)) {
     if (getUser(req).role === 'admin') return next()
