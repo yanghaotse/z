@@ -1,4 +1,4 @@
-const { User, Tweet } = require('../models')
+const { User, Tweet, Reply, Like } = require('../models')
 const { Op } = require('sequelize')
 
 const adminController = {
@@ -23,7 +23,7 @@ const adminController = {
     res.redirect('/admin/tweets')
   },
   getUsers: async(req, res, next) => {
-    try{
+    try {
       const users = await User.findAll({
         where: {
           [Op.or]: [{ role: 'user' }, { role: 'null' }]
@@ -48,6 +48,22 @@ const adminController = {
     } catch(err) {
       next(err)
     }
+  },
+  deleteTweet: async(req, res, next) => {
+    try {
+      const tweetId = req.params.id
+      const tweet = await Tweet.findByPk(tweetId)
+      if (!tweet) throw new Error('此篇推文不存在')
+      
+      await Reply.destroy({ where: { TweetId: tweetId } })
+      await Like.destroy({ where: { TweetId: tweetId } })
+      await Tweet.destroy({ where: { id: tweetId } })
+
+      res.redirect('/admin/tweets')
+    } catch(err) {
+      next(err)
+    }
+
   }
 }
 
