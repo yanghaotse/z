@@ -12,7 +12,7 @@
     </div>
     {{!-- 個人資料 --}}
     <div class="d-flex mb-5">
-      <a href="/users/{{currentUserId}}/tweets" style="text-decoration:none;">
+      <a href="/users/{{currentUser.id}}/tweets" style="text-decoration:none;">
         <i class="fa-solid fa-user fa-xl ms-2 me-3" style="color: #44444f;"></i>
         <h5 class="fs-5"
           style="color: #44444F; font-weight: 600; display:inline;">
@@ -21,7 +21,7 @@
     </div>
     {{!-- 設定 --}}
     <div class="d-flex mb-5">
-      <a href="/users/{{currentUserId}}/setting" style="text-decoration:none;">
+      <a href="/users/{{currentUser.id}}/setting" style="text-decoration:none;">
         <i class="fa-solid fa-gear fa-xl ms-2 me-3" style="color: #44444f;"></i>
         <h5 class="fs-5"
           style="color: #44444F; font-weight: 600; display:inline;">

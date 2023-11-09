@@ -35,7 +35,7 @@ const adminController = {
           { model: User, as: 'Followers' }
         ]
       })
-      const userData = users.map(user => {
+      const usersData = users.map(user => {
         return {
           ...user.toJSON(),
           tweetsCount: user.Tweets.length,
@@ -44,7 +44,7 @@ const adminController = {
           followersCount: user.Followers.length
         }
       })
-      res.render('admin/users', { users: userData })
+      res.render('admin/users', { users: usersData })
     } catch(err) {
       next(err)
     }
@@ -54,7 +54,7 @@ const adminController = {
       const tweetId = req.params.id
       const tweet = await Tweet.findByPk(tweetId)
       if (!tweet) throw new Error('此篇推文不存在')
-      
+
       await Reply.destroy({ where: { TweetId: tweetId } })
       await Like.destroy({ where: { TweetId: tweetId } })
       await Tweet.destroy({ where: { id: tweetId } })
