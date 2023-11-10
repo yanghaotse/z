@@ -1,7 +1,7 @@
 <main class="container">
   <div class="row">
-    {{> left-bar}}
 
+    {{> left-bar}}
 
     <div class="col-md-6" style="max-width: 639px; margin-left: 278px">
       {{!-- 中間column --}}
@@ -23,7 +23,6 @@
 
       {{!-- 推文串 --}}
       {{#each tweets}}
-
       <div class="border-start border-end border-bottom d-flex align-items-start flex-column pt-2"
         style="min-height: 130px;">
         <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
@@ -42,37 +41,30 @@
             <p style="margin-left: 85px; color: #171725;" class="text-break">{{this.description}}</p>
           </a>
           <div class="d-flex align-items-baseline" style="margin-left: 85px;">
-            <img src="https://i.imgur.com/AXqSL48.png" title="source: imgur.com" style="width: 16px;height: 16px;"
-              class="me-1" data-bs-toggle="modal" data-bs-target="#replyTweet{{this.id}}">
+            <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal" data-bs-target="#replyTweet{{this.id}}"></i>
             <p class="me-5" style="color: #6C757D;">{{this.repliesCount}}</p>
             {{#if this.isLiked}}
             <form action="/tweets/{{this.id}}/unlike" method="POST">
               <button type="submit" style="background: none; border: none; cursor: pointer;">
                 <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px;"></i>
-                {{!-- <img src="https://i.imgur.com/1JNr74p.png" title="source: imgur.com"
-                  style="width: 16px;height: 16px;margin-bottom:5px" class="me-1"> --}}
               </button>
             </form>
             {{else}}
             <form action="/tweets/{{this.id}}/like" method="POST">
               <button type="submit" style="background: none; border: none; cursor: pointer; padding-top:0px">
                 <i class="fa-regular fa-heart" style="width: 24px; height: 24px;"></i>
-                {{!-- <img src="https://i.imgur.com/gdUkdVf.png" title="source: imgur.com"
-                  style="width: 16px;height: 16px;margin-bottom:5px" class="me-1"> --}}
               </button>
             </form>
             {{/if}}
-            <p>{{this.likesCount}}</p>
+            <p style="color: #6C757D;">{{this.likesCount}}</p>
           </div>
         </div>
       </div>
 
       {{/each}}
     </div>
-
     {{!-- 推薦清單 --}}
-    {{!-- {{> right-bar}} --}}
-
+    {{> right-bar}}
   </div>
 </main>
 
