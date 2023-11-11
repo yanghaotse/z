@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs')
-const { User } = require('../models')
+const { User, Tweet, Reply, Followship, Like } = require('../models')
 const { Op } = require('sequelize')
+const { getUser } = require('../helpers/auth-helpers') 
+const { getRecommendedFollowings } = require('../services/user-service')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -50,6 +52,48 @@ const userController = {
     req.flash('success_messages', '登出成功!')
     req.logout()
     res.redirect('/signin')
+  },
+  getUserTweets: async(req, res, next) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+
+      const user = await User.findByPk(userId, {
+        include: [
+          // user-profile
+          Reply,
+          { model: User, as: 'Followers' },
+          { model: User, as: 'Followings' },
+          { model: Tweet, as: 'LikedTweets' },
+          // user-tweets
+          { model: Tweet, include: [
+            User,
+            Reply,
+            { model: User, as: 'LikedUsers' }
+          ]}
+        ]
+      })
+      // user-profile
+      const { followingsCount, followersCount, tweetsCount, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        followingsCount: rest.Followings.length,
+        followersCount: rest.Followers.length,
+        tweetsCount: rest.Tweets.length
+      }
+      // user-tweets
+      const tweetsData = user.Tweets.map( tweet => ({
+        ...tweet.toJSON(),
+        repliesCount: tweet.Replies.length,
+        likesCount: tweet.LikedUsers.length,
+        isLiked: tweet.LikedUsers.some(lu => lu.id === currentUser.id)
+      }))
+
+      res.render('user/user-tweets', { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
+    } catch(err) {
+      next(err)
+    }
   }
 }
 

@@ -5,23 +5,22 @@ const { getRecommendedFollowings } = require('../services/user-service')
 const tweetController = {
   getTweets: async(req, res, next) => {
     try {
-      const userId = getUser(req).id
       // 查詢:當前使用者、推薦使用者、所有貼文
-      const currentUser = await User.findByPk(userId, { raw: true, nest: true })
-      const recommendFollowings = await getRecommendedFollowings(userId)
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
 
       const tweets = await Tweet.findAll({
         include: [
           User,
           Reply,
-          Like
+          { model: User, as: 'LikedUsers' }
         ]
       })
       const tweetsData = tweets.map(tweet => ({
         ...tweet.toJSON(),
         repliesCount: tweet.Replies.length,
-        likesCount: tweet.Likes.length,
-        isLiked: tweet.Likes.some(like => like.userId === userId)
+        likesCount: tweet.LikedUsers.length,
+        isLiked: tweet.LikedUsers.some( lu => lu.id === currentUser.id)
       }))
 
       res.render('tweets', { tweets: tweetsData, currentUser, recommendFollowings })
