@@ -4,28 +4,45 @@
 
     <div class="d-flex mb-5">
       <a href="/tweets" style="text-decoration:none;">
-        <i class="fa-solid fa-house fa-xl ms-2 me-3" style="color: #44444F;"></i>
-        <h5 class="fs-5"
-          style="color: #44444F; font-weight: 700; display:inline;">
+      {{#ifCond route 'tweets'}}
+        <i class="fa-solid fa-house fa-xl ms-2 me-3" style="color: #130912;"></i>
+        <h5 class="fs-5" style="color: #130912; font-weight: 700; display:inline;">
           首頁</h5>
+      {{else}}
+        <i class="fa-solid fa-house fa-xl ms-2 me-3" style="color: #8c8c8c;"></i>
+        <h5 class="fs-5" style="color: #8c8c8c; font-weight: 700; display:inline;">
+          首頁</h5>
+      {{/ifCond}}
       </a>
     </div>
     {{!-- 個人資料 --}}
     <div class="d-flex mb-5">
       <a href="/users/{{currentUser.id}}/tweets" style="text-decoration:none;">
-        <i class="fa-solid fa-user fa-xl ms-2 me-3" style="color: #44444f;"></i>
+      {{#ifCond route 'user'}}
+        <i class="fa-solid fa-user fa-xl ms-2 me-3" style="color: #130912;"></i>
         <h5 class="fs-5"
-          style="color: #44444F; font-weight: 600; display:inline;">
+          style="color: #130912; font-weight: 600; display:inline;">
           個人資料</h5>
+      {{else}}
+        <i class="fa-solid fa-user fa-xl ms-2 me-3" style="color: #8c8c8c;"></i>
+        <h5 class="fs-5"
+          style="color: #8c8c8c; font-weight: 600; display:inline;">
+          個人資料</h5>
+      {{/ifCond}}
       </a>
     </div>
     {{!-- 設定 --}}
     <div class="d-flex mb-5">
       <a href="/users/{{currentUser.id}}/setting" style="text-decoration:none;">
-        <i class="fa-solid fa-gear fa-xl ms-2 me-3" style="color: #44444f;"></i>
-        <h5 class="fs-5"
-          style="color: #44444F; font-weight: 600; display:inline;">
+      {{#ifCond route 'setting'}}
+        <i class="fa-solid fa-gear fa-xl ms-2 me-3" style="color: #130912;"></i>
+        <h5 class="fs-5" style="color: #130912; font-weight: 600; display:inline;">
           設定</h5>
+      {{else}}
+        <i class="fa-solid fa-gear fa-xl ms-2 me-3" style="color: #8c8c8c;"></i>
+        <h5 class="fs-5" style="color: #8c8c8c; font-weight: 600; display:inline;">
+          設定</h5>
+      {{/ifCond}}
       </a>
     </div>
     <button class="btn btn-default"

@@ -1,0 +1,35 @@
+<div class="row mb-2" style="height: 53px; border: 1px #E6ECF0 solid;">
+  <ul class="nav nav-tab" style="height: 53px;">
+  {{#ifCond route 'followers'}}
+    <li class="nav-item d-flex align-items-center justify-content-center"
+      style="width:130px; border-bottom:2px solid #130912;">
+      <a class="nav-link" href="/users/{{user.id}}/followers"
+        style="color:#130912;">
+        追蹤者
+      </a>
+    </li>
+    <li class="nav-item d-flex align-items-center justify-content-center" style="width:130px;">
+      <a class="nav-link" href="/users/{{user.id}}/followings"
+        style="color:#657786;">
+        正在追隨
+      </a>
+    </li>
+  {{/ifCond}}
+    
+  {{#ifCond route 'followings'}}
+    <li class="nav-item d-flex align-items-center justify-content-center" style="width:130px;">
+      <a class="nav-link" href="/users/{{user.id}}/followers"
+        style="color:#657786;">
+        追蹤者
+      </a>
+    </li>
+    <li class="nav-item d-flex align-items-center justify-content-center"
+      style="width:130px; border-bottom:2px solid #130912;">
+      <a class="nav-link" href="/users/{{user.id}}/followings"
+        style="color:#130912;">
+        正在追隨
+      </a>
+    </li>
+  {{/ifCond}}
+  </ul>
+</div>

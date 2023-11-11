@@ -3,6 +3,7 @@ const { User, Tweet, Reply, Followship, Like } = require('../models')
 const { Op } = require('sequelize')
 const { getUser } = require('../helpers/auth-helpers') 
 const { getRecommendedFollowings } = require('../services/user-service')
+const { ge } = require('faker/lib/locales')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -74,6 +75,7 @@ const userController = {
           ]}
         ]
       })
+      if (!user) throw new Error('使用者不存在')
       // user-profile
       const { followingsCount, followersCount, tweetsCount, ...rest } = user.toJSON()
       const userData = {
@@ -91,6 +93,29 @@ const userController = {
       }))
 
       res.render('user/user-tweets', { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
+    } catch(err) {
+      next(err)
+    }
+  },
+  getUserFollowers: async(req, res, next) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+      const user = await User.findByPk(userId, {
+        include: [
+          { model: User, as: 'Followers'}
+        ]
+      })
+      if (!user) throw new Error('使用者不存在')
+
+      const userData = user.toJSON()
+      const followers = userData.Followers.map(follower => ({
+        ...follower,
+        isFollowed: currentUser.Followings.some(cf => cf.id === follower.id)
+      }))
+
+      res.render('user/user-followers', { users: userData, followers, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
