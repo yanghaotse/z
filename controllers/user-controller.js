@@ -119,6 +119,30 @@ const userController = {
     } catch(err) {
       next(err)
     }
+  },
+  getUserFollowings: async(req, res, next) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+      
+      const user = await User.findByPk(userId, {
+        include:[
+          { model: User, as: 'Followings' }
+        ]
+      })
+      if (!user) throw new Error('使用者不存在')
+
+      const userData = user.toJSON()
+      const followings = userData.Followings.map(following => ({
+        ...following,
+        isFollowed: currentUser.Followings.some(cf => cf.id === following.id)
+      }))
+
+      res.render('user/user-followings', { user: userData, followings, recommendFollowings, currentUser })
+    } catch(err) {
+      next(err)
+    }
   }
 }
 
