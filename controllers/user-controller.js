@@ -63,7 +63,6 @@ const userController = {
       const user = await User.findByPk(userId, {
         include: [
           // user-profile
-          Reply,
           { model: User, as: 'Followers' },
           { model: User, as: 'Followings' },
           { model: Tweet, as: 'LikedTweets' },
@@ -125,7 +124,7 @@ const userController = {
       const userId = req.params.id
       const currentUser = getUser(req)
       const recommendFollowings = await getRecommendedFollowings(currentUser.id)
-      
+
       const user = await User.findByPk(userId, {
         include:[
           { model: User, as: 'Followings' }
@@ -140,6 +139,44 @@ const userController = {
       }))
 
       res.render('user/user-followings', { user: userData, followings, recommendFollowings, currentUser })
+    } catch(err) {
+      next(err)
+    }
+  },
+  getUserReplies: async(req, res, next) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+
+      const user = await User.findByPk(userId, {
+        include: [
+          // user-header: tweetsCount
+          Tweet,
+          // user-profile: user
+          { model: User, as: 'Followings' },
+          { model: User, as: 'Followers' },
+          // user-replies: replies 
+          { model:Reply,include: [
+            User,
+            { model: Tweet, include: [User] }
+          ],
+            order:[['created_at', 'DESC']] 
+          }
+        ]
+      })
+      if (!user) throw new Error('查無回覆內容')
+
+      const { followingsCount, followersCount, tweetsCount, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        followingsCount: rest.Followings.length,
+        followersCount: rest.Followers.length,
+        tweetsCount: rest.Tweets.length
+      }
+      const replies = userData.Replies
+
+      res.render('user/user-replies', { user: userData, replies, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }

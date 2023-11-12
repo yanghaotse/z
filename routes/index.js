@@ -25,6 +25,7 @@ router.get('/logout', userController.logout)
 router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
 router.get('/users/:id/followers', authenticated, userController.getUserFollowers)
 router.get('/users/:id/followings', authenticated, userController.getUserFollowings)
+router.get('/users/:id/replies', authenticated, userController.getUserReplies)
 
 // 首頁
 router.get('/tweets', authenticated, tweetController.getTweets)
