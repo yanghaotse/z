@@ -29,6 +29,7 @@ router.get('/users/:id/replies', authenticated, userController.getUserReplies)
 router.get('/users/:id/likes', authenticated, userController.getUserLikes)
 router.get('/users/:id/setting', authenticated, userController.getUserSetting)
 router.post('/followships', authenticated, userController.addFollowing)
+router.delete('/followships/:id', authenticated, userController.removeFollowing)
 
 // 首頁
 router.get('/tweets', authenticated, tweetController.getTweets)
