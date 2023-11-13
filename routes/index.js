@@ -28,6 +28,7 @@ router.get('/users/:id/followings', authenticated, userController.getUserFollowi
 router.get('/users/:id/replies', authenticated, userController.getUserReplies)
 router.get('/users/:id/likes', authenticated, userController.getUserLikes)
 router.get('/users/:id/setting', authenticated, userController.getUserSetting)
+router.put('/users/:id/setting', authenticated, userController.putUserSetting)
 router.post('/followships', authenticated, userController.addFollowing)
 router.delete('/followships/:id', authenticated, userController.removeFollowing)
 
