@@ -221,6 +221,30 @@ const userController = {
     } catch(err) {
       next(err)
     }
+  },
+  addFollowing: async(req, res, next) => {
+    try {
+      const currentUserId = getUser(req).id
+      const followingId = req.body.id
+      if (!followingId) throw new Error('該用戶不存在')
+
+      const [followShip, created] = await Followship.findOrCreate({
+        where: {
+          followingId,
+          followerId: currentUserId
+        },
+        default: {
+          followingId: followingId,
+          followerId: currentUserId
+        }
+      })
+      if (!followShip.toJSON().followingId) throw new Error('該用戶不存在')
+
+      if (created) req.flash('success_messages', '已追蹤該用戶')
+      res.redirect('back')
+    } catch(err) {
+      next(err)
+    }
   }
 }
 
