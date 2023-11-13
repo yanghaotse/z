@@ -90,6 +90,7 @@ const userController = {
         likesCount: tweet.LikedUsers.length,
         isLiked: tweet.LikedUsers.some(lu => lu.id === currentUser.id)
       }))
+
       res.render('user/user-tweets', { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
     } catch(err) {
       next(err)
@@ -206,8 +207,17 @@ const userController = {
         repliesCount: lt.Replies.length,
         likesCount: lt.Likes.length
       }))
-
+      
       res.render('user/user-likes', { user: userData, likedTweets, recommendFollowings, currentUser })
+    } catch(err) {
+      next(err)
+    }
+  },
+  getUserSetting: async(req, res, next) => {
+    try {
+      const currentUser = getUser(req)
+      if (!currentUser) throw new Error('使用者不存在')
+      res.render('user/user-setting', { currentUser })
     } catch(err) {
       next(err)
     }

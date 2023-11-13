@@ -27,6 +27,7 @@ router.get('/users/:id/followers', authenticated, userController.getUserFollower
 router.get('/users/:id/followings', authenticated, userController.getUserFollowings)
 router.get('/users/:id/replies', authenticated, userController.getUserReplies)
 router.get('/users/:id/likes', authenticated, userController.getUserLikes)
+router.get('/users/:id/setting', authenticated, userController.getUserSetting)
 
 // 首頁
 router.get('/tweets', authenticated, tweetController.getTweets)
