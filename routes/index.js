@@ -33,6 +33,7 @@ router.delete('/followships/:id', authenticated, userController.removeFollowing)
 
 // Like、回覆
 router.post('/tweets/:id/like', authenticated, tweetController.addLike)
+router.post('/tweets/:id/unlike', authenticated, tweetController.removeLike)
 
 // 首頁
 router.get('/tweets', authenticated, tweetController.getTweets)
