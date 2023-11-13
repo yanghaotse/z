@@ -1,0 +1,52 @@
+<main class="container">
+  <div class="row">
+    {{>left-bar route='user'}}
+
+    <div class="col-md-6 p-0" style="border: 1px #E6ECF0 solid; max-width:639px; margin-left: 278px">
+      {{>user-header}}
+      {{>user-profile}}
+      {{>user-tabs route='likes'}}
+      {{#each likedTweets}}
+      <div class="border-start border-end border-bottom d-flex align-items-end flex-column pt-2"
+        style="min-height: 130px;">
+        <div class="align-self-start">
+          <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+            <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
+              class="ms-4 rounded-circle">
+            <div class="d-inline-flex pt-3">
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <h5 class="mx-2" style="color: #171725;">{{this.User.name}}</h5>
+              </a>
+              <span style="color: #6C757D;">@{{this.User.account}} · {{relativeTimeFromNow this.createdAt}}</span>
+            </div>
+          </a>
+        </div>
+        <div class="pe-2 align-self-start" style="max-width: 528px; margin-left:88px;">
+          <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
+            <p class="text-break" style="color:#171725">
+              {{this.description}}
+            </p>
+          </a>
+          <div class="d-flex align-items-baseline">
+            <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal"
+              data-bs-target="#replyTweet{{this.id}}"></i>
+            <p class="me-5">{{this.repliesCount}}</p>
+
+            <form action="/tweets/{{this.id}}/unlike" method="POST">
+              <button class="btn btn-outline-light rounded-circle" type="submit" style="border:none;">
+                <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px; margin-bottom:8px;"></i>
+              </button>
+            </form>
+
+            <p style="margin-left:-5px;">{{this.likesCount}}</p>
+          </div>
+        </div>
+      </div>
+
+      {{/each}}
+
+
+    </div>
+    {{>right-bar}}
+  </div>
+</main>

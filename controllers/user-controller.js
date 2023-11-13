@@ -90,7 +90,6 @@ const userController = {
         likesCount: tweet.LikedUsers.length,
         isLiked: tweet.LikedUsers.some(lu => lu.id === currentUser.id)
       }))
-
       res.render('user/user-tweets', { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
     } catch(err) {
       next(err)
@@ -177,6 +176,38 @@ const userController = {
       const replies = userData.Replies
 
       res.render('user/user-replies', { user: userData, replies, recommendFollowings, currentUser })
+    } catch(err) {
+      next(err)
+    }
+  },
+  getUserLikes: async(req, res, next) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+      const user = await User.findByPk(userId, {
+        include: [
+          // user-profile: user, followingsCount, followersCount
+          { model: User, as: 'Followings' },
+          { model: User, as: 'Followers' },
+          // user-likes: repliesCount, likesCount
+          { model: Tweet, as: 'LikedTweets', include: [User, Reply, Like] }
+        ]
+      })
+      const { followingsCount, followers, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        followingsCount: rest.Followings.length,
+        followersCount: rest.Followers.length
+      }
+
+      const likedTweets = userData.LikedTweets.map(lt => ({
+        ...lt,
+        repliesCount: lt.Replies.length,
+        likesCount: lt.Likes.length
+      }))
+
+      res.render('user/user-likes', { user: userData, likedTweets, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
