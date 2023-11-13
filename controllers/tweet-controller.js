@@ -27,6 +27,30 @@ const tweetController = {
     } catch(err) {
       next(err)
     }
+  },
+  addLike: async(req, res, next) => {
+    try {
+      const currentUserId = Number(getUser(req).id)
+      const tweetId = Number(req.params.id)
+      if (!tweetId || isNaN(tweetId)) throw new Error('推文不存在')
+
+      const [tweet, created] = await Like.findOrCreate({
+        where: {
+          tweetId: tweetId,
+          userId: currentUserId
+        },
+        defaults: {
+          TweetId: tweetId,
+          UserId: currentUserId
+        }
+      })
+      if (!tweet.toJSON().TweetId) throw new Error('推文不存在')
+
+      res.redirect('back')
+    } catch(err) {
+      next(err)
+    }
+    
   }
 }
 

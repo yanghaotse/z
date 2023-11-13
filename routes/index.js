@@ -31,6 +31,9 @@ router.get('/users/:id/setting', authenticated, userController.getUserSetting)
 router.post('/followships', authenticated, userController.addFollowing)
 router.delete('/followships/:id', authenticated, userController.removeFollowing)
 
+// Like、回覆
+router.post('/tweets/:id/like', authenticated, tweetController.addLike)
+
 // 首頁
 router.get('/tweets', authenticated, tweetController.getTweets)
 router.use('/', (req, res) => res.redirect('/tweets'))
