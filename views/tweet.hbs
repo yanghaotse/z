@@ -38,7 +38,7 @@
 
         {{!-- icon --}}
         <div class="mx-3 py-3">
-          <i class="fa-regular fa-message fa-xl" data-bs-toggle="modal" data-bs-target="#replyTweet{{this.id}}"></i>
+          <i class="fa-regular fa-message fa-xl" data-bs-toggle="modal" data-bs-target="#replyTweet{{tweet.id}}"></i>
           {{#if tweet.isLiked}}
           <form action="/tweets/{{tweet.id}}/unlike" method="POST" class="d-inline" style="margin-left: 60px">
               <button type="submit" style="background: none; border: none; cursor: pointer;">
@@ -53,6 +53,7 @@
           </form>
           {{/if}}
         </div>
+        {{> reply-modal}}
 
         {{!-- 留言串 --}}
         {{#each replies}}

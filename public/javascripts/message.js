@@ -33,6 +33,18 @@ description.addEventListener('input', function postTextCount(event) {
   }
 })
 
+// reply-modal 字數驗證
+const comment = document.getElementById('comment')
+const replyFeedback = document.getElementById('replyFeedback')
+comment.addEventListener('input', function replyTextCount(event) {
+  const textCount = comment.value.length
+  if (textCount >= 140) {
+    replyFeedback.innerText = '字數不可超過140字'
+  } else {
+    replyFeedback.innerText = ''
+  }
+})
+
 
 
 

@@ -60,11 +60,10 @@
           </div>
         </div>
       </div>
-
+      {{> reply-modal currentUser = ../currentUser}}  
       {{/each}}
     </div>
     {{!-- 推薦清單 --}}
     {{> right-bar}}
   </div>
 </main>
-{{> post-modal}}
