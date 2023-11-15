@@ -73,7 +73,7 @@ const tweetController = {
       const tweetId = req.params.id
       const currentUser = getUser(req)
       const recommendFollowings = await getRecommendedFollowings(currentUser.id)
-      
+
       const tweet = await Tweet.findByPk(tweetId, {
         include: [
           User,
@@ -94,6 +94,23 @@ const tweetController = {
       const replies = tweetData.Replies
 
       res.render('tweet', { tweet: tweetData, replies, currentUser, recommendFollowings })
+    } catch(err) {
+      next(err)
+    }
+  },
+  postTweet: async(req, res, next) => {
+    try {
+      const currentUserId = getUser(req).id
+      const { description } = req.body
+      if (!description) throw new Error('內容不可空白')
+      if (description >= 140) throw new Error('超過字數上限')
+
+      const tweetDescription = await Tweet.create({
+        userId: currentUserId,
+        description
+      })
+
+      res.redirect('/tweets')
     } catch(err) {
       next(err)
     }

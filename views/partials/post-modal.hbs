@@ -1,0 +1,34 @@
+<div class="modal fade" id="postTweet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 634px; height: 300px; border-radius: 14px;">
+      <div class="modal-header" style="position: relative; height: 50px;">
+        <button type="button" class="btn btn-default m-3" data-bs-dismiss="modal" aria-label="Close"
+          style="position: absolute; left: 0;">
+          <i class="fa-solid fa-xmark fa-lg" style="color: #130912;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/tweets" class="needs-validation post-form" method="POST" novalidate>
+          <div class="form d-flex">
+            <img src="{{user.avatar}}" class="rounded-circle" title="source: imgur.com" style="width: 50px;height: 50px;" />
+            <label for="description">
+              <textarea name="description" id="description" cols="60" rows="4"
+                style="outline:none; border:none; box-shadow:none; margin-top:10px; margin-left:5px" maxlength="140"
+                required placeholder="有什麼新鮮事？"></textarea>
+                <div class="invalid-feedback"
+                  style="position:absolute; right: 100px; bottom: 28px;font-size:15px; width:90px; color:#FC5A5A;">
+                  內容不可空白
+                </div>
+                <div id="postFeedback"
+                  style="position:absolute; right: 100px; bottom: 28px;font-size:15px; width:140px; color:#FC5A5A;"></div>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-default position-absolute"
+            style="background-color: #130912;border-radius: 23px; color: white; right: 20px; top: 190px;width: 64px; height: 40px;">推文</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

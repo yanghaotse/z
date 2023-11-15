@@ -10,7 +10,6 @@ if(alertElement) {
 
 
 // 表單驗證
-
 const forms = document.querySelectorAll('.needs-validation')
 Array.from(forms).forEach(form => {
   form.addEventListener('submit', function formSubmitted(event) {
@@ -22,6 +21,17 @@ Array.from(forms).forEach(form => {
   }, false)
 })
 
+// post-modal 字數驗證
+const description = document.getElementById('description')
+const postFeedback = document.getElementById('postFeedback')
+description.addEventListener('input', function postTextCount(event) {
+  const textCount = description.value.length
+  if (textCount >= 140) {
+    postFeedback.innerText = '字數不可超過140字'
+  } else {
+    postFeedback.innerText=''
+  }
+})
 
 
 
