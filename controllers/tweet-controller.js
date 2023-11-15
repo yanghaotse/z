@@ -67,6 +67,36 @@ const tweetController = {
     } catch(err) {
       next(err)
     }
+  },
+  getTweet: async(req, res, next) => {
+    try {
+      const tweetId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+      
+      const tweet = await Tweet.findByPk(tweetId, {
+        include: [
+          User,
+          Like,
+          { model: User, as: 'LikedUsers'},
+          { model: Reply, include: [User] }  
+        ]
+      })
+      if (!tweet) throw new Error('貼文不存在')
+
+      const { likesCount, repliesCount, isLiked, ...rest } = tweet.toJSON()
+      const tweetData = {
+        ...rest,
+        likesCount: rest.Likes.length,
+        repliesCount: rest.Replies.length,
+        isLiked: rest.LikedUsers.some(lu => lu.id === currentUser.id)
+      }
+      const replies = tweetData.Replies
+
+      res.render('tweet', { tweet: tweetData, replies, currentUser, recommendFollowings })
+    } catch(err) {
+      next(err)
+    }
   }
 }
 

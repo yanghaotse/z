@@ -3,7 +3,7 @@ const { User, Tweet, Reply, Followship, Like } = require('../models')
 const { Op } = require('sequelize')
 const { getUser } = require('../helpers/auth-helpers') 
 const { getRecommendedFollowings } = require('../services/user-service')
-const { ge } = require('faker/lib/locales')
+
 
 const userController = {
   signUpPage: (req, res) => {
