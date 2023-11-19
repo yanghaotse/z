@@ -45,6 +45,18 @@ comment.addEventListener('input', function replyTextCount(event) {
   }
 })
 
+// user-name 字數計算
+const profileName = document.getElementById('profile-name')
+const nameCount = document.getElementById('name-count')
+profileName.addEventListener('input', function(event) {
+  const textCount = profileName.value.length
+  nameCount.innerText = `${textCount}/50`
+})
 
-
-
+// user-introduction 字數計算
+const profileIntro = document.getElementById('profile-intro')
+const introCount = document.getElementById('intro-count')
+profileIntro.addEventListener('input', function(event) {
+  const textCount = profileIntro.value.length
+  introCount.innerText = `${textCount}/160`
+})

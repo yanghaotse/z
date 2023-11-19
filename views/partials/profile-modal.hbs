@@ -48,13 +48,13 @@
               <label for="name" style="margin: 5px auto auto 16px; font-size: 14px;">
                 <font color="#696974">名稱</font>
               </label>
-              <input type="text" class="form-control nowcount1 mb-0" id="name" name="name" maxlength="50"
+              <input type="text" class="form-control mb-0" id="profile-name" name="name" maxlength="50"
                 style="border:none; outline: none; font-size:16px; background-color:#F5F8FA; border-bottom:2px solid #657786; width:100%;"
                 aria-describedby="nameHelp" value="{{currentUser.name}}" required/>
                 <div class="invalid-feedback"></div>
             </div>
             {{!-- 計算字數 --}}
-            <p class="text-end text-muted now1" id="nameCount" style="font-size: 12px;"></p>
+            <p class="text-end text-muted now1" id="name-count" style="font-size: 12px;"></p>
           </div>
           {{!-- introduction --}}
           <div style="height:171px; width:602px; margin: 10px auto 40px auto;">
@@ -62,12 +62,12 @@
               <label for="name" style="margin: 5px auto auto 16px; font-size: 14px;">
                 <font color="#696974">自我介紹</font>
               </label>
-              <textarea class="form-control nowcount2" id="introduction" name="introduction"
+              <textarea class="form-control" id="profile-intro" name="profile-introduction"
                 style="border:none; border-bottom:2px solid #657786;outline: none;background-color:#F5F8FA; font-size:16px;width:100%;"
                 maxlength="160" aria-describedby="descriptionHelp">{{currentUser.introduction}}</textarea>
             </div>
             {{!-- 計算字數 --}}
-            <p class="text-end text-muted now1" id="introCount" style="font-size: 12px;"></p>
+            <p class="text-end text-muted now1" id="intro-count" style="font-size: 12px;"></p>
           </div>
 
         </div>
