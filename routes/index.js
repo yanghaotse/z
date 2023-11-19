@@ -1,13 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
+const { generalErrorHandler } = require('../middleware/error-handler')
+const { authenticated, authenticatedAdmin } = require('../middleware/auth')
+const upload = require('../middleware/multer')
 
 const tweetController = require('../controllers/tweet-controller')
 const userController = require('../controllers/user-controller')
 const adminController = require('../controllers/admin-controller')
 const admin = require('./modules/admin')
-const { generalErrorHandler } = require('../middleware/error-handler')
-const { authenticated, authenticatedAdmin } = require('../middleware/auth')
+const user = require('../models/user')
+
 
 // 後臺登入 
 router.get('/admin/signin', adminController.adminSignInPage)
@@ -31,6 +34,7 @@ router.get('/users/:id/setting', authenticated, userController.getUserSetting)
 router.put('/users/:id/setting', authenticated, userController.putUserSetting)
 router.post('/followships', authenticated, userController.addFollowing)
 router.delete('/followships/:id', authenticated, userController.removeFollowing)
+router.put('/users/:id/edit', authenticated, upload.fields([{ name:'cover', maxCount: 1 }, { name: 'avatar', maxCount: 1 }]), userController.putUserProfile)
 
 // Like、回覆
 router.post('/tweets/:id/replies', authenticated, tweetController.postReply)

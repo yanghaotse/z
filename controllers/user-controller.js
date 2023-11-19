@@ -3,6 +3,7 @@ const { User, Tweet, Reply, Followship, Like } = require('../models')
 const { Op } = require('sequelize')
 const { getUser } = require('../helpers/auth-helpers') 
 const { getRecommendedFollowings } = require('../services/user-service')
+const { imgurFileHandler } = require('../helpers/file-helpers')
 
 
 const userController = {
@@ -321,6 +322,41 @@ const userController = {
 
       req.flash('success_messages', '編輯成功!')
       res.redirect(`/users/${currentUser.id}/setting`)
+    } catch(err) {
+      next(err)
+    }
+  },
+  putUserProfile: async(req, res, next) => {
+    try {
+      const currentUser = getUser(req)
+      const { name, introduction } = req.body
+      const avatar = req.files.avatar ? req.files.avatar[0] : null
+      const cover = req.files.cover ? req.files.cover[0] : null
+      const user = await User.findByPk(currentUser.id, { raw: true, nest: true })
+
+      if (!name) throw new Error('名稱不可空白')
+      if (name.length > 50 ) throw new Error('字數不可超過50字')
+      if (introduction.length > 160) throw new Error('字數不可超過160字')
+      if (!user) throw new Error('使用者不存在')
+
+      const imgurAvatar = await imgurFileHandler(avatar)
+      const imgurCover = await imgurFileHandler(cover)
+
+      await User.update(
+        {
+          name,
+          introduction,
+          avatar: imgurAvatar || currentUser.avatar,
+          cover: imgurCover || currentUser.cover
+        },
+        {
+          where: {
+            id: currentUser.id
+          }
+        })
+
+      req.flash('success_messages', '使用者資料更新成功')
+      res.redirect('back')
     } catch(err) {
       next(err)
     }

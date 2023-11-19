@@ -120,8 +120,9 @@ const tweetController = {
       const currentUserId = getUser(req).id
       const tweetId = req.params.id
       const { comment } = req.body
-
-      if (!tweetId) throw new Error('推文不存在')
+      const tweet = await Tweet.findByPk(tweetId)
+      
+      if (!tweet) throw new Error('推文不存在')
       if (!comment) throw new Error('內容不可空白')
       if (comment.length > 140) throw new Error('字數超出上限')
 
