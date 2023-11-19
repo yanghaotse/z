@@ -16,8 +16,10 @@
           </a>
         </div>
         <div class="col-4 pt-3 d-flex flex-column align-items-start" style="margin-left:-10px">
-          <h5 style="line-height: 18px; width:inherit;">{{this.name}}</h5>
-          <p class="text-muted" style="line-height: 16px; width:inherit;">@{{this.account}}</p>
+          <a href="/users/{{this.id}}/tweets" style="text-decoration: none;">
+            <h5 style="line-height: 18px; width:inherit; color:#130912">{{this.name}}</h5>
+            <p class="text-muted" style="line-height: 16px; width:inherit;">@{{this.account}}</p>
+          </a>
         </div>
         {{!-- 追蹤鈕 --}}
         <div class="col-5 d-flex justify-content-end">
