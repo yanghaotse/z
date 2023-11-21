@@ -82,7 +82,8 @@ const userController = {
         ...rest,
         followingsCount: rest.Followings.length,
         followersCount: rest.Followers.length,
-        tweetsCount: rest.Tweets.length
+        tweetsCount: rest.Tweets.length,
+        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
       }
       // user-tweets
       const tweetsData = user.Tweets.map( tweet => ({
@@ -173,7 +174,8 @@ const userController = {
         ...rest,
         followingsCount: rest.Followings.length,
         followersCount: rest.Followers.length,
-        tweetsCount: rest.Tweets.length
+        tweetsCount: rest.Tweets.length,
+        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
       }
       const replies = userData.Replies
 
@@ -200,7 +202,8 @@ const userController = {
       const userData = {
         ...rest,
         followingsCount: rest.Followings.length,
-        followersCount: rest.Followers.length
+        followersCount: rest.Followers.length,
+        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
       }
 
       const likedTweets = userData.LikedTweets.map(lt => ({
