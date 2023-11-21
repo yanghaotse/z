@@ -31,8 +31,11 @@
               <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 rounded-circle">
             </a>
             <div class="d-inline-flex pt-3">
-              <h5 class="mx-2 name-text">{{this.User.name}}</h5>
-              <span class="account-text">@{{this.User.account}} · {{relativeTimeFromNow this.createdAt}}</span>
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none">
+                <h5 class="mx-2 name-text d-inline">{{this.User.name}}</h5>
+                <span class="account-text">@{{this.User.account}} ·</span>
+              </a>
+              <span class="gray-text" style="padding-top:1.5px;">{{relativeTimeFromNow this.createdAt}}</span>
             </div>
           </div>
         </a>
