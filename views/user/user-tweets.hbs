@@ -18,7 +18,10 @@
             <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
               <h5 class="mx-2 name-text">{{this.User.name}}</h5>
             </a>
-            <span class="account-text">@{{this.User.account}} · {{relativeTimeFromNow this.createdAt}}</span>
+            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+              <span class="account-text">@{{this.User.account}} · </span>
+            </a>
+            <span class="gray-text">{{relativeTimeFromNow this.createdAt}}</span>
           </div>
         </div>
         <div class="pe-2 align-self-start" style="max-width: 528px; margin-left: 88px;">

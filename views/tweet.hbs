@@ -21,8 +21,10 @@
               <img class="rounded-circle" src="{{tweet.User.avatar}}" style="width: 50px;height: 50px;" />
             </a>
             <div class="ms-2">
-              <h5 class="name-text" style="margin-bottom: 0px;">{{tweet.User.name}}</h5>
-              <span class="account-text" style="font-size: 14px">@ {{tweet.User.account}}
+              <a href="/users/{{tweet.User.id}}/tweets" style="text-decoration: none;">
+                <h5 class="name-text" style="margin-bottom: 0px;">{{tweet.User.name}}</h5>
+                <span class="account-text" style="font-size: 14px">@ {{tweet.User.account}}</span>
+              </a>
             </div>
           </div>
 
@@ -57,19 +59,19 @@
 
         {{!-- 留言串 --}}
         {{#each replies}}
-        <div class="d-flex align-items-start flex-column border-top" style="min-height: 130px;">
-          <div class="align-self-start pt-2">
+        <div class="d-flex flex-column flex-wrap justify-content-center mb-2 border-top" style="min-height: 130px;">
+          <div class="d-inline-flex">
             <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
-              <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 rounded-circle">
+              <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
             </a>
             <div class="d-inline-flex pt-3">
-                <h5 class="mx-2 d-inline" style="font-size: 16px; font-weight: 700">
-                  <a href="/users/{{this.User.id}}/tweets" class="name-text" style="text-decoration: none;">{{this.User.name}}</a>
-                </h5>
-                <span class="gray-text" style="font-weight: 400; font-size: 14px">
-                  <a class="dark-text" href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">@{{this.User.account}}</a>
-                  · {{relativeTimeFromNow this.createdAt}}
-                </span>
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
+                <h5 class="mx-2 d-inline name-text" style="font-size: 16px; font-weight: 600">{{this.User.name}}</h5>
+              </a>
+              <a class="dark-text" href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
+                <span class="account-text" style="font-weight: 400; font-size: 14px">@{{this.User.account}}</span>
+              </a>
+              <span class="gray-text" style="font-size: 14px; padding-top:2.3px;"> · {{relativeTimeFromNow this.createdAt}}</span>
             </div>
           </div>
           <div style="max-width: 528px; margin-left: 85px;">
