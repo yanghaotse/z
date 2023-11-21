@@ -13,12 +13,11 @@
       <form class="px-3 border-left mt-5 needs-validation" action="/users/{{currentUser.id}}/setting?_method=PUT" method="POST" novalidate>
 
         <div class="form-group mt-3" style="height:78px; weight:593px">
-          <div style="background-color:#F5F8FA">
-            <label for="account" class="ms-3">
-              <font color="#696974">帳號</font>
+          <div class="form-title-div">
+            <label for="account" class="ms-3 label-text">
+              帳號
             </label>
-            <input type="text" class="form-control" id="account" name="account"
-              style="border:none; border-bottom:2px solid #657786; outline: none;background-color:#F5F8FA"
+            <input type="text" class="form-control setting-input" id="account" name="account"
               value="{{currentUser.account}}" required />
               <div class="valid-feedback"></div>
               <div class="invalid-feedback">帳號不得空白</div>
@@ -26,12 +25,11 @@
         </div>
 
         <div class="form-group mt-2" style="height:78px; weight:593px">
-          <div style="background-color:#F5F8FA">
-            <label for="name" class="ms-3">
-              <font color="#696974">名稱</font>
+          <div class="form-title-div">
+            <label for="name" class="ms-3 label-text">
+              名稱
             </label>
-            <input type="text" class="form-control" id="name" name="name"
-              style="border:none; border-bottom:2px solid #657786; outline: none;background-color:#F5F8FA"
+            <input type="text" class="form-control setting-input" id="name" name="name"
               value="{{currentUser.name}}" required />
               <div class="valid-feedback"></div>
               <div class="invalid-feedback">使用者名稱不得空白</div>
@@ -39,42 +37,37 @@
         </div>
 
         <div class="form-group mt-2" style="height:78px; weight:593px">
-          <div style="background-color:#F5F8FA">
-            <label for="email" class="ms-3">
-              <font color="#696974">Email</font>
+          <div class="form-title-div">
+            <label for="email" class="ms-3 label-text">
+              Email
             </label>
-            <input type="text" class="form-control" id="email" name="email"
-              style="border:none; border-bottom:2px solid #657786; outline: none;background-color:#F5F8FA"
-              value="{{currentUser.email}}" required />
+            <input type="text" class="form-control setting-input" id="email" name="email" value="{{currentUser.email}}" required />
               <div class="valid-feedback"></div>
               <div class="invalid-feedback">Email不得空白</div>
           </div>
         </div>
 
         <div class="form-group mt-2" style="height:78px; weight:593px">
-          <div style="background-color:#F5F8FA">
-            <label for="password" class="ms-3">
-              <font color="#696974">密碼</font>
+          <div class="form-title-div">
+            <label for="password" class="ms-3 label-text">
+              密碼
             </label>
-            <input type="password" class="form-control" id="password" name="password"
-              style="border:none; border-bottom:2px solid #657786; outline: none;background-color:#F5F8FA" />
+            <input type="password" class="form-control setting-input" id="password" name="password"/>
           </div>
         </div>
 
         <div class="form-group mt-2" style="height:78px; weight:593px">
-          <div style="background-color:#F5F8FA">
-            <label for="passwordCheck" class="ms-3">
-              <font color="#696974">密碼再確認</font>
+          <div class="form-title-div">
+            <label for="passwordCheck" class="ms-3 label-text">
+              密碼再確認
             </label>
-            <input type="password" class="form-control" id="passwordCheck" name="passwordCheck"
-              style="border:none; border-bottom:2px solid #657786; outline: none;background-color:#F5F8FA" />
+            <input type="password" class="form-control setting-input" id="passwordCheck" name="passwordCheck"/>
           </div>
         </div>
 
-
         <div class="d-flex justify-content-end mt-3">
-          <button class="btn btn-primary btn-block"
-            style="border-radius:50px; width:88px; height:46px;padding:8px 24px 8px 24px; background-color: #130912; border:none"
+          <button class="btn btn-default dark-btn"
+            style="border-radius:50px; width:88px; height:46px;padding:8px 24px 8px 24px;"
             type="submit">
             <strong>
               <font size="4">儲存</font>

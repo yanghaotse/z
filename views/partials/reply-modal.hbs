@@ -20,9 +20,9 @@
                   src="{{this.User.avatar}}" {{/if}}title="source: imgur.com" style="width: 50px;height: 50px;"
                   class="ms-4">
                 <div class="d-inline-flex pt-3">
-                  <h5 class="mx-2" style="color: #171725;">{{#if tweet}} {{tweet.User.name}} {{else}} {{this.User.name}}
+                  <h5 class="mx-2 name-text">{{#if tweet}} {{tweet.User.name}} {{else}} {{this.User.name}}
                     {{/if}}</h5>
-                  <span style="color: #6C757D; font-weight: 400;">@{{#if tweet}}{{tweet.User.account}} ·
+                  <span class="account-text" style="font-weight: 400;">@{{#if tweet}}{{tweet.User.account}} ·
                     {{relativeTimeFromNow tweet.createdAt}}{{else}}{{this.User.account}} · {{relativeTimeFromNow
                     this.createdAt}}{{/if}}</span>
                 </div>
@@ -30,7 +30,7 @@
               <div style="max-width: 528px; margin-left: 85px;">
                 <p class="text-break">{{#if tweet}} {{tweet.description}} {{else}} {{this.description}} {{/if}}
                 </p>
-                <span style="color: #657786;">回覆給<span style="color: #130912;">@{{#if tweet}} {{tweet.User.account}}
+                <span class="gray-text">回覆給<span class="dark-text">@{{#if tweet}} {{tweet.User.account}}
                     {{else}} {{this.User.account}} {{/if}}</span></span>
               </div>
             </div>
@@ -51,8 +51,8 @@
               </label>
             </div>
             <input type="hidden" name="TweetId" value="{{#if tweet}} {{tweet.id}} {{else}} {{this.id}} {{/if}}">
-            <button type="submit" class="btn btn-default position-absolute" id="reply-button"
-              style="background-color: #130912;border-radius: 23px; color: white; right: 20px; bottom: 20px;width: 64px; height: 40px;">回覆</button>
+            <button type="submit" class="btn btn-default dark-btn position-absolute" id="reply-button"
+              style="border-radius: 23px; right: 20px; bottom: 20px;width: 64px; height: 40px;">回覆</button>
           </form>
         </div>
       </div>

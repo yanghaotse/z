@@ -1,0 +1,53 @@
+.body {
+  background-color: #fff;
+}
+
+.dark {
+  color: #222;
+}
+
+.gray {
+  color: #8c8c8c;
+}
+
+.btn.dark-btn{
+  background-color: #222;
+  color: #fff;
+
+}
+
+.btn.btn-outline-light {
+  border-color: #222;
+  color:#222;
+}
+
+.right-bar, .list-group-item.right-li, .card.sign-in, .card.sign-up{
+  background-color: #F2F1F1;
+}
+
+.navbar.tweets-nav{
+  background-color:rgba(34, 34, 34, 0.9);
+}
+
+.name-text, .desc-text, .dark-text {
+  color: #171725;
+}
+
+.account-text, .count-text, .gray-text {
+  color: #6C757D;
+}
+
+.label-text {
+  color:#696974;
+}
+
+.form-title-div {
+  background-color:#F5F8FA;
+}
+
+.form-control.setting-input, .form-control.login-input, .form-control.account-form-input {
+  border: none;
+  outline: none;
+  border-bottom:2px solid #657786;
+  background-color:#F5F8FA;
+}

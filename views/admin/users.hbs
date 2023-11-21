@@ -2,7 +2,7 @@
 
   <div class="row">
     {{!-- 側邊欄 --}}
-    {{> admin-left-bar}}
+    {{> admin-left-bar route='users'}}
 
     <div class="col-6" style="width: 940px; margin: 0 0 0 327px">
       <nav class="navbar navbar-light border-start border-bottom">
@@ -36,9 +36,9 @@
                 </div>
               </div>
               <div class="followship">
-                <h3 style="font-size: 14px; font-weight: 400; color: #6C757D;">
-                  <span style="color: #171725;">{{this.followingsCount}}個</span> 跟隨中&nbsp;&nbsp;
-                  <span style="color: #171725;">{{this.followersCount}}位</span> 跟隨者
+                <h3 class="gray-text" style="font-size: 14px; font-weight: 400;">
+                  <span class="dark-text">{{this.followingsCount}}個</span> 跟隨中&nbsp;&nbsp;
+                  <span class="dark-text">{{this.followersCount}}位</span> 跟隨者
                 </h3>
               </div>
             </div>

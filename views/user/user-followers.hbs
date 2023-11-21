@@ -14,21 +14,21 @@
               class="ms-4 rounded-circle">
             <div class="d-flex align-self-center">
               <a href="/users/{{this.id}}/tweets" style="text-decoration:none;">
-                <h5 class="mx-2" style="color: #171725;">{{this.name}}</h5>
+                <h5 class="mx-2 name-text">{{this.name}}</h5>
               </a>
             </div>
           </div>
           <div>
             {{#if this.isFollowed}}
             <form action="/followships/{{this.id}}?_method=DELETE" method="POST" style="display: contents;">
-              <button type="submit" class="btn btn-primary"
-                style="height:40px; font-size: 15px; border-radius: 50px; background-color: #130912; border:none;">正在跟隨</button>
+              <button type="submit" class="btn btn-default dark-btn"
+                style="height:40px; font-size: 15px; border-radius: 50px;">正在追蹤</button>
             </form>
             {{else}}
             <form action="/followships/{{this.id}}" method="POST" style="display: contents;">
               <button type="submit" class="btn btn-outline-light btn-block"
-                style="width:64px; height:40px; font-size: 15px; border-radius: 50px; font-weight: bold; border-color: #130912;">
-                <font color="#130912">跟隨</font>
+                style="width:64px; height:40px; font-size: 15px; border-radius: 50px; font-weight: bold;">
+                追蹤
               </button>
             </form>
             {{/if}}
