@@ -14,6 +14,9 @@ const tweetController = {
           User,
           Reply,
           { model: User, as: 'LikedUsers' }
+        ],
+        order: [
+          ['created_at', 'DESC']
         ]
       })
       const tweetsData = tweets.map(tweet => ({
