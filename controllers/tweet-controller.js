@@ -16,7 +16,7 @@ const tweetController = {
           { model: User, as: 'LikedUsers' }
         ],
         order: [
-          ['created_at', 'DESC']
+          ['createdAt', 'DESC']
         ]
       })
       const tweetsData = tweets.map(tweet => ({
@@ -82,7 +82,7 @@ const tweetController = {
           User,
           Like,
           { model: User, as: 'LikedUsers'},
-          { model: Reply, include: [User], order: [ ['created_at', 'DESC'] ] }  
+          { model: Reply, include: [User], order: [ ['createdAt', 'DESC'] ] }  
         ]
       })
       if (!tweet) throw new Error('推文不存在')
