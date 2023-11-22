@@ -20,51 +20,53 @@
             style="border-radius: 23px;">推文</button>
         </div>
       </div>
-
-      {{!-- 推文串 --}}
-      {{#each tweets}}
-      <div class="border-start border-end border-bottom d-flex align-items-start flex-column pt-2"
-        style="min-height: 130px;">
-        <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
-          <div class="align-self-start">
-            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none">
-              <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 rounded-circle">
-            </a>
-            <div class="d-inline-flex pt-3">
+      <div id="tweets-scroll">
+        {{!-- 推文串 --}}
+        {{#each tweets}}
+        <div class="border-start border-end border-bottom d-flex align-items-start flex-column pt-2" style="min-height: 130px;">
+          <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
+            <div class="align-self-start">
               <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none">
-                <h5 class="mx-2 name-text d-inline">{{this.User.name}}</h5>
-                <span class="account-text">@{{this.User.account}} ·</span>
+                <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 rounded-circle">
               </a>
-              <span class="gray-text" style="padding-top:1.5px;">{{relativeTimeFromNow this.createdAt}}</span>
+              <div class="d-inline-flex pt-3">
+                <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none">
+                  <h5 class="mx-2 name-text d-inline">{{this.User.name}}</h5>
+                  <span class="account-text">@{{this.User.account}} ·</span>
+                </a>
+                <span class="gray-text" style="padding-top:1.5px;">{{relativeTimeFromNow this.createdAt}}</span>
+              </div>
+            </div>
+          </a>
+          <div style="max-width: 528px;">
+            <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
+              <p style="margin-left: 85px;" class="text-break desc-text">{{this.description}}</p>
+            </a>
+            <div class="d-flex align-items-baseline" style="margin-left: 85px;">
+              <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal"
+                data-bs-target="#replyTweet{{this.id}}"></i>
+              <p class="me-5 count-text">{{this.repliesCount}}</p>
+              {{#if this.isLiked}}
+              <form action="/tweets/{{this.id}}/unlike" method="POST">
+                <button type="submit" style="background: none; border: none; cursor: pointer;">
+                  <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px;"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/tweets/{{this.id}}/like" method="POST">
+                <button type="submit" style="background: none; border: none; cursor: pointer; padding-top:0px">
+                  <i class="fa-regular fa-heart" style="width: 24px; height: 24px;"></i>
+                </button>
+              </form>
+              {{/if}}
+              <p class="count-text">{{this.likesCount}}</p>
             </div>
           </div>
-        </a>
-        <div style="max-width: 528px;">
-          <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
-            <p style="margin-left: 85px;" class="text-break desc-text">{{this.description}}</p>
-          </a>
-          <div class="d-flex align-items-baseline" style="margin-left: 85px;">
-            <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal" data-bs-target="#replyTweet{{this.id}}"></i>
-            <p class="me-5 count-text">{{this.repliesCount}}</p>
-            {{#if this.isLiked}}
-            <form action="/tweets/{{this.id}}/unlike" method="POST">
-              <button type="submit" style="background: none; border: none; cursor: pointer;">
-                <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px;"></i>
-              </button>
-            </form>
-            {{else}}
-            <form action="/tweets/{{this.id}}/like" method="POST">
-              <button type="submit" style="background: none; border: none; cursor: pointer; padding-top:0px">
-                <i class="fa-regular fa-heart" style="width: 24px; height: 24px;"></i>
-              </button>
-            </form>
-            {{/if}}
-            <p class="count-text">{{this.likesCount}}</p>
-          </div>
         </div>
+        {{> reply-modal currentUser = ../currentUser}}
+        {{/each}}
       </div>
-      {{> reply-modal currentUser = ../currentUser}}  
-      {{/each}}
+      
     </div>
     {{!-- 推薦清單 --}}
     {{> right-bar}}
