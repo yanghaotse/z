@@ -82,7 +82,7 @@ const tweetController = {
           User,
           Like,
           { model: User, as: 'LikedUsers'},
-          { model: Reply, include: [User] }  
+          { model: Reply, include: [User], order: [ ['created_at', 'DESC'] ] }  
         ]
       })
       if (!tweet) throw new Error('推文不存在')
