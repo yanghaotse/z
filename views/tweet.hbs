@@ -56,37 +56,40 @@
           {{/if}}
         </div>
         {{> reply-modal}}
-
-        {{!-- 留言串 --}}
-        {{#each replies}}
-        <div class="d-flex flex-column flex-wrap justify-content-center mb-2 border-top" style="min-height: 130px;">
-          <div class="d-inline-flex">
-            <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
-              <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
-            </a>
-            <div class="d-inline-flex pt-3">
+        <div id="tweet-scroll">
+          {{!-- 留言串 --}}
+          {{#each replies}}
+          <div class="d-flex flex-column flex-wrap justify-content-center mb-2 border-top" style="min-height: 130px;">
+            <div class="d-inline-flex">
               <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
-                <h5 class="mx-2 d-inline name-text" style="font-size: 16px; font-weight: 600">{{this.User.name}}</h5>
+                <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
               </a>
-              <a class="dark-text" href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
-                <span class="account-text" style="font-weight: 400; font-size: 14px">@{{this.User.account}}</span>
-              </a>
-              <span class="gray-text" style="font-size: 14px; padding-top:2.3px;"> · {{relativeTimeFromNow this.createdAt}}</span>
+              <div class="d-inline-flex pt-3">
+                <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
+                  <h5 class="mx-2 d-inline name-text" style="font-size: 16px; font-weight: 600">{{this.User.name}}</h5>
+                </a>
+                <a class="dark-text" href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
+                  <span class="account-text" style="font-weight: 400; font-size: 14px">@{{this.User.account}}</span>
+                </a>
+                <span class="gray-text" style="font-size: 14px; padding-top:2.3px;"> · {{relativeTimeFromNow
+                  this.createdAt}}</span>
+              </div>
+            </div>
+            <div style="max-width: 528px; margin-left: 85px;">
+              <span class="gray-text" style="font-size: 14px">回覆
+                <a href="/users/{{../tweet.User.id}}/tweets" style="text-decoration: none;">
+                  <span class="dark-text" style="font-size: 14px">
+                    @{{../tweet.User.account}}
+                  </span>
+                </a>
+              </span>
+              <p class="mb-3 text-break" style="font-size: 16px; margin-top: 10px">{{this.comment}}
+              </p>
             </div>
           </div>
-          <div style="max-width: 528px; margin-left: 85px;">
-            <span class="gray-text" style="font-size: 14px">回覆
-              <a href="/users/{{../tweet.User.id}}/tweets" style="text-decoration: none;">
-                <span class="dark-text" style="font-size: 14px">
-                  @{{../tweet.User.account}}
-                </span>
-              </a>
-            </span>
-            <p class="mb-3 text-break" style="font-size: 16px; margin-top: 10px">{{this.comment}}
-            </p>
-          </div>
+          {{/each}}
         </div>
-        {{/each}}
+        
       </div>
     </div>
 

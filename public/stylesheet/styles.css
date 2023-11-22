@@ -76,3 +76,8 @@
   height: 600px;
   overflow-y: auto;
 }
+
+#tweet-scroll {
+  height: 300px;
+  overflow-y: auto;
+}
