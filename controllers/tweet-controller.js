@@ -26,7 +26,7 @@ const tweetController = {
         isLiked: tweet.LikedUsers.some( lu => lu.id === currentUser.id)
       }))
 
-      res.render('tweets', { tweets: tweetsData, currentUser, recommendFollowings })
+      return res.render('tweets', { tweets: tweetsData, currentUser, recommendFollowings })
     } catch(err) {
       next(err)
     }
@@ -49,7 +49,7 @@ const tweetController = {
       })
       if (!tweet.toJSON().TweetId) throw new Error('推文不存在')
 
-      res.redirect('back')
+      return res.redirect('back')
     } catch(err) {
       next(err)
     }
@@ -66,7 +66,7 @@ const tweetController = {
       })
       if (!likedTweet) throw new Error('喜愛貼文不存在')
       await likedTweet.destroy()
-      res.redirect('back')
+      return res.redirect('back')
     } catch(err) {
       next(err)
     }
@@ -96,7 +96,7 @@ const tweetController = {
       }
       const replies = tweetData.Replies
 
-      res.render('tweet', { tweet: tweetData, replies, currentUser, recommendFollowings })
+      return res.render('tweet', { tweet: tweetData, replies, currentUser, recommendFollowings })
     } catch(err) {
       next(err)
     }
@@ -113,7 +113,7 @@ const tweetController = {
         description
       })
 
-      res.redirect('/tweets')
+      return res.redirect('/tweets')
     } catch(err) {
       next(err)
     }
@@ -135,7 +135,7 @@ const tweetController = {
         comment
       })
       
-      res.redirect('back')
+      return res.redirect('back')
     } catch(err) {
       next(err)
     }

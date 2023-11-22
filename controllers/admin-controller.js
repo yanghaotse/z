@@ -6,21 +6,22 @@ const adminController = {
     try {
       const tweets = await Tweet.findAll({
         include: [User],
+        order: [ ['createdAt', 'DESC'] ],
         raw: true,
         nest: true
       })
 
-      res.render('admin/tweets', { tweets })
+      return res.render('admin/tweets', { tweets })
     } catch(err) {
       next(err)
     }
   },
   adminSignInPage: (req, res) => {
-    res.render('admin/signin')
+    return res.render('admin/signin')
   },
   adminSignIn: (req, res) => {
     req.flash('success_messages', '成功登入!')
-    res.redirect('/admin/tweets')
+    return res.redirect('/admin/tweets')
   },
   getUsers: async(req, res, next) => {
     try {
@@ -44,7 +45,7 @@ const adminController = {
           followersCount: user.Followers.length
         }
       })
-      res.render('admin/users', { users: usersData })
+      return res.render('admin/users', { users: usersData })
     } catch(err) {
       next(err)
     }
@@ -59,7 +60,7 @@ const adminController = {
       await Like.destroy({ where: { TweetId: tweetId } })
       await Tweet.destroy({ where: { id: tweetId } })
 
-      res.redirect('/admin/tweets')
+      return res.redirect('/admin/tweets')
     } catch(err) {
       next(err)
     }

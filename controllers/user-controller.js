@@ -8,7 +8,7 @@ const { imgurFileHandler } = require('../helpers/file-helpers')
 
 const userController = {
   signUpPage: (req, res) => {
-    res.render('signup')
+    return res.render('signup')
   },
   signUp: async(req, res, next) => {
     const { account, name, email, password, checkPassword } = req.body
@@ -38,22 +38,22 @@ const userController = {
         role: 'user'
       })
       req.flash('success_messages', '成功註冊!')
-      res.redirect('/signin')
+      return res.redirect('/signin')
     } catch(err) {
       next(err)
     }
   },
   signInPage: (req, res) => {
-    res.render('signin')
+    return res.render('signin')
   },
   signIn: (req, res) => {
     req.flash('success_messages', '成功登入!')
-    res.redirect('/tweets')
+    return res.redirect('/tweets')
   },
   logout: (req, res) => {
     req.flash('success_messages', '登出成功!')
     req.logout()
-    res.redirect('/signin')
+    return res.redirect('/signin')
   },
   getUserTweets: async(req, res, next) => {
     try {
@@ -96,7 +96,7 @@ const userController = {
         isLiked: tweet.LikedUsers.some(lu => lu.id === currentUser.id)
       }))
 
-      res.render('user/user-tweets', { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
+      return res.render('user/user-tweets', { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
     } catch(err) {
       next(err)
     }
@@ -111,7 +111,7 @@ const userController = {
           { model: User, as: 'Followers'}
         ]
       })
-      if (!user) throw new Error('使用者不存在')
+      if (!user) throw new Error('使用者資料不存在')
 
       const userData = user.toJSON()
       const followers = userData.Followers.map(follower => ({
@@ -119,7 +119,7 @@ const userController = {
         isFollowed: currentUser.Followings.some(cf => cf.id === follower.id)
       }))
 
-      res.render('user/user-followers', { users: userData, followers, recommendFollowings, currentUser })
+      return res.render('user/user-followers', { users: userData, followers, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
@@ -135,7 +135,7 @@ const userController = {
           { model: User, as: 'Followings' }
         ]
       })
-      if (!user) throw new Error('使用者不存在')
+      if (!user) throw new Error('使用者資料不存在')
 
       const userData = user.toJSON()
       const followings = userData.Followings.map(following => ({
@@ -143,7 +143,7 @@ const userController = {
         isFollowed: currentUser.Followings.some(cf => cf.id === following.id)
       }))
 
-      res.render('user/user-followings', { user: userData, followings, recommendFollowings, currentUser })
+      return res.render('user/user-followings', { user: userData, followings, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
@@ -170,7 +170,7 @@ const userController = {
           }
         ]
       })
-      if (!user) throw new Error('查無回覆內容')
+      if (!user) throw new Error('使用者資料不存在')
 
       const { followingsCount, followersCount, tweetsCount, ...rest } = user.toJSON()
       const userData = {
@@ -182,7 +182,7 @@ const userController = {
       }
       const replies = userData.Replies
 
-      res.render('user/user-replies', { user: userData, replies, recommendFollowings, currentUser })
+      return res.render('user/user-replies', { user: userData, replies, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
@@ -201,6 +201,8 @@ const userController = {
           { model: Tweet, as: 'LikedTweets', include: [User, Reply, Like]}
         ]
       })
+      if (!user) throw new Error('使用者資料不存在')
+
       const { followingsCount, followers, ...rest } = user.toJSON()
       const userData = {
         ...rest,
@@ -216,7 +218,7 @@ const userController = {
       }))
       likedTweets.sort((a, b) => b.Like.createdAt - a.Like.createdAt)
       console.log(likedTweets)
-      res.render('user/user-likes', { user: userData, likedTweets, recommendFollowings, currentUser })
+      return res.render('user/user-likes', { user: userData, likedTweets, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
@@ -225,7 +227,7 @@ const userController = {
     try {
       const currentUser = getUser(req)
       if (!currentUser) throw new Error('使用者不存在')
-      res.render('user/user-setting', { currentUser })
+      return res.render('user/user-setting', { currentUser })
     } catch(err) {
       next(err)
     }
@@ -248,7 +250,7 @@ const userController = {
       })
       if (!followShip.toJSON().followingId) throw new Error('該用戶不存在')
 
-      res.redirect('back')
+      return res.redirect('back')
     } catch(err) {
       next(err)
     }
@@ -265,7 +267,7 @@ const userController = {
       })
       if (!followShip) throw new Error('未追蹤該用戶')
       await followShip.destroy()
-      res.redirect('back')
+      return res.redirect('back')
     } catch(err) {
       next(err)
     }
@@ -279,7 +281,7 @@ const userController = {
       if (password !== passwordCheck) throw new Error('密碼與確認密碼不相符')
       if (name > 50) throw new Error('字數超出上限')
 
-      // 查詢是否有已存在的 account 或 email
+      // 查詢是否有已存在的 account 或 email(不包含當前使用者account、email)
       const existingUserData = await User.findOne({
         where: {
           [Op.or]: [
@@ -328,7 +330,7 @@ const userController = {
       }
 
       req.flash('success_messages', '編輯成功!')
-      res.redirect(`/users/${currentUser.id}/setting`)
+      return res.redirect(`/users/${currentUser.id}/setting`)
     } catch(err) {
       next(err)
     }
@@ -363,7 +365,7 @@ const userController = {
         })
 
       req.flash('success_messages', '使用者資料更新成功')
-      res.redirect('back')
+      return res.redirect('back')
     } catch(err) {
       next(err)
     }

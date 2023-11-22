@@ -14,3 +14,5 @@ node_modules/
 *.gz
 temp/
 .env
+.eslintignore
+.eslintrc.yml
