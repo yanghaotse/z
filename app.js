@@ -15,7 +15,7 @@ const { getUser } = require('./helpers/auth-helpers')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
 const port = 3000
-const SESSION_SECRET = 'secret'
+const SESSION_SECRET = process.env.SESSION_SECRET
 
 app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
