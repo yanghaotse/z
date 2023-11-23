@@ -193,7 +193,6 @@ const userController = {
         isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
       }
       const replies = userData.Replies
-      console.log(replies)
 
       return res.render('user/user-replies', { user: userData, replies, recommendFollowings, currentUser })
     } catch(err) {
@@ -412,6 +411,25 @@ const userController = {
         await Like.destroy({ where: { TweetId: tweetId }})
       }
       
+      return res.redirect('back')
+    } catch(err) {
+      next(err)
+    }
+  },
+  deleteReply: async(req, res, next) => {
+    try {
+      const currentUserId = getUser(req).id
+      const replyId = req.body.id
+      const reply = await Reply.findByPk(replyId, { raw: true, nest: true })
+      if (!reply) throw new Error('回覆內容不存在')
+
+      if (reply.userId !== currentUserId) {
+        req.flash('error_messages', '無法刪除他人留言')
+        return res.redirect('back')
+      } else {
+        await Reply.destroy({ where: { id: replyId }})
+      }
+
       return res.redirect('back')
     } catch(err) {
       next(err)
