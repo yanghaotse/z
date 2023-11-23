@@ -193,6 +193,7 @@ const userController = {
         isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
       }
       const replies = userData.Replies
+      console.log(replies)
 
       return res.render('user/user-replies', { user: userData, replies, recommendFollowings, currentUser })
     } catch(err) {
@@ -401,7 +402,7 @@ const userController = {
         raw: true,
         nest: true 
       })
-      
+
       if (tweet.User.id !== currentUser.id) {
         req.flash('error_messages', '無法刪除他人貼文')
         return redirect('back')

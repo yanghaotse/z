@@ -10,15 +10,15 @@
       <div class="d-flex flex-column flex-wrap justify-content-center mb-2"
         style="border-bottom: 1px #E6ECF0 solid; max-width:639px; margin: 0px 12px 0px 0px;">
         <div class="d-inline-flex">
-          <a href="/users/{{this.Tweet.User.id}}/tweets" style="text-decoration:none;">
-            <img src="{{this.Tweet.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
+          <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+            <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
           </a>
           <div class="d-inline-flex flex-wrap pt-3 ms-3">
-            <a href="/users/{{../user.id}}/tweets" style="text-decoration:none;">
-              <h5 class="name-text">{{this.Tweet.User.name}}</h5>
+            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+              <h5 class="name-text">{{this.User.name}}</h5>
             </a>
-            <a href="/users/{{../user.id}}/tweets" style="text-decoration:none;">
-              <span class="ms-1 account-text">@{{this.Tweet.User.account}} · </span>
+            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+              <span class="ms-1 account-text">@{{this.User.account}} · </span>
             </a>
             <span class="ms-1 gray-text">{{relativeTimeFromNow this.createdAt}}</span>
           </div>
@@ -27,10 +27,10 @@
         <div class="d-flex flex-column align-self-start">
           <div class="pe-2" style="margin-left:88px;">
             <span class="gray-text">回覆</span>
-            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <span class="dark-text">@{{this.User.account}}</span>
+            <a href="/users/{{this.Tweet.User.id}}/tweets" style="text-decoration:none;">
+              <span class="dark-text">@{{this.Tweet.User.account}}</span>
             </a>
-            <a href="/tweets/{{this.Tweet.id}}/replies" style="text-decoration:none;">
+            <a href="/tweets/{{this.tweetId}}/replies" style="text-decoration:none;">
               <p class="mt-2 text-break dark-text">
                 {{this.comment}}
               </p>
