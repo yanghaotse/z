@@ -116,7 +116,8 @@ const userController = {
       const userData = user.toJSON()
       const followers = userData.Followers.map(follower => ({
         ...follower,
-        isFollowed: currentUser.Followings.some(cf => cf.id === follower.id)
+        isFollowed: currentUser.Followings.some(cf => cf.id === follower.id),
+        isNotUser: follower.id !== currentUser.id
       }))
 
       return res.render('user/user-followers', { users: userData, followers, recommendFollowings, currentUser })
@@ -140,7 +141,8 @@ const userController = {
       const userData = user.toJSON()
       const followings = userData.Followings.map(following => ({
         ...following,
-        isFollowed: currentUser.Followings.some(cf => cf.id === following.id)
+        isFollowed: currentUser.Followings.some(cf => cf.id === following.id),
+        isNotUser: following.id !== currentUser.id
       }))
 
       return res.render('user/user-followings', { user: userData, followings, recommendFollowings, currentUser })
@@ -238,17 +240,27 @@ const userController = {
       const followingId = Number(req.body.id)
       if (!followingId || isNaN(followingId)) throw new Error('該用戶不存在')
 
-      const [followShip, created] = await Followship.findOrCreate({
-        where: {
+      if (followingId === currentUserId) {
+        req.flash('error_messages', '不能追蹤自己')
+        return res.redirect('back')
+      } else {
+        const [user, followShip] = await Promise.all([
+          User.findByPk(currentUserId),
+          Followship.findOne({
+            where: {
+              followingId,
+              followerId: currentUserId
+            }
+          })
+        ])
+        if (!user) throw new Error('使用者不存在')
+        if (followShip) throw new Error('已追蹤用戶')
+
+        await Followship.create({
           followingId,
           followerId: currentUserId
-        },
-        defaults: {
-          followingId: followingId,
-          followerId: currentUserId
-        }
-      })
-      if (!followShip.toJSON().followingId) throw new Error('該用戶不存在')
+        })
+      }
 
       return res.redirect('back')
     } catch(err) {

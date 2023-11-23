@@ -20,18 +20,21 @@
             </div>
           </div>
           <div>
-            {{#if this.isFollowed}}
-            <form action="/followships/{{this.id}}?_method=DELETE" method="POST" style="display: contents;">
-              <button type="submit" class="btn btn-default dark-btn"
-                style="height:40px; font-size: 15px; border-radius: 50px;">正在追蹤</button>
-            </form>
-            {{else}}
-            <form action="/followships/{{this.id}}" method="POST" style="display: contents;">
-              <button type="submit" class="btn btn-outline-light btn-block"
-                style="width:64px; height:40px; font-size: 15px; border-radius: 50px; font-weight: bold;">
-                追蹤
-              </button>
-            </form>
+            {{#if isNotUser}}
+              {{#if this.isFollowed}}
+              <form action="/followships/{{this.id}}?_method=DELETE" method="POST" style="display: contents;">
+                <button type="submit" class="btn btn-default dark-btn"
+                  style="height:40px; font-size: 15px; border-radius: 50px;">正在追蹤</button>
+              </form>
+              {{else}}
+              <form action="/followships/{{this.id}}" method="POST" style="display: contents;">
+                <input type="text" name="id" value="{{user.id}}" class="d-none">
+                <button type="submit" class="btn btn-outline-light btn-block"
+                  style="width:64px; height:40px; font-size: 15px; border-radius: 50px; font-weight: bold;">
+                  追蹤
+                </button>
+              </form>
+              {{/if}}
             {{/if}}
           </div>
 

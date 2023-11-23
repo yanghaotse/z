@@ -1,5 +1,6 @@
 const { Sequelize, Op } = require('sequelize')
 const { User } = require('../models')
+const { getUser } = require('../helpers/auth-helpers')
 
 // 使用者推薦追蹤名單
 const getRecommendedFollowings = async(userId) => {
@@ -26,7 +27,8 @@ const getRecommendedFollowings = async(userId) => {
 
     const recommendedFollowingsData = recommendedFollowings.map(r => ({
       ...r.toJSON(),
-      isFollowed: r.Followers.some(f=> f.id === userId)
+      isFollowed: r.Followers.some(f=> f.id === userId),
+      isNotUser: r.id !== userId
     }))
 
     return recommendedFollowingsData
