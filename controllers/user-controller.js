@@ -108,19 +108,24 @@ const userController = {
       const recommendFollowings = await getRecommendedFollowings(currentUser.id)
       const user = await User.findByPk(userId, {
         include: [
+          Tweet,
           { model: User, as: 'Followers'}
         ]
       })
       if (!user) throw new Error('使用者資料不存在')
 
-      const userData = user.toJSON()
+      const { Tweets, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        tweetsCount: Tweets.length
+      }
       const followers = userData.Followers.map(follower => ({
         ...follower,
         isFollowed: currentUser.Followings.some(cf => cf.id === follower.id),
         isNotUser: follower.id !== currentUser.id
       }))
 
-      return res.render('user/user-followers', { users: userData, followers, recommendFollowings, currentUser })
+      return res.render('user/user-followers', { user: userData, followers, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
     }
@@ -133,12 +138,17 @@ const userController = {
 
       const user = await User.findByPk(userId, {
         include:[
+          Tweet,
           { model: User, as: 'Followings' }
         ]
       })
       if (!user) throw new Error('使用者資料不存在')
 
-      const userData = user.toJSON()
+      const { Tweets, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        tweetsCount: Tweets.length
+      }
       const followings = userData.Followings.map(following => ({
         ...following,
         isFollowed: currentUser.Followings.some(cf => cf.id === following.id),
@@ -377,6 +387,30 @@ const userController = {
         })
 
       req.flash('success_messages', '使用者資料更新成功')
+      return res.redirect('back')
+    } catch(err) {
+      next(err)
+    }
+  },
+  deleteTweet: async(req, res, next) => {
+    try {
+      const currentUser = getUser(req)
+      const tweetId = req.body.id
+      const tweet = await Tweet.findByPk(tweetId, {
+        include: [User],
+        raw: true,
+        nest: true 
+      })
+      
+      if (tweet.User.id !== currentUser.id) {
+        req.flash('error_messages', '無法刪除他人貼文')
+        return redirect('back')
+      } else {
+        await Tweet.destroy({ where: { id: tweetId }})
+        await Reply.destroy({ where: { TweetId: tweetId }})
+        await Like.destroy({ where: { TweetId: tweetId }})
+      }
+      
       return res.redirect('back')
     } catch(err) {
       next(err)

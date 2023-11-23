@@ -32,9 +32,10 @@ router.get('/users/:id/replies', authenticated, userController.getUserReplies)
 router.get('/users/:id/likes', authenticated, userController.getUserLikes)
 router.get('/users/:id/setting', authenticated, userController.getUserSetting)
 router.put('/users/:id/setting', authenticated, userController.putUserSetting)
-router.post('/followships', authenticated, userController.addFollowing)
 router.delete('/followships/:id', authenticated, userController.removeFollowing)
+router.post('/followships', authenticated, userController.addFollowing)
 router.put('/users/:id/edit', authenticated, upload.fields([{ name:'cover', maxCount: 1 }, { name: 'avatar', maxCount: 1 }]), userController.putUserProfile)
+router.delete('/users/tweets', authenticated, userController.deleteTweet)
 
 // Like、回覆
 router.post('/tweets/:id/replies', authenticated, tweetController.postReply)

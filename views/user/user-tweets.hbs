@@ -9,7 +9,7 @@
       {{#each tweets}}
       <div class="border-start border-end border-bottom d-flex align-items-end flex-column pt-2"
         style="min-height: 130px;">
-        <div class="align-self-start">
+        <div class="align-self-start" style="position:relative; width: 100%;">
           <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
             <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
               class="ms-4 rounded-circle">
@@ -23,6 +23,16 @@
             </a>
             <span class="gray-text">{{relativeTimeFromNow this.createdAt}}</span>
           </div>
+          {{#ifCond this.User.id ../currentUser.id}}
+          <div class="d-inline-flex" style="position:absolute; right: 10px; top: 10px;">
+            <form action="/users/tweets/?_method=DELETE" method="post">
+              <input type="text" name="id" value="{{this.id}}" class="d-none">
+              <button type="submit" style="border:none; background-color:transparent;" onclick="return confirm(`確定要刪除這則推文嗎？`)">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </form>
+          </div>
+          {{/ifCond}}
         </div>
         <div class="pe-2 align-self-start" style="max-width: 528px; margin-left: 88px;">
           <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
