@@ -137,3 +137,9 @@
   max-height: 660px;
   overflow-y: auto;
 }
+
+#recommend-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+  border-radius: 16px;
+}
