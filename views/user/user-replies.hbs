@@ -6,50 +6,54 @@
       {{>user-header}}
       {{>user-profile}}
       {{>user-tabs route='replies'}}
-      {{#each replies}}
-      <div class="d-flex flex-column flex-wrap justify-content-center mb-2"
-        style="border-bottom: 1px #E6ECF0 solid; max-width:639px; margin: 0px 12px 0px 0px;">
-        <div class="d-inline-flex" style="width:100%; position:relative">
-          <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-            <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
-          </a>
-          <div class="d-inline-flex flex-wrap pt-3 ms-3">
+      <div class="user-scroll">
+        {{#each replies}}
+        <div class="d-flex flex-column flex-wrap justify-content-center mb-2"
+          style="border-bottom: 1px #E6ECF0 solid; max-width:639px; margin: 0px 12px 0px 0px;">
+          <div class="d-inline-flex" style="width:100%; position:relative">
             <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <h5 class="name-text">{{this.User.name}}</h5>
+              <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
+                class="ms-4 mt-2 rounded-circle">
             </a>
-            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <span class="ms-1 account-text">@{{this.User.account}} · </span>
-            </a>
-            <span class="ms-1 gray-text">{{relativeTimeFromNow this.createdAt}}</span>
+            <div class="d-inline-flex flex-wrap pt-3 ms-3">
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <h5 class="name-text">{{this.User.name}}</h5>
+              </a>
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <span class="ms-1 account-text">@{{this.User.account}} · </span>
+              </a>
+              <span class="ms-1 gray-text">{{relativeTimeFromNow this.createdAt}}</span>
+            </div>
+            {{#ifCond this.User.id ../currentUser.id}}
+            <div class="d-inline-flex" style="position:absolute; right: 10px; top: 10px;">
+              <form action="/users/replies/?_method=DELETE" method="post">
+                <input type="text" name="id" value="{{this.id}}" class="d-none">
+                <button type="submit" style="border:none; background-color:transparent;"
+                  onclick="return confirm(`確定要刪除這則推文嗎？`)">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </form>
+            </div>
+            {{/ifCond}}
           </div>
-          {{#ifCond this.User.id ../currentUser.id}}
-          <div class="d-inline-flex" style="position:absolute; right: 10px; top: 10px;">
-            <form action="/users/replies/?_method=DELETE" method="post">
-              <input type="text" name="id" value="{{this.id}}" class="d-none">
-              <button type="submit" style="border:none; background-color:transparent;" onclick="return confirm(`確定要刪除這則推文嗎？`)">
-                <i class="fa-regular fa-trash-can"></i>
-              </button>
-            </form>
+        
+          <div class="d-flex flex-column align-self-start">
+            <div class="pe-2" style="margin-left:88px;">
+              <span class="gray-text">回覆</span>
+              <a href="/users/{{this.Tweet.User.id}}/tweets" style="text-decoration:none;">
+                <span class="dark-text">@{{this.Tweet.User.account}}</span>
+              </a>
+              <a href="/tweets/{{this.tweetId}}/replies" style="text-decoration:none;">
+                <p class="mt-2 text-break dark-text">
+                  {{this.comment}}
+                </p>
+              </a>
+        
+            </div>
           </div>
-          {{/ifCond}}
         </div>
-
-        <div class="d-flex flex-column align-self-start">
-          <div class="pe-2" style="margin-left:88px;">
-            <span class="gray-text">回覆</span>
-            <a href="/users/{{this.Tweet.User.id}}/tweets" style="text-decoration:none;">
-              <span class="dark-text">@{{this.Tweet.User.account}}</span>
-            </a>
-            <a href="/tweets/{{this.tweetId}}/replies" style="text-decoration:none;">
-              <p class="mt-2 text-break dark-text">
-                {{this.comment}}
-              </p>
-            </a>
-
-          </div>
-        </div>
+        {{/each}}
       </div>
-      {{/each}}
 
     </div>
     {{>right-bar}}

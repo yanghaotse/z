@@ -6,54 +6,55 @@
       {{>user-header}}
       {{>user-profile}}
       {{>user-tabs route='likes'}}
-      {{#each likedTweets}}
-      <div class="border-start border-end border-bottom d-flex align-items-end flex-column pt-2"
-        style="min-height: 130px;">
-        <div class="align-self-start">
-          <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-            <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
-              class="ms-4 rounded-circle">
-          </a>
-          <div class="d-inline-flex">
+      <div class="user-scroll">
+        {{#each likedTweets}}
+        <div class="border-start border-end border-bottom d-flex align-items-end flex-column pt-2" style="min-height: 130px;">
+          <div class="align-self-start">
             <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <h5 class="mx-2 name-text">{{this.User.name}}</h5>
+              <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
+                class="ms-4 rounded-circle">
             </a>
-            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <span class="account-text">@{{this.User.account}} · </span>
-            </a>
-            <span class="gray-text">{{relativeTimeFromNow this.createdAt}}</span>
-          </div>
-          
-        </div>
-        <div class="pe-2 align-self-start" style="max-width: 528px; margin-left:88px;">
-          <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
-            <p class="text-break desc-text">
-              {{this.description}}
-            </p>
-            {{#if this.image}}
-            <div style="max-width: 500px; max-height:500px; margin-top: 10px;">
-              <img src="{{this.image}}" title="source: imgur.com" class="img-thumbnail"
-                style="border-radius:16px; max-width: 100%; max-height: 100%;" />
+            <div class="d-inline-flex">
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <h5 class="mx-2 name-text">{{this.User.name}}</h5>
+              </a>
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <span class="account-text">@{{this.User.account}} · </span>
+              </a>
+              <span class="gray-text">{{relativeTimeFromNow this.createdAt}}</span>
             </div>
-            {{/if}}
-          </a>
-          <div class="d-flex align-items-baseline ms-2">
-            <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal"
-              data-bs-target="#replyTweet{{this.id}}"></i>
-            <p class="me-5">{{this.repliesCount}}</p>
-
-            <form action="/tweets/{{this.id}}/unlike" method="POST">
-              <button class="btn btn-outline-light rounded-circle" type="submit" style="border:none;">
-                <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px; margin-bottom:8px;"></i>
-              </button>
-            </form>
-
-            <p style="margin-left:-5px;">{{this.likesCount}}</p>
+        
+          </div>
+          <div class="pe-2 align-self-start" style="max-width: 528px; margin-left:88px;">
+            <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
+              <p class="text-break desc-text">
+                {{this.description}}
+              </p>
+              {{#if this.image}}
+              <div style="max-width: 500px; max-height:500px; margin-top: 10px;">
+                <img src="{{this.image}}" title="source: imgur.com" class="img-thumbnail"
+                  style="border-radius:16px; max-width: 100%; max-height: 100%;" />
+              </div>
+              {{/if}}
+            </a>
+            <div class="d-flex align-items-baseline ms-2">
+              <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal"
+                data-bs-target="#replyTweet{{this.id}}"></i>
+              <p class="me-5">{{this.repliesCount}}</p>
+        
+              <form action="/tweets/{{this.id}}/unlike" method="POST">
+                <button class="btn btn-outline-light" type="submit" style="border:none; background-color:transparent;">
+                  <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px; margin-bottom:8px;"></i>
+                </button>
+              </form>
+        
+              <p style="margin-left:-5px;">{{this.likesCount}}</p>
+            </div>
           </div>
         </div>
+        {{> reply-modal currentUser = ../currentUser}}
+        {{/each}}
       </div>
-      {{> reply-modal currentUser = ../currentUser}}
-      {{/each}}
 
 
     </div>
