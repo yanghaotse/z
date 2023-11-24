@@ -10,7 +10,7 @@ module.exports = {
     try {
       const users = await User.findAll({ raw: true, nest:true })
       const tweets = []
-      const tweetPerUser = 10
+      const tweetPerUser = 5
 
       users.forEach(user => {
         const maxLength = 160
@@ -18,6 +18,7 @@ module.exports = {
           let tweet = {
             user_id: user.id,
             description: faker.lorem.text().slice(0, maxLength),
+            image: `https://loremflickr.com/1280/720/cat/?random=${Math.random() * 100}`,
             created_at: new Date(),
             updated_at: new Date()
           }
