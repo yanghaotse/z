@@ -6,63 +6,72 @@
       {{> user-header}}
       {{> user-profile}}
       {{> user-tabs route='tweets'}}
-      {{#each tweets}}
-      <div class="border-start border-end border-bottom d-flex align-items-end flex-column pt-2"
-        style="min-height: 130px;">
-        <div class="align-self-start" style="position:relative; width: 100%;">
-          <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-            <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
-              class="ms-4 rounded-circle">
-          </a>
-          <div class="d-inline-flex pt-3">
+      <div class="user-scroll">
+        {{#each tweets}}
+        <div class="border-start border-end border-bottom d-flex align-items-end flex-column pt-2" style="min-height: 130px;">
+          <div class="align-self-start" style="position:relative; width: 100%;">
             <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <h5 class="mx-2 name-text">{{this.User.name}}</h5>
+              <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
+                class="ms-4 rounded-circle">
             </a>
-            <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <span class="account-text">@{{this.User.account}} · </span>
+            <div class="d-inline-flex pt-3">
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <h5 class="mx-2 name-text">{{this.User.name}}</h5>
+              </a>
+              <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
+                <span class="account-text">@{{this.User.account}} · </span>
+              </a>
+              <span class="gray-text">{{relativeTimeFromNow this.createdAt}}</span>
+            </div>
+            {{#ifCond this.User.id ../currentUser.id}}
+            <div class="d-inline-flex" style="position:absolute; right: 10px; top: 10px;">
+              <form action="/users/tweets/?_method=DELETE" method="post">
+                <input type="text" name="id" value="{{this.id}}" class="d-none">
+                <button type="submit" style="border:none; background-color:transparent;"
+                  onclick="return confirm(`確定要刪除這則推文嗎？`)">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </form>
+            </div>
+            {{/ifCond}}
+          </div>
+          <div class="pe-2 align-self-start" style="max-width: 528px; margin-left: 88px;">
+            <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
+              <p class="text-break desc-text">
+                {{this.description}}
+              </p>
+              {{#if this.image}}
+              <div style="max-width: 500px; max-height:500px; margin-top: 10px;">
+                <img src="{{this.image}}" title="source: imgur.com" class="img-thumbnail"
+                  style="border-radius:16px; max-width: 100%; max-height: 100%;" />
+              </div>
+              {{/if}}
             </a>
-            <span class="gray-text">{{relativeTimeFromNow this.createdAt}}</span>
-          </div>
-          {{#ifCond this.User.id ../currentUser.id}}
-          <div class="d-inline-flex" style="position:absolute; right: 10px; top: 10px;">
-            <form action="/users/tweets/?_method=DELETE" method="post">
-              <input type="text" name="id" value="{{this.id}}" class="d-none">
-              <button type="submit" style="border:none; background-color:transparent;" onclick="return confirm(`確定要刪除這則推文嗎？`)">
-                <i class="fa-regular fa-trash-can"></i>
-              </button>
-            </form>
-          </div>
-          {{/ifCond}}
-        </div>
-        <div class="pe-2 align-self-start" style="max-width: 528px; margin-left: 88px;">
-          <a href="/tweets/{{this.id}}/replies" style="text-decoration: none;">
-            <p class="text-break desc-text">
-              {{this.description}}
-            </p>
-          </a>
-          <div class="d-flex align-items-baseline me-1">
-            <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal" data-bs-target="#replyTweet{{this.id}}"></i>
-            <p class="me-5">{{this.repliesCount}}</p>
-            {{#if isLiked}}
-            <form action="/tweets/{{this.id}}/unlike" method="POST">
-              <button class="btn btn-outline-light rounded-circle" type="submit" style="border:none;">
-                <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px; margin-bottom:8px;"></i>
-              </button>
-            </form>
-            {{else}}
-            <form action="/tweets/{{this.id}}/like" method="POST">
-              <button class="btn btn-outline rounded-circle" type="submit" style="border:none;">
-                <i class="fa-regular fa-heart" style="width: 24px; height: 24px;"></i>
-              </button>
-            </form>
-            {{/if}}
-            <p style="margin-left:-5px;">{{this.likesCount}}</p>
+            <div class="d-flex align-items-baseline ms-1">
+              <i class="fa-regular fa-message" style="width: 24px; height: 24px;" data-bs-toggle="modal"
+                data-bs-target="#replyTweet{{this.id}}"></i>
+              <p class="me-5">{{this.repliesCount}}</p>
+              {{#if isLiked}}
+              <form action="/tweets/{{this.id}}/unlike" method="POST">
+                <button class="btn btn-outline-light rounded-circle" type="submit" style="border:none;">
+                  <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px;"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/tweets/{{this.id}}/like" method="POST">
+                <button class="btn btn-outline rounded-circle" type="submit" style="border:none;">
+                  <i class="fa-regular fa-heart" style="width: 24px; height: 24px;"></i>
+                </button>
+              </form>
+              {{/if}}
+              <p style="margin-left:-5px;">{{this.likesCount}}</p>
+            </div>
           </div>
         </div>
+        {{> reply-modal currentUser = ../currentUser}}
+        {{/each}}
       </div>
-      {{> reply-modal currentUser = ../currentUser}}
-      {{/each}}
-
+      
     </div>
     {{> right-bar}}
   </div>
