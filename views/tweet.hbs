@@ -25,11 +25,18 @@
                 <h5 class="name-text" style="margin-bottom: 0px;">{{tweet.User.name}}</h5>
                 <span class="account-text" style="font-size: 14px">@ {{tweet.User.account}}</span>
               </a>
+              <span class="gray-text" style="font-size: 14px; margin-left: 20px;">{{formatDateTime tweet.createdAt}}</span>
             </div>
           </div>
           <div class="mt-3">
             <p class="desc-text" style="font-size: 1.5em;" class="mt-2 text-break">{{tweet.description}}</p>
-            <span class="gray-text" style="font-size: 14px; margin-bottom: 13px">{{formatDateTime tweet.createdAt}}</span>
+            {{#if tweet.image}}
+            <div style="max-width: 500px; max-height:500px; margin-top: 10px; margin-left: 40px;">
+              <img src="{{tweet.image}}" title="source: imgur.com" class="img-thumbnail"
+                style="border-radius:16px; max-width: 100%; max-height: 100%;" alt="tweet-image"/>
+            </div>
+            {{/if}}
+            
           </div>
           
         </div>

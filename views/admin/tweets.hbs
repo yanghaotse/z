@@ -4,7 +4,7 @@
     {{!-- 側邊欄 --}}
     {{> admin-left-bar route='tweets'}}
 
-    <div class="col-6" style="width: 940px; margin: 0 0 0 327px;">
+    <div class="col-6" style="width: 840px; margin: 0 0 0 327px;">
       <nav class="navbar navbar-light border-start border-end">
         <div class="container-fluid">
           <h4 class="navbar-brand mb-0 h1 fs-4">推文清單</h4>
@@ -16,7 +16,7 @@
         {{#each tweets}}
         <li class="list-group-item">
           <div class="d-flex  flex-column pt-2" style="min-height: 130px;">
-            <div class="align-self-start" style="width: 910px; position: relative;">
+            <div class="align-self-start" style="width: 810px; position: relative;">
               <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px; border-radius: 50px;" class="ms-4">
               <div class="d-inline-flex pt-3">
                 <h5 class="mx-2 name-text">{{this.User.name}}</h5>
@@ -31,6 +31,12 @@
             <div style="max-width: 855px">
               <p style="margin-left: 85px;">{{this.description}}</p>
             </div>
+            {{#if this.image}}
+            <div style="max-width: 500px; max-height:500px; margin-top: 10px; margin-left: 84px;">
+              <img src="{{this.image}}" title="source: imgur.com" class="img-thumbnail"
+                style="border-radius:16px; max-width: 100%; max-height: 100%;" />
+            </div>
+            {{/if}}
           </div>
         </li>
         {{/each}}
