@@ -26,16 +26,20 @@
             </label>
           </div>
           {{!-- img --}}
-          <div style="max-width: 500px; max-height:500px; margin-top: 10px; margin-left: 46px;">
-            <img src="" title="source: imgur.com" class="img-thumbnail"
-              style="border-radius:16px; max-width: 100%; max-height: 100%;" alt="tweet-image" />
+          <div id="post-img-div" style="max-width: 500px; max-height:500px; margin-top: 15px; margin-left: 46px;  display: none;">
+            <div style="position:relative; display: inline-block; text-align: center;">
+              <img src="" title="source: imgur.com" class="img-thumbnail"
+                style="border-radius:16px; max-width: 100%; max-height: 100%;" alt="post-image" id="tweet-img"/>
+              <button type="button" class="btn-close" id="image-del"
+                style="position: absolute; right:10px; top: 10px; background-color:#fff"></button>
+            </div>
           </div>
 
           <div class="modal-bottom border-top" style="margin-top:40px; height:50px; position: relative;">
             <div>
               <label for="image-add" class="btn image-uploader">
                 <input class="d-none" type="file" id="image-add" name="image" accept="image/*"
-                  onchange="previewImage('image-img', this)">
+                  onchange="previewTweetImage('tweet-img', this)">
                 <i class="fa-regular fa-image fa-lg" style="color: #222; position:absolute; left: 60px; bottom:15px;"></i>
               </label>
             </div>

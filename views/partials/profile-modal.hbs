@@ -24,7 +24,7 @@
             </div>
             <div class="cover-option" style="display:inline; position:absolute; left: 280px; top: 80px">
               <label for="cover-add" class="btn cover-uploader">
-                <input class="d-none" type="file" id="cover-add" name="cover" accept="image/*" onchange="previewImage('cover-img', this)">
+                <input class="d-none" type="file" id="cover-add" name="cover" accept="image/*" onchange="previewUserImage('cover-img', this)">
                 <i class="fa-solid fa-camera" style="color: #dedede;  height:24px; width:24px;"></i>
               </label>
               <label for="cover-del" class="btn">
@@ -38,7 +38,7 @@
                 style="border:4px #FFFFFF solid; height: 140px; width:140px; object-fit: cover;">
             </div>
             <label for="avatar" class="btn avatar-uploader" style=" position:absolute; left: 75px; top: 180px">
-              <input class="d-none" type="file" id="avatar" name="avatar" accept="image/*" onchange="previewImage('avatar-img', this)">
+              <input class="d-none" type="file" id="avatar" name="avatar" accept="image/*" onchange="previewUserImage('avatar-img', this)">
               <i class="fa-solid fa-camera" style="color: #dedede; height:24px; width:24px;"></i>
             </label>
           </div>
@@ -75,4 +75,3 @@
     </div>
   </div>
 </div>
-<script src="/javascripts/image-edit.js"></script>
