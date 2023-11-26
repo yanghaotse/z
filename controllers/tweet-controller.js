@@ -2,6 +2,8 @@ const { User, Tweet, Reply, Like, Followship } = require('../models')
 const { Sequelize, Op } = require('sequelize')
 const { getUser } = require('../helpers/auth-helpers')
 const { getRecommendedFollowings } = require('../services/user-service')
+const { imgurFileHandler } = require('../helpers/file-helpers')
+
 const tweetController = {
   getTweets: async(req, res, next) => {
     try {
@@ -104,12 +106,16 @@ const tweetController = {
   postTweet: async(req, res, next) => {
     try {
       const currentUserId = getUser(req).id
-      const { description } = req.body
+      const { description }  = req.body
+      const image = req.file ? req.file : null
+      const imgurImage = await imgurFileHandler(image)
+      
       if (!description) throw new Error('內容不可空白')
       if (description.length > 140) throw new Error('超過字數上限')
 
       await Tweet.create({
         userId: currentUserId,
+        image: imgurImage || null,
         description
       })
 

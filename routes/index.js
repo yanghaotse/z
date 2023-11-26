@@ -46,7 +46,7 @@ router.post('/tweets/:id/unlike', authenticated, tweetController.removeLike)
 
 // 首頁
 router.get('/tweets', authenticated, tweetController.getTweets)
-router.post('/tweets', authenticated, tweetController.postTweet)
+router.post('/tweets', authenticated, upload.single('image'), tweetController.postTweet)
 
 router.use('/', (req, res) => res.redirect('/tweets'))
 router.use('/', generalErrorHandler)

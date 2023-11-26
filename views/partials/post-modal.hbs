@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body" id="post-scroll">
-        <form action="/tweets" class="needs-validation post-form" method="POST"  style="position: relative;" novalidate>
+        <form action="/tweets" class="needs-validation post-form" method="POST"  style="position: relative;" enctype="multipart/form-data" novalidate>
           <div class="form d-flex">
             <img src="{{currentUser.avatar}}" class="rounded-circle" title="source: imgur.com" style="width: 50px;height: 50px;" />
             <label for="description">
@@ -28,8 +28,8 @@
           {{!-- img --}}
           <div id="post-img-div" style="max-width: 500px; max-height:500px; margin-top: 15px; margin-left: 46px;  display: none;">
             <div style="position:relative; display: inline-block; text-align: center;">
-              <img src="" title="source: imgur.com" class="img-thumbnail"
-                style="border-radius:16px; max-width: 100%; max-height: 100%;" alt="post-image" id="tweet-img"/>
+              <img src="" class="img-thumbnail"
+                style="border-radius:16px; max-width: 100%; max-height: 500px; height: 100%; object-fit: cover;" alt="post-image" id="tweet-img"/>
               <button type="button" class="btn-close" id="image-del"
                 style="position: absolute; right:10px; top: 10px; background-color:#fff"></button>
             </div>
