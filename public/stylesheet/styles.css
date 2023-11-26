@@ -87,8 +87,21 @@
   color:#222;
 }
 
-.right-bar-div, .list-group-item.right-li, .card.sign-in, .card.sign-up{
+.right-bar-div, .list-group-item.right-li {
   background-color: #F2F1F1;
+}
+
+.card.sign-in, .card.sign-up {
+  width: 400px;
+  margin-top: 30px;
+  border-radius:12px;
+  background-color: #fff;
+  border:2px solid #222;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.7);
+}
+
+.login-form {
+  background-color: rgba(34, 34, 34, 0.8);
 }
 
 .navbar.tweets-nav{
