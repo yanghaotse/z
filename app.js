@@ -14,8 +14,13 @@ const routes = require('./routes/index')
 const { getUser } = require('./helpers/auth-helpers')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 const SESSION_SECRET = process.env.SESSION_SECRET
+// socket.io
+const http = require('http')
+const server = http.createServer(app)
+const { Server } = require('socket.io')
+const io = new Server(server)
 
 app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
@@ -33,6 +38,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+
+// middleware
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
@@ -42,9 +49,11 @@ app.use((req, res, next) => {
   next()
 })
 
+require('./helpers/socket-helpers')(io)
+
 app.use(routes)
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`app is running on http://localhost:${port}`)
 })
 
