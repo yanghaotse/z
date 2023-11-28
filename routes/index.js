@@ -9,8 +9,11 @@ const tweetController = require('../controllers/tweet-controller')
 const userController = require('../controllers/user-controller')
 const adminController = require('../controllers/admin-controller')
 const admin = require('./modules/admin')
-const user = require('../models/user')
+const chatroom = require('./modules/chatroom')
 
+
+// 聊天室
+router.use('/chatroom', chatroom)
 
 // 後臺登入 
 router.get('/admin/signin', adminController.adminSignInPage)
