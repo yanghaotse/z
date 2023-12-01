@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'senderId',
         as: 'sender'
       })
-      PrivateMsg.belongsTo(model.User, {
+      PrivateMsg.belongsTo(models.User, {
         foreignKey: 'receiverId',
-        ad: 'receiver'
+        as: 'receiver'
       })
     }
   }

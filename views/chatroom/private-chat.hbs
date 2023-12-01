@@ -1,0 +1,114 @@
+<main class="container">
+  <div class="row">
+    {{>left-bar route='chatroom'}}
+    
+    <div class="col-md-10" style="margin-left: 278px;">
+      <section class="d-flex" style="height:100vh;">
+      
+        {{!-- 聊天列表 --}}
+        <div class="user-list-wrapper" style="width:414px;border:1px solid #E6ECF0; height:100vh">
+          <div class="user-list-header d-flex align-items-center" style="height:10%; border-bottom:1px solid #E6ECF0">
+            <p class="m-0 ms-3" style="font-weight:700; font-size:24px">訊息</p>
+          </div>
+
+          <ul class="user-list p-0" style="overflow:auto; height:90%">
+            {{#each chatList}}
+            <button class="user-button p-0" style="border: none;outline: none;background: none;width:100%;"
+              data-user-id="{{this.user.id}}">
+              <a href="/chatroom/private/{{this.user.id}}" style="text-decoration: none;">
+                <li class="user-container d-flex align-items-center"
+                  style="list-style-type: none;height:69px; border:1px solid #E6ECF0">
+                  <div class="avatar d-flex justify-content-center border"
+                    style="width:50px; height:50px; border-radius:50%;margin-left:5px; overflow:hidden">
+                    <img src="{{this.user.avatar}}" alt="user-avatar"
+                      style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+                  </div>
+                  <div class="name-text d-flex flex-column align-items-start flex-grow-1 ms-3">
+                    <div class="name d-flex" style="margin-top:3px;">
+                      <span class="dark" style="font-size: 20px;">{{this.user.name}}</span>
+                      <span class="ms-1 gray" style="margin-top:3px;">@{{this.user.account}}</span>
+                    </div>
+                    <div class="text gray" style="margin-bottom:0px;">{{this.chats.[0].text}}</div>
+                  </div>
+                  <div class="time gray" style="margin-top:-5px;">
+                    <p style="font-size: 12px;">{{relativeTimeFromNow this.chats.[0].createdAt}}</p>
+                  </div>
+                </li>
+              </a>
+            </button>
+            {{/each}}
+          </ul>
+        </div>
+      
+        {{!-- 訊息區 --}}
+        {{#if chatUser}}
+        <div class="chatroom flex-grow-1 position-relative border-end" style="height:100vh">
+          {{!-- header --}}
+          <div class="chatter" style="height:10%; border-bottom:1px solid #E6ECF0">
+            <div class="user ms-3" style="">
+              <p class="name m-0" style="font-weight:700; font-size:24px">{{chatUser.name}}</p>
+              <p class="account m-0">{{@chatUser.account}}</p>
+            </div>
+          </div>
+          {{!-- messages --}}
+          <div class="chat-content d-flex flex-column flex-frow-1 justify-content-end mt-3" style="overflow:auto; height:80%">
+            {{#if chats}}
+            {{#each chats}}
+      
+            {{#ifCond this.sender.id ../currentUser.id}}
+            {{!-- currentUser --}}
+            <div class="current-user d-flex flex-column align-items-end m-1">
+              <div class="content p-2" style="border-radius:25px 25px 0 25px; background:#222;">
+                <p class="content-text m-0 light">{{this.text}}</p>
+              </div>
+              <div class="time top-100" style="font-size: 13px; color:#657786; text-align:end">{{relativeTimeFromNow
+                this.createdAt}}</div>
+            </div>
+            {{else}}
+            {{!-- chatUser --}}
+            <div class="other m-1 d-flex">
+              <div class="avatar me-2" style="width:40px; height:40px; border-radius:50%; background:gray">
+                <a href="/users/{{../chatUser.id}}/tweets" style="text-decoration: none;">
+                  <img src="{{../chatUser.avatar}}" alt="user-avatar" style="width:40px; height:40px; border-radius:50%;">
+                </a>
+              </div>
+              <div class="content-wrapper">
+                <div class="content p-2" style="border-radius:25px 25px 25px 0; background:#E6ECF0;">
+                  <p class="m-0">{{this.text}}</p>
+                </div>
+                <div class="time top-100" style="font-size: 13px; color:#657786; text-align:start">{{relativeTimeFromNow
+                  this.createdAt}}</div>
+              </div>
+            </div>
+            {{/ifCond}}
+            {{/each}}
+            {{/if}}
+          </div>
+          {{!-- input --}}
+          <div class="input-form w-100" style="border-top:1px solid #E6ECF0; height:auto">
+            <form id="form" action="" class="d-flex m-3">
+              <input id="input" autocomplete="off" class="flex-grow-1 ps-3"
+                style="border-radius:50px; outline:none; border:none; background:#E6ECF0" />
+              <button type="submit" style=" border: none;  outline: none;  background: none;">
+                <i class="fa-solid fa-paper-plane dark" style="margin-left:5px;"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        {{/if}}
+
+        <div class="d-none" id="chat-user-id">{{chatUser.id}}</div>
+        {{#if currentUser}}
+        <div class="d-none" id="current-user-id">{{currentUser.id}}</div>
+        {{/if}}
+      </section>
+    </div>
+    
+  </div>
+</main>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="/javascripts/socket.js"></script>
+  
+
+

@@ -4,6 +4,7 @@ const { authenticated } = require('../../middleware/auth')
 const chatroomController = require('../../controllers/chatroom-controller')
 
 
-router.get('/private/:id', authenticated, chatroomController.getChatroom)
+router.get('/private', authenticated, chatroomController.getChatList)
+router.get('/private/:id', authenticated, chatroomController.getChatRoom)
 
 module.exports = router
