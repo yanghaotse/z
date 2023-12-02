@@ -27,7 +27,7 @@ const userChatList = async(req) => {
       if (!result[key]) {
         result[key] = { user: null, chats: [] }
       }
-      // 將 user 設為聊天對象 id
+      // 設 user 為聊天對象 id
       if (!result[key].user) {
         result[key].user = chat.senderId === currentUser.id ? chat.receiver : chat.sender
       }
@@ -53,18 +53,18 @@ const chatroomController = {
   getChatList: async(req, res, next) => {
     try {
       const chatList = await userChatList(req)
-
-      res.render('chatroom/private-chat', { chatList })
+      const currentUser = getUser(req)
+      res.render('chatroom/private-chat', { chatList, currentUser })
     } catch (err) {
       console.error(err)
-      res.status(500).send('伺服器端發生錯誤')
+      res.status(500).send('載入時發生錯誤')
     }
   },
   getChatRoom: async(req, res, next) => {
     try {
       const currentUser = getUser(req)
       const [currentUserId, chatUserId] = [Number(currentUser.id), Number(req.params.id)]
-      
+
       const chatList = await userChatList(req)
       const chats = await PrivateMsg.findAll({
         where: {
@@ -98,7 +98,8 @@ const chatroomController = {
 
       res.render('chatroom/private-chat', { chatList, chats, currentUser, chatUser })
     } catch(err) {
-      next(err)
+      console.error(err)
+      res.status(500).send('載入時發生錯誤')
     }
   }
 

@@ -160,3 +160,8 @@
   overflow-y: auto;
   border-radius: 16px;
 }
+
+#chat-content {
+  max-height: 100%;
+  overflow-y: auto;
+}
