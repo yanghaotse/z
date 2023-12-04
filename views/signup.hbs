@@ -1,22 +1,13 @@
-<div class="row d-flex justify-content-center login-form" style="text-align: top;">
-  <div class="card border-light px-0 sign-up">
-
-    <div class="card-body ">
-      <div class="mb-4 text-center">
-        <img src="/images/z-high-resolution-logo-transparent.png" alt="icon" style="margin: 5px 0 20px 0; width: 120px; height:80px;">
-        <h1 class="h3 font-weight-normal mb-3" style="margin: 0 0 40px 0;font-weight: bold;">建立你的帳號</h1>
-      </div>
-
-      <form class="form-signup needs-validation" action="/signup" method="POST" style="width: 100%;" novalidate>
-        {{> account-form}}
-        <button id="signup" type="submit" class="btn dark-btn" style="padding: 8px 24px;width: 356px;border: 0;display: flex;flex-direction: column;
-      justify-content: center;
-      align-items: center;border-radius: 50px;">註冊</button>
-      </form>
-
-      <div class="text-center">
-        <p style="padding: 20px 24px;width: 356px;"><a href="/signin" style="text-decoration:none;">取消</a></p>
-      </div>
+<div class="signup-page">
+  <div class="signin-content">
+    <form class="signup-form needs-validation" action="/signup" method="POST" novalidate>
+    <div class="mb-4">
+      <img src="/images/z-high-resolution-logo-transparent.png" class="login-img" alt="icon">
+      <h3>Sign up</h3>
     </div>
-  </div>
-</div>
+    {{> account-form}}
+    <button type="submit">create</button>
+    <div class="d-flex flex-row justify-content-end mt-2">
+      <p class="message">Already registered? <a href="/signin">Sign In</a></p>
+      </div>
+    </form>

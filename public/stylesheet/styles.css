@@ -68,6 +68,7 @@
   background-color: #fff;
 }
 
+/* color */
 .dark {
   color: #222;
 }
@@ -91,19 +92,6 @@
   background-color: #F2F1F1;
 }
 
-.card.sign-in, .card.sign-up {
-  width: 400px;
-  margin-top: 30px;
-  border-radius:12px;
-  background-color: #fff;
-  border:2px solid #222;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.7);
-}
-
-.login-form {
-  background-color: rgba(34, 34, 34, 0.8);
-}
-
 .navbar.tweets-nav{
   background-color:rgba(34, 34, 34, 0.9);
 }
@@ -119,6 +107,18 @@
 .label-text {
   color:#696974;
 }
+/* color */
+
+/* login-form */
+/* .card.sign-in, .card.sign-up {
+  width: 500px;
+  height: 400px;
+  margin-top: 30px;
+  border-radius:5px;
+  background-color: #fff;
+  border:2px solid #222;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+}
 
 .form-title-div {
   background-color:#F5F8FA;
@@ -131,6 +131,18 @@
   background-color:#F5F8FA;
 }
 
+.form-div {
+  margin: 0 auto 0 auto;
+}
+
+.login-img {
+  margin-bottom:24px;
+  width:130px;
+  height:80;
+} */
+/* login-form */
+
+/* scroll */
 #tweets-scroll {
   height: 600px;
   overflow-y: auto;
@@ -156,3 +168,74 @@
   overflow-y: auto;
   border-radius: 16px;
 }
+/* scroll */
+
+
+/*  */
+.signin-page {
+  width: 480px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.signup-page {
+  width: 480px;
+  padding: 3% 0 0;
+  margin: auto;
+}
+.signin-content {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 480px;
+  margin: 0 auto 100px;
+  padding: 45px 45px 0 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.signin-content input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.signin-content button {
+  text-transform: uppercase;
+  outline: 0;
+  background: #222;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+.signin-content button:hover,.form button:active,.form button:focus {
+  background: #000000;
+}
+.signin-content .message {
+  color: #b3b3b3;
+  font-size: 16px;
+}
+.signin-content .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.signin-content .login-footer{
+  border-top: 1px solid #dce8f1;
+  padding: 5px;
+  text-align: center;
+}
+.signin-content h3 {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.login-img {
+  margin-bottom:14px;
+  width:130px;
+  height:80;
+}
+
