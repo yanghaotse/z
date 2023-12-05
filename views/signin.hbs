@@ -1,26 +1,18 @@
-<div class="row d-flex justify-content-center login-form" style="text-align: top;">
-  <div class="card border-light px-0 sign-in">
-
-    <div class="card-body ">
-      <div class="mb-4 text-center">
-        <img src="/images/z-high-resolution-logo-transparent.png" alt="icon" style="margin: 34px 0 24px 0" width="120" height="80">
-        <h1 class="h3 font-weight-normal mb-3" style="margin: 0 0 40px 0;font-weight: bold;">登入</h1>
+<div class="signin-page">
+  <div class="signin-content">
+    <form class="signin-form needs-validation" action="/signin" method="POST" novalidate>
+      <div class="mb-4">
+        <img src="/images/z-high-resolution-logo-transparent.png" class="login-img" alt="icon">
+        <h3>Sign in</h3>
       </div>
-
-      <form class="form-signin needs-validation" action="/signin" method="POST" style="width: 100%;" novalidate>
-        {{> login}}
-
-        <button type="submit" class="btn dark-btn" style="padding: 8px 24px;width: 356px;border: 0;display: flex;flex-direction: column;
-      justify-content: center;
-      align-items: center;border-radius: 50px;">登入</button>
-      </form>
-
-      <div class="d-flex flex-row justify-content-end mx-3 my-3">
-        <p><a href="/signup" style="text-decoration:none;">註冊</a></p>
-        <p class="mx-2">．</p>
-        <p><a href="/admin/signin" style="text-decoration:none;">後台登入</a></p>
-      </div>
-
+      {{> login}}
+      <button type="submit">Login</button>
+    </form>
+    <div class="d-flex flex-row justify-content-end mt-2">
+      <p class="message">Not registered? <a href="/signup">Create an account</a></p>
+    </div>
+    <div class="d-flex flex-row justify-content-end login-footer">
+      <p class="message"><a href="/admin/signin">Admin Login</a></p>
     </div>
   </div>
 </div>

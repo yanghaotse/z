@@ -4,7 +4,7 @@
     {{!-- 側邊欄 --}}
     {{> admin-left-bar route='users'}}
 
-    <div class="col-6" style="width: 940px; margin: 0 0 0 327px">
+    <div class="col-6 admin-middle-div">
       <nav class="navbar navbar-light border-start border-bottom">
         <div class="container-fluid">
           <h4 class="navbar-brand mb-0 h1 fs-4">使用者列表</h4>
@@ -12,7 +12,7 @@
       </nav>
 
       <div class="cards border-start"
-        style="width:940px; padding-left: 15px; padding-top: 15px; display: flex; justify-content:flex-start; flex-wrap: wrap;">
+        style="max-width:100%; padding-left: 15px; padding-top: 15px; display: flex; justify-content:flex-start; flex-wrap: wrap;">
         {{#each users}}
         <div class="card"
           style="width: 210px; height: 314px; border-radius: 10px; position:relative; margin-bottom: 15px; margin-right: 15px; background-color:#F6F7F8">

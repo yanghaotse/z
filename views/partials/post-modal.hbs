@@ -1,7 +1,7 @@
 <div class="modal fade" id="postTweet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content" style="width: 634px; border-radius: 14px;  margin-left: -138px; margin-top: 58px">
+    <div class="modal-content" id="post-modal-content">
       <div class="modal-header" style="position: relative; height: 50px;">
         <button type="button" class="btn btn-default m-3" data-bs-dismiss="modal" aria-label="Close"
           style="position: absolute; left: 0;">
@@ -11,7 +11,7 @@
       <div class="modal-body" id="post-scroll">
         <form action="/tweets" class="needs-validation post-form" method="POST"  style="position: relative;" enctype="multipart/form-data" novalidate>
           <div class="form d-flex">
-            <img src="{{currentUser.avatar}}" class="rounded-circle" title="source: imgur.com" style="width: 50px;height: 50px;" />
+            <img src="{{#if currentUser.avatar}}{{currentUser.avatar}}{{else}}https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand{{/if}}" class="rounded-circle" title="source: imgur.com" style="width: 50px;height: 50px;" />
             <label for="description">
               <textarea name="description" id="description" cols="60" rows="4"
                 style="outline:none; border:none; box-shadow:none; margin-top:10px; margin-left:5px" maxlength="140"
@@ -45,7 +45,7 @@
             </div>
             <div>
               <button type="submit" class="btn btn-default dark-btn "
-                style="border-radius: 23px; width: 64px; height: 40px; position:absolute; right: 20px; bottom:-5px;">推文</button>
+                style="border-radius: 23px; width: 64px; height: 40px; position:absolute; right: 20px; bottom:-5px; font-weight: 600;">Post</button>
             </div>
           </div>
 

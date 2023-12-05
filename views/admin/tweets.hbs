@@ -4,10 +4,10 @@
     {{!-- 側邊欄 --}}
     {{> admin-left-bar route='tweets'}}
 
-    <div class="col-6" style="width: 840px; margin: 0 0 0 327px;">
+    <div class="col-6 admin-middle-div">
       <nav class="navbar navbar-light border-start border-end">
         <div class="container-fluid">
-          <h4 class="navbar-brand mb-0 h1 fs-4">推文清單</h4>
+          <h4 class="navbar-brand mb-0 h1 fs-4 ">推文清單</h4>
         </div>
       </nav>
 
@@ -15,8 +15,8 @@
       <ul class="list-group">
         {{#each tweets}}
         <li class="list-group-item">
-          <div class="d-flex  flex-column pt-2" style="min-height: 130px;">
-            <div class="align-self-start" style="width: 810px; position: relative;">
+          <div class="d-flex flex-column pt-2" style="min-height: 130px;  position: relative;">
+            <div class="align-self-start" style="max-width: 100%;">
               <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px; border-radius: 50px;" class="ms-4">
               <div class="d-inline-flex pt-3">
                 <h5 class="mx-2 name-text">{{this.User.name}}</h5>
@@ -25,7 +25,7 @@
               <div class="d-inline-flex" style="position: absolute; right: 20px;">
                 <form action="/admin/tweets/{{this.id}}?_method=DELETE" method="post">
                   <button type="submit" style="border:none; background-color:transparent;" onclick="return confirm(`確定要刪除這則推文嗎？`)">
-                    <i class="fa-regular fa-trash-can" style="color: #ef4e4e"></i>
+                    <i class="fa-regular fa-trash-can"></i>
                   </button>
                 </form>
               </div>
