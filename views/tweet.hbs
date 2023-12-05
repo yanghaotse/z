@@ -18,7 +18,7 @@
         <div class="d-flex flex-column border p-3" style="width:100%;">
           <div class="d-flex">
             <a href="/users/{{tweet.User.id}}/tweets" style="text-decoration: none;">
-              <img class="rounded-circle" src="{{tweet.User.avatar}}" style="width: 50px;height: 50px;" />
+              <img class="rounded-circle" src="{{#if tweet.User.avatar}}{{tweet.User.avatar}}{{else}}https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand{{/if}}" style="width: 50px;height: 50px;" />
             </a>
             <div class="ms-2">
               <a href="/users/{{tweet.User.id}}/tweets" style="text-decoration: none;">
@@ -73,7 +73,7 @@
           <div class="d-flex flex-column flex-wrap justify-content-center mb-2 border-start border-bottom border-end" style="min-height: 130px;">
             <div class="d-inline-flex">
               <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">
-                <img src="{{this.User.avatar}}" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
+                <img src="{{#if this.User.avatar}}{{this.User.avatar}}{{else}}https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand{{/if}}" style="width: 50px;height: 50px;" class="ms-4 mt-2 rounded-circle">
               </a>
               <div class="d-inline-flex pt-3">
                 <a href="/users/{{this.User.id}}/tweets" style="text-decoration: none;">

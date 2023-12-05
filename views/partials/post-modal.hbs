@@ -11,7 +11,7 @@
       <div class="modal-body" id="post-scroll">
         <form action="/tweets" class="needs-validation post-form" method="POST"  style="position: relative;" enctype="multipart/form-data" novalidate>
           <div class="form d-flex">
-            <img src="{{currentUser.avatar}}" class="rounded-circle" title="source: imgur.com" style="width: 50px;height: 50px;" />
+            <img src="{{#if currentUser.avatar}}{{currentUser.avatar}}{{else}}https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand{{/if}}" class="rounded-circle" title="source: imgur.com" style="width: 50px;height: 50px;" />
             <label for="description">
               <textarea name="description" id="description" cols="60" rows="4"
                 style="outline:none; border:none; box-shadow:none; margin-top:10px; margin-left:5px" maxlength="140"

@@ -13,7 +13,7 @@
       
           <div class="col-3 d-flex justify-content-center align-items-center">
             <a href="/users/{{this.id}}/tweets">
-              <img src="{{this.avatar}}" alt="user-avatar" width="50" height="50" class="rounded-circle">
+              <img src="{{#if this.avatar}}{{this.avatar}}{{else}}https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand{{/if}}" alt="user-avatar" width="50" height="50" class="rounded-circle">
             </a>
           </div>
           <div class="col-4 pt-3 d-flex flex-column align-items-start" style="margin-left:-10px">

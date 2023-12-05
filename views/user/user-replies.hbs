@@ -12,7 +12,7 @@
           style="border-bottom: 1px #E6ECF0 solid; max-width:639px; margin: 0px 12px 0px 0px;">
           <div class="d-inline-flex" style="width:100%; position:relative">
             <a href="/users/{{this.User.id}}/tweets" style="text-decoration:none;">
-              <img src="{{this.User.avatar}}" title="source: imgur.com" style="width: 50px;height: 50px;"
+              <img src="{{#if this.User.avatar}}{{this.User.avatar}}{{else}}https://i.imgur.com/hepj9ZS_d.webp?maxwidth=760&fidelity=grand{{/if}}" title="source: imgur.com" style="width: 50px;height: 50px;"
                 class="ms-4 mt-2 rounded-circle">
             </a>
             <div class="d-inline-flex flex-wrap pt-3 ms-3">
