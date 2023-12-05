@@ -12,6 +12,11 @@
     border-radius: 16px;
   }
 
+  .row .admin-middle-div{
+    width: 840px;
+    margin: 0 0 0 327px;
+  }
+
   .row .middle-div{
     max-width: 639px;
     margin-left: 278px;
@@ -53,6 +58,11 @@
     margin-left: 278px;
   }
 
+  .row .admin-middle-div{
+    width: 840px;
+    margin: 0 0 0 327px;
+  }
+
   #menu {
     display: none;
     height: 54.8px;
@@ -86,6 +96,11 @@
     max-width: 639px;
     margin-left: 278px;
   }
+
+  .row .admin-middle-div{
+    width: 840px;
+    margin: 0 0 0 327px;
+  }
   
   #menu {
     display: none;
@@ -108,10 +123,20 @@
   #left-bar {
     display: none;
   }
+
+  #admin-left-bar{
+    display: none;
+  }
   
   .row .middle-div{
     max-width: 639px;
     margin-left: 0px;
+    padding-left: 0px;
+  }
+
+  .row .admin-middle-div{
+    width: 840px;
+    margin: 0;
     padding-left: 0px;
   }
 
