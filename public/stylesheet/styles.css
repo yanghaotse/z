@@ -3,7 +3,7 @@
     display: none;
   }
   
-  .row .middle-div {
+  .row .middle-div{
     max-width: 639px;
     margin-left: 0px;
     padding-left: 0px;
@@ -36,7 +36,7 @@
     border-radius: 16px;
   }
 
-  .middle-div {
+  .middle-div{
     max-width: 639px;
     margin-left: 278px;
   }
@@ -66,7 +66,7 @@
     border-radius: 16px;
   }
 
-  .middle-div {
+  .middle-div{
     max-width: 639px;
     margin-left: 278px;
   }
@@ -95,7 +95,7 @@
     border-radius: 16px;
   }
 
-  .middle-div {
+  .middle-div{
     max-width: 639px;
     margin-left: 278px;
   }
@@ -180,16 +180,10 @@
   color: #4CAF50;
 }
 
-.mb-5 a:hover, .mb-5 a:active, .mb-5 a:focus {
-  color:#222;
+#menu:hover, #menu:active,#menu:focus {
+  background: #000000;
 }
 
-
-/* #left-bar .post-btn:hover, #left-bar .post-btn:active, #left-bar .post-btn:focus {
-  border: 3px solid #222;
-  color: #222;
-  background: #f3f3f3;
-} */
 /* color */
 
 /* scroll */
@@ -299,7 +293,15 @@
 }
 /* login page */
 
-#menu:hover, #menu:active,#menu:focus {
-  background: #000000;
+/* setting */
+.setting-title {
+  background-color:#F5F8FA;
 }
 
+.form-control.setting-input, .form-control.login-input, .form-control.account-form-input {
+  border: none;
+  outline: none;
+  border-bottom:2px solid #657786;
+  background-color:#F5F8FA;
+}
+/* setting */
