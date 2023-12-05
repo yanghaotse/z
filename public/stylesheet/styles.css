@@ -1,20 +1,53 @@
-@media screen and (max-width: 768px) {
-  #left-bar {
-    display: none;
+@media screen and (min-width: 1501px) {
+  #right-bar {
+    position: fixed;
+    left: 70%;
   }
-  
+
+  #left-bar {
+    width: 178px;
+    position: fixed;
+    margin-left: 40px;
+    background-color: #fff;
+    border-radius: 16px;
+  }
+
   .row .middle-div{
     max-width: 639px;
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 278px;
   }
 
-  .container .row {
-    flex-wrap: nowrap;
+  #menu {
+    display: none;
+    height: 54.8px;
+    width: 54.8px;
+    border-radius: 5px;
+    padding: 13.5px 0 0;
+    background-color: rgba(34, 34, 34, 0.95);
+  }
+}
+
+@media screen and (min-width: 1234px) and (max-width: 1500px) {
+  #right-bar {
+    position: fixed;
+    right: 5%
   }
 
-  .row #menu {
-    display: inline-block;
+  #left-bar {
+    width: 178px;
+    position: fixed;
+    margin-left: 40px;
+    background-color: #fff;
+    border-radius: 16px;
+  }
+
+  .row .middle-div{
+    max-width: 639px;
+    margin-left: 278px;
+  }
+
+  #menu {
+    display: none;
     height: 54.8px;
     width: 54.8px;
     border-radius: 5px;
@@ -36,7 +69,7 @@
     border-radius: 16px;
   }
 
-  .middle-div{
+  .row .middle-div{
     max-width: 639px;
     margin-left: 278px;
   }
@@ -52,56 +85,23 @@
 
 }
 
-@media screen and (min-width: 1234px) and (max-width: 1500px) {
-  #right-bar {
-    position: fixed;
-    right: 5%
-  }
-
+@media screen and (max-width: 768px) {
   #left-bar {
-    width: 178px;
-    position: fixed;
-    margin-left: 40px;
-    background-color: #fff;
-    border-radius: 16px;
-  }
-
-  .middle-div{
-    max-width: 639px;
-    margin-left: 278px;
-  }
-
-  #menu {
     display: none;
-    height: 54.8px;
-    width: 54.8px;
-    border-radius: 5px;
-    padding: 13.5px 0 0;
-    background-color: rgba(34, 34, 34, 0.95);
   }
-}
-
-@media screen and (min-width: 1501px) {
-  #right-bar {
-    position: fixed;
-    left: 70%;
-  }
-
-  #left-bar {
-    width: 178px;
-    position: fixed;
-    margin-left: 40px;
-    background-color: #fff;
-    border-radius: 16px;
-  }
-
-  .middle-div{
+  
+  .row .middle-div{
     max-width: 639px;
-    margin-left: 278px;
+    margin-left: 0px;
+    padding-left: 0px;
   }
 
-  #menu {
-    display: none;
+  .container .row {
+    flex-wrap: nowrap;
+  }
+
+  .row #menu {
+    display: inline-block;
     height: 54.8px;
     width: 54.8px;
     border-radius: 5px;
