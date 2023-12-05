@@ -123,15 +123,29 @@
   color: #8c8c8c;
 }
 
+.gray:hover, .gray:active, .gray:focus {
+  color: #222
+}
+
 .btn.dark-btn{
   background-color: #222;
   color: #fff;
+}
 
+.btn.dark-btn:hover, .btn.dark-btn:active, .btn.dark-btn:focus {
+  border: 2px solid #222;
+  color: #222;
+  background: #f3f3f3;
 }
 
 .btn.btn-outline-light {
   border-color: #222;
   color:#222;
+}
+
+.btn.btn-outline-light:hover, .btn.btn-outline-light:active, .btn.btn-outline-light:focus {
+  background-color: #222;
+  color: #fff;
 }
 
 .right-bar-div, .list-group-item.right-li {
@@ -153,6 +167,29 @@
 .label-text {
   color:#696974;
 }
+
+.fa-regular.fa-heart:hover, .fa-regular.fa-heart:active, .fa-regular.fa-heart:focus {
+  color: #e84545;
+}
+
+.fa-regular.fa-trash-can:hover, .fa-regular.fa-trash-can:active, .fa-regular.fa-trash-can:focus {
+  color: #e84545;
+}
+
+.fa-regular.fa-message:hover, .fa-regular.fa-message:active, .fa-regular.fa-message:focus {
+  color: #4CAF50;
+}
+
+.mb-5 a:hover, .mb-5 a:active, .mb-5 a:focus {
+  color:#222;
+}
+
+
+/* #left-bar .post-btn:hover, #left-bar .post-btn:active, #left-bar .post-btn:focus {
+  border: 3px solid #222;
+  color: #222;
+  background: #f3f3f3;
+} */
 /* color */
 
 /* scroll */
@@ -265,3 +302,4 @@
 #menu:hover, #menu:active,#menu:focus {
   background: #000000;
 }
+

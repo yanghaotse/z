@@ -1,6 +1,6 @@
-<div class="col-md-3 mt-4 pe-0" style="width: 283px;" id="right-bar">
+<div class="col-md-3 mt-4 pe-0" style="width: 310px;" id="right-bar">
   <div class="d-flex flex-column justify-content-start pe-1 right-bar-div"
-    style=" border-radius: 16px; width:273px;">
+    style=" border-radius: 16px; max-width:100%;">
 
     <div class="px-4 py-3 border-bottom">
       <h4 class="dark" style="font-weight: 500;">推薦追蹤</h4>
@@ -8,8 +8,8 @@
 
     <div id="recommend-scroll">
       {{#each recommendFollowings}}
-      <li class="list-group-item right-li" style="border: none;">
-        <div class="row justify-content-around align-items-center">
+      <li class="list-group-item right-li" style="border: none; padding: 10px 0 0 0;">
+        <div class="row justify-content-around align-items-center" style="max-width: 100%; margin-left: 0;">
       
           <div class="col-3 d-flex justify-content-center align-items-center">
             <a href="/users/{{this.id}}/tweets">
@@ -28,7 +28,7 @@
             {{#if this.isFollowed}}
             <form action="/followships/{{this.id}}?_method=DELETE" method="POST" style="display: contents;">
               <button type="submit" class="btn dark-btn"
-                style="height:40px; font-size: 15px; border-radius: 50px;border:none;">正在追蹤</button>
+                style="height:40px; font-size: 15px; border-radius: 50px;">正在追蹤</button>
             </form>
             {{else}}
             <form action="/followships" method="POST" style="display: contents;">
