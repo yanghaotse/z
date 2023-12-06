@@ -15,6 +15,7 @@
             <font size="4">儲存</font>
           </button>
         </div>
+
         <div class="modal-body p-0 row">
           <div class="col-12" style="position:relative">
             {{!-- cover --}}
@@ -42,52 +43,27 @@
               <i class="fa-solid fa-camera" style="color: #dedede; height:24px; width:24px;"></i>
             </label>
           </div>
-<<<<<<< HEAD
-          {{!-- name --}}
-          <div style="height:78px; width:602px; margin: 10px auto 40px auto;">
-            <div style="background-color:#F5F8FA;">
-              <label for="profile-name" style="margin: 5px auto auto 16px; font-size: 14px;">
-                <font color="#696974">名稱</font>
-              </label>
-              <input type="text" class="form-control mb-0" id="profile-name" name="name" maxlength="50"
-                style="border:none; outline: none; font-size:16px; background-color:#F5F8FA; border-bottom:2px solid #657786; width:100%;"
-                aria-describedby="nameHelp" value="{{currentUser.name}}" required/>
-=======
 
           <div style="max-width: 100%; padding: 10px 30px 20px 30px;">
-            {{!-- name --}}
+          {{!-- name --}}
             <div style="height:78px; max-width:100%;">
               <div style="background-color:#F5F8FA;">
-                <label for="name" style="margin: 5px auto auto 16px; font-size: 14px;">
+                <label for="profile-name" style="margin: 5px auto auto 16px; font-size: 14px;">
                   <font color="#696974">名稱</font>
                 </label>
                 <input type="text" class="form-control mb-0" id="profile-name" name="name" maxlength="50"
                   style="border:none; outline: none; font-size:16px; background-color:#F5F8FA; border-bottom:2px solid #657786; width:100%;"
-                  aria-describedby="nameHelp" value="{{currentUser.name}}" required />
->>>>>>> main
-                <div class="invalid-feedback"></div>
-              </div>
-              {{!-- 計算字數 --}}
-              <p class="text-end text-muted now1" id="name-count" style="font-size: 12px;"></p>
+                  aria-describedby="nameHelp" value="{{currentUser.name}}" required/>
+                  <div class="invalid-feedback"></div>
+                </div>
+                {{!-- 計算字數 --}}
+                <p class="text-end text-muted now1" id="name-count" style="font-size: 12px;"></p>
             </div>
-<<<<<<< HEAD
-            {{!-- 計算字數 --}}
-            <p class="text-end text-muted now1" id="name-count" style="font-size: 12px;"></p>
-          </div>
+
           {{!-- introduction --}}
-          <div style="height:171px; width:602px; margin: 10px auto 40px auto;">
-            <div style="background-color:#F5F8FA;">
-              <label for="profile-intro" style="margin: 5px auto auto 16px; font-size: 14px;">
-                <font color="#696974">自我介紹</font>
-              </label>
-              <textarea class="form-control" id="profile-intro" name="introduction"
-                style="border:none; border-bottom:2px solid #657786;outline: none;background-color:#F5F8FA; font-size:16px;width:100%;"
-                maxlength="160" aria-describedby="descriptionHelp">{{currentUser.introduction}}</textarea>
-=======
-            {{!-- introduction --}}
-            <div style="height:171px;max-width:100%; margin-top: 20px;">
+            <div style="height:171px; width:602px; margin: 10px auto 40px auto;">
               <div style="background-color:#F5F8FA;">
-                <label for="name" style="margin: 5px auto auto 16px; font-size: 14px;">
+                <label for="profile-intro" style="margin: 5px auto auto 16px; font-size: 14px;">
                   <font color="#696974">自我介紹</font>
                 </label>
                 <textarea class="form-control" id="profile-intro" name="introduction"
@@ -96,7 +72,6 @@
               </div>
               {{!-- 計算字數 --}}
               <p class="text-end text-muted now1" id="intro-count" style="font-size: 12px;"></p>
->>>>>>> main
             </div>
           </div>
 
