@@ -284,6 +284,10 @@
   color: #4CAF50;
 }
 
+.fa-envelope.fa-xl:hover, .fa-envelope.fa-xl:active, .fa-envelope.fa-xl:focus {
+  color: #fff;
+}
+
 #menu:hover, #menu:active,#menu:focus {
   background: #000000;
 }

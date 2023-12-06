@@ -229,7 +229,7 @@ const userController = {
         likesCount: lt.Likes.length
       }))
       likedTweets.sort((a, b) => b.Like.createdAt - a.Like.createdAt)
-      console.log(likedTweets)
+
       return res.render('user/user-likes', { user: userData, likedTweets, recommendFollowings, currentUser })
     } catch(err) {
       next(err)
