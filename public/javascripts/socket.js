@@ -69,7 +69,7 @@ if (selectedChatRoom) {
   })
 }
 
-
+// 卷軸置底
 function scrollChatToBottom() {
   chatContent.scrollTop = chatContent.scrollHeight
 }
