@@ -22,6 +22,10 @@
     margin-left: 278px;
   }
 
+  .row .chatroom-div {
+    margin-left: 278px;
+  }
+
   #menu {
     display: none;
     height: 54.8px;
@@ -63,6 +67,10 @@
     margin: 0 0 0 327px;
   }
 
+  .row .chatroom-div {
+    margin-left: 278px;
+  }
+
   #menu {
     display: none;
     height: 54.8px;
@@ -101,6 +109,11 @@
     width: 840px;
     margin: 0 0 0 327px;
   }
+
+  .row .chatroom-div {
+    padding-left: 0px;
+    margin-left: 0px;
+  }
   
   #menu {
     display: none;
@@ -116,6 +129,23 @@
     border-radius: 14px;
     margin-left: -138px;
     margin-top: 58px;
+  }
+
+  .private-chat-page #left-bar {
+    display: none;
+  }
+
+  .private-chat-page #menu {
+    display: inline-block;
+    height: 54.8px;
+    width: 54.8px;
+    border-radius: 5px;
+    padding: 13.5px 0 0;
+    background-color: rgba(34, 34, 34, 0.95);
+  }
+
+  .private-chat-page .row {
+    flex-wrap: nowrap;
   }
 }
 
@@ -140,6 +170,11 @@
     padding-left: 0px;
   }
 
+  .row .chatroom-div {
+    margin-left: 0px;
+    padding-left: 0px;
+  }
+
   .container .row {
     flex-wrap: nowrap;
   }
@@ -161,6 +196,18 @@
 
   .modal-dialog .modal-body{
     flex-wrap: wrap;
+  }
+  .user-list-wrapper {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 659px) {
+  .private-chat-page .user-list-wrapper {
+    display: none;
+  }
+  .private-chat-page .chatroom {
+    width: 60%;
   }
 }
 
@@ -355,7 +402,7 @@
 }
 /* login page */
 
-/* setting */
+/* setting page*/
 .setting-title {
   background-color:#F5F8FA;
 }
@@ -366,4 +413,4 @@
   border-bottom:2px solid #657786;
   background-color:#F5F8FA;
 }
-/* setting */
+/* setting page*/
