@@ -284,7 +284,7 @@
   color: #4CAF50;
 }
 
-.fa-envelope.fa-xl:hover, .fa-envelope.fa-xl:active, .fa-envelope.fa-xl:focus {
+a .fa-envelope.fa-xl:hover, a .fa-envelope.fa-xl:active, a .fa-envelope.fa-xl:focus {
   color: #fff;
 }
 

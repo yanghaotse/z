@@ -64,7 +64,7 @@ const chatroomController = {
     try {
       const currentUser = getUser(req)
       const [currentUserId, chatUserId] = [Number(currentUser.id), Number(req.params.id)]
-
+      if(chatUserId === currentUserId) throw new Error('無法跟自己聊天')
       const chatList = await userChatList(req)
       const chats = await PrivateMsg.findAll({
         where: {
@@ -98,8 +98,7 @@ const chatroomController = {
 
       res.render('chatroom/private-chat', { chatList, chats, currentUser, chatUser })
     } catch(err) {
-      console.error(err)
-      res.status(500).send('載入時發生錯誤')
+      next(err)
     }
   }
 
