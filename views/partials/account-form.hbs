@@ -1,20 +1,23 @@
-<input type="text" class="form-control" id="account" name="account" placeholder="Account" required />
+<input type="text" class="form-control" id="signUp-account" name="account" placeholder="Account" required />
 <div class="valid-feedback"></div>
 <div class="invalid-feedback" style="text-align:end;  margin:0 auto 10px auto;">Please enter your account</div>
 
-<input type="text" class="form-control" id="name" name="name" placeholder="Name" required />
+<input type="text" class="form-control" id="signUp-name" name="name" placeholder="Name" required />
 <div class="valid-feedback"></div>
 <div class="invalid-feedback" style="text-align:end;  margin:0 auto 10px auto;">Please enter your name</div>
 
-<input type="text" class="form-control" id="email" name="email" placeholder="Email address" required />
+<input type="text" class="form-control email" id="signUp-email" name="email" placeholder="Email address" required />
 <div class="valid-feedback"></div>
 <div class="invalid-feedback" style="text-align:end;  margin:0 auto 10px auto;">Please enter your email</div>
+<div class="email-invalid-feedback" id="emailInvalidFeedback" style="text-align:end; margin:0 auto 10px auto;color:#DC3545; font-size: 14px; display: none">Invalid email</div>
 
-<input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+<input type="password" class="form-control password" id="signUp-password" name="password" placeholder="Password" required />
 <div class="valid-feedback"></div>
 <div class="invalid-feedback" style="text-align:end;  margin:0 auto 10px auto;">Please enter your password</div>
+<div class="password-invalid-feedback" id="passwordInvalidFeedback" style="text-align:end; margin:0 auto 10px auto;color:#DC3545; font-size: 14px; display: none">At least 8 characters, including both letters and numbers.
+</div>
 
-<input type="password" class="form-control" id="checkPassword" name="checkPassword" placeholder="Confirm password"
+<input type="password" class="form-control" id="signUp-checkPassword" name="checkPassword" placeholder="Confirm password"
   required />
 <div class="valid-feedback"></div>
 <div class="invalid-feedback" style="text-align:end;  margin:0 auto 10px auto;">Please enter your password again</div>

@@ -39,9 +39,11 @@
             <label for="email" class="ms-3 label-text">
               Email
             </label>
-            <input type="text" class="form-control setting-input" id="email" name="email" value="{{currentUser.email}}" required />
+            <input type="text" class="form-control setting-input email" id="email" name="email" value="{{currentUser.email}}" required />
               <div class="valid-feedback"></div>
               <div class="invalid-feedback">Email不得空白</div>
+              <div class="email-invalid-feedback" id="emailInvalidFeedback"
+                style="text-align:end; margin:0 auto 10px auto;color:#DC3545; font-size: 14px; display: none">email 無法使用</div>
           </div>
         </div>
 
@@ -50,7 +52,9 @@
             <label for="password" class="ms-3 label-text">
               密碼
             </label>
-            <input type="password" class="form-control setting-input" id="password" name="password"/>
+            <input type="password" class="form-control setting-input password" id="password" name="password"/>
+            <div class="password-invalid-feedback" id="passwordInvalidFeedback"
+              style="text-align:end; margin:0 auto 10px auto;color:#DC3545; font-size: 14px; display: none">密碼至少需8位數 (須包含 "英文大小寫" + "數字")
           </div>
         </div>
 
