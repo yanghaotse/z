@@ -46,10 +46,11 @@ app.use((req, res, next) => {
   res.locals.warning_messages = req.flash('warning_messages')
   res.locals.notice_messages = req.flash('notice_messages')
   res.locals.user = getUser(req)
+  req.io = io
   next()
 })
-
-require('./helpers/socket-helpers')(io)
+// 引入模組並傳遞io對象
+const socket = require('./helpers/socket-helpers')(io)
 
 app.use(routes)
 

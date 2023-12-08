@@ -22,38 +22,42 @@ userList.addEventListener('click', (e) => {
 
 if (selectedChatRoom) {
   socket.emit('join room', selectedChatRoom)
+  scrollChatToBottom()
   const form = document.getElementById('chat-form')
   const input = document.getElementById('chat-input')
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault()
-    const chatUserId = parseInt(document.getElementById('chat-user-id').innerHTML)
-    // 訊息渲染畫面
-    if(input.value) {
-      const templateMsg = document.createElement('div')
-      const currentTime = getCurrentTime()
-      templateMsg.innerHTML = `
-        <div class="current-user d-flex flex-column align-items-end m-1">
-          <div class="content p-2" style="border-radius:25px 25px 0 25px; background:#222;">
-            <p class="content-text m-0 light">${input.value}</p>
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault()
+      const chatUserId = parseInt(document.getElementById('chat-user-id').innerHTML)
+      const notifyTo = `notify_to_${chatUserId}`
+      // 訊息渲染畫面
+      if(input.value) {
+        const templateMsg = document.createElement('div')
+        const currentTime = getCurrentTime()
+        templateMsg.innerHTML = `
+          <div class="current-user d-flex flex-column align-items-end m-1">
+            <div class="content p-2" style="border-radius:25px 25px 0 25px; background:#222;">
+              <p class="content-text m-0 light">${input.value}</p>
+            </div>
+            <div class="time top-100" style="font-size: 13px; color:#657786; text-align:end">
+              ${currentTime}
+            </div>
           </div>
-          <div class="time top-100" style="font-size: 13px; color:#657786; text-align:end">
-            ${currentTime}
-          </div>
-        </div>
-      `;
-      const messageData = {
-        text: input.value,
-        senderId: currentUserId,
-        receiverId: chatUserId
+        `;
+        const messageData = {
+          text: input.value,
+          senderId: currentUserId,
+          receiverId: chatUserId
+        }
+        // 將訊息傳到 server
+        socket.emit('private message', { data: messageData }, selectedChatRoom)
+        chatContent.appendChild(templateMsg)
+        scrollChatToBottom()
+        input.value = ''
       }
-      // 將訊息傳到 server
-      socket.emit('private message', { data: messageData }, selectedChatRoom)
-      chatContent.appendChild(templateMsg)
-      scrollChatToBottom()
-      input.value = ''
-    }
-  })
+    })
+  }
+  
 
   // 接收訊息
   socket.on('private message', async(data, room) => {

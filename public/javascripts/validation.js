@@ -7,18 +7,21 @@ Array.from(forms).forEach(form => {
     const emailInvalidFeedback = document.querySelector('.email-invalid-feedback') || null
     const passwordInvalidFeedback = document.querySelector('.password-invalid-feedback') || null
 
-    if (email.value && !emailValidate(email.value)) {
-      event.preventDefault()
-      event.stopPropagation()
-      emailInvalidFeedback.style.display = 'block'
-      email.style = 'border: 1px solid red;'
+    if (email) {
+      if (email.value && !emailValidate(email.value)) {
+        event.preventDefault()
+        event.stopPropagation()
+        emailInvalidFeedback.style.display = 'block'
+        email.style = 'border: 1px solid red;'
+      }
     }
-
-    if (password.value && !passwordValidate(password.value)) {
-      event.preventDefault()
-      event.stopPropagation()
-      passwordInvalidFeedback.style.display = 'block'
-      password.style = 'border: 1px solid red;'
+    if (password) {
+      if (password.value.length != 0 && !passwordValidate(password.value)) {
+        event.preventDefault()
+        event.stopPropagation()
+        passwordInvalidFeedback.style.display = 'block'
+        password.style = 'border: 1px solid red;'
+      }
     }
 
     if (!form.checkValidity() && !email.value && !password.value) {
