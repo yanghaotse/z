@@ -54,7 +54,7 @@ const chatroomController = {
     try {
       const chatList = await userChatList(req)
       const currentUser = getUser(req)
-      res.render('chatroom/private-chat', { chatList, currentUser })
+      return res.render('chatroom/private-chat', { chatList, currentUser })
     } catch (err) {
       console.error(err)
       res.status(500).send('載入時發生錯誤')
@@ -96,7 +96,7 @@ const chatroomController = {
       const chatUser = await User.findByPk(chatUserId, { raw: true, nest: true })
       if (!chatUser) throw new Error('使用者不存在')
 
-      res.render('chatroom/private-chat', { chatList, chats, currentUser, chatUser })
+      return res.render('chatroom/private-chat', { chatList, chats, currentUser, chatUser })
     } catch(err) {
       next(err)
     }

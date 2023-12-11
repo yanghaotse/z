@@ -12,15 +12,19 @@ module.exports = (io) => {
 
     socket.on('private message', async({ data }, selectedChatRoom) => {
       try {
+        console.log('===================================')
         console.log('sever data:', data)
         const { text, senderId, receiverId } = data
 
-        await PrivateMsg.create({
+        socket.to(selectedChatRoom).emit('private message', data)
+        const createMsg = await PrivateMsg.create({
           text,
           senderId,
           receiverId
         })
-        socket.to(selectedChatRoom).emit('private message', data)
+        console.log('==========================')
+        console.log('createdMsg:', createMsg)
+
       } catch(err) {
         console.error(err)
       }
