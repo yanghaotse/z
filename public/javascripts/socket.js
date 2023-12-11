@@ -6,7 +6,6 @@ const currentUserId = parseInt(document.getElementById('current-user-id').innerH
 const selectedChatRoom = localStorage.getItem('selectedChatRoom')
 
 userList.addEventListener('click', (e) => {
-  e.preventDefault()
   const button = e.target.closest('.user-button')
 
   if (button) {
@@ -16,7 +15,8 @@ userList.addEventListener('click', (e) => {
     
     localStorage.setItem('selectedChatRoom', selectedChatRoom)
     socket.emit('join room', selectedChatRoom)
-    window.location.href = `/chatroom/private/${chatUserId}`
+    console.log('===================')
+    console.log('front selectedChatRoom:', selectedChatRoom)
   }
 })
 
@@ -63,7 +63,7 @@ if (selectedChatRoom) {
   socket.on('private message', async(data, room) => {
     try {
       console.log('==============================')
-      console.log('front data:', data)
+      console.log('frontReceivedData:', data)
       const currentTime = getCurrentTime()
       // 訊息渲染畫面
       if (parseInt(data.senderId) !== currentUserId) {

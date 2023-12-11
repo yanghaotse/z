@@ -9,6 +9,8 @@ const bcrypt = require('bcryptjs')
 const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('passport')
+const { Server } = require('socket.io')
+const http = require('http')
 
 const routes = require('./routes/index')
 const { getUser } = require('./helpers/auth-helpers')
@@ -17,9 +19,7 @@ const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const port = process.env.PORT || 3000
 const SESSION_SECRET = process.env.SESSION_SECRET
 // socket.io
-const http = require('http')
 const server = http.createServer(app)
-const { Server } = require('socket.io')
 const io = new Server(server)
 
 app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers }))

@@ -62,6 +62,8 @@ const chatroomController = {
   },
   getChatRoom: async(req, res, next) => {
     try {
+      console.log('=================================')
+      console.log('enter chatroom')
       const currentUser = getUser(req)
       const [currentUserId, chatUserId] = [Number(currentUser.id), Number(req.params.id)]
       if(chatUserId === currentUserId) throw new Error('無法跟自己聊天')
@@ -95,7 +97,8 @@ const chatroomController = {
       })
       const chatUser = await User.findByPk(chatUserId, { raw: true, nest: true })
       if (!chatUser) throw new Error('使用者不存在')
-
+      console.log('=================')
+      console.log('chatUser:',chatUser)
       return res.render('chatroom/private-chat', { chatList, chats, currentUser, chatUser })
     } catch(err) {
       next(err)

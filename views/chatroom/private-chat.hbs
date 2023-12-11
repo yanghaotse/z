@@ -5,7 +5,7 @@
     <div class="col-md-10 chatroom-div">
       <section class="d-flex" style="height:100vh;">
       
-        {{!-- 聊天列表 --}}
+        {{!-- user list --}}
         <div class="user-list-wrapper" style="width: 40%; max-width:414px;border:1px solid #E6ECF0; height:100vh">
           <div class="user-list-header d-flex align-items-center" style="height:65px; border-bottom:1px solid #E6ECF0">
             <p class="m-0 ms-3" style="font-weight:700; font-size:24px">訊息</p>
@@ -13,34 +13,31 @@
 
           <ul class="user-list p-0" style="overflow:auto; height:90%">
             {{#each chatList}}
-            <button class="user-button p-0" style="border: none;outline: none;background: none;width:100%;"
-              data-user-id="{{this.user.id}}">
-              <a href="/chatroom/private/{{this.user.id}}" style="text-decoration: none;">
-                <li class="user-container d-flex align-items-center"
-                  style="list-style-type: none;height:69px; border:1px solid #E6ECF0">
-                  <div class="d-flex justify-content-center border"
-                    style="width:50px; height:50px; border-radius:50%;margin-left:5px; overflow:hidden">
-                    <img src="{{this.user.avatar}}" alt="user-avatar"
-                      style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+            <a class="user-button" href="/chatroom/private/{{this.user.id}}" style="text-decoration: none;" data-user-id="{{this.user.id}}">
+              <li class="user-container d-flex align-items-center"
+                style="list-style-type: none;height:69px; border:1px solid #E6ECF0">
+                <div class="d-flex justify-content-center border"
+                  style="width:50px; height:50px; border-radius:50%;margin-left:5px; overflow:hidden">
+                  <img src="{{this.user.avatar}}" alt="user-avatar"
+                    style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+                </div>
+                <div class="d-flex flex-column align-items-start flex-grow-1 ms-3">
+                  <div class="d-flex" style="margin-top:3px;">
+                    <span class="dark" style="font-size: 20px;">{{this.user.name}}</span>
+                    <span class="ms-1 gray" style="margin-top:3px;">@{{this.user.account}}</span>
                   </div>
-                  <div class="d-flex flex-column align-items-start flex-grow-1 ms-3">
-                    <div class="d-flex" style="margin-top:3px;">
-                      <span class="dark" style="font-size: 20px;">{{this.user.name}}</span>
-                      <span class="ms-1 gray" style="margin-top:3px;">@{{this.user.account}}</span>
-                    </div>
-                    <div class="text gray" style="margin-bottom:0px;">{{this.chats.[0].text}}</div>
-                  </div>
-                  <div class="time gray" style="margin-top:-5px;">
-                    <p style="font-size: 12px;">{{relativeTimeFromNow this.chats.[0].createdAt}}</p>
-                  </div>
-                </li>
-              </a>
-            </button>
+                  <div class="text gray" style="margin-bottom:0px;">{{this.chats.[0].text}}</div>
+                </div>
+                <div class="time gray" style="margin-top:-5px;">
+                  <p style="font-size: 12px;">{{relativeTimeFromNow this.chats.[0].createdAt}}</p>
+                </div>
+              </li>
+            </a>
             {{/each}}
           </ul>
         </div>
       
-        {{!-- 訊息區 --}}
+        {{!-- chatroom --}}
         {{#if chatUser}}
         <div class="chatroom flex-grow-1 position-relative border" style="height:100vh;">
           {{!-- header --}}
