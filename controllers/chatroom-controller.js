@@ -62,7 +62,7 @@ const chatroomController = {
   },
   getChatRoom: async(req, res, next) => {
     try {
-      console.log('============================enter chatroom')
+      const io = req.io
       const currentUser = getUser(req)
       const [currentUserId, chatUserId] = [Number(currentUser.id), Number(req.params.id)]
       if(chatUserId === currentUserId) throw new Error('無法跟自己聊天')
@@ -97,7 +97,32 @@ const chatroomController = {
       const chatUser = await User.findByPk(chatUserId, { raw: true, nest: true })
       if (!chatUser) throw new Error('使用者不存在')
 
-      console.log('=================chatUser:',chatUser)
+      const sortedId = [currentUserId, chatUserId].sort((a, b) => a - b)
+      const chatRoomId = `chatRoom${sortedId}`
+      io.once('connection', socket => {
+        console.log('a user connected')
+        
+        socket.join(chatRoomId)
+        console.log(`User joined room: ${chatRoomId}`)
+
+        // When a user disconnected
+        socket.on('disconnect', () => {
+          console.log('user disconnected')
+        })
+
+        // When a user send a message
+        socket.on('chatroom', async(data) => {
+          io.to(chatRoomId).emit('private message', data)
+          const { text, senderId, receiverId } = data.data
+
+          await PrivateMsg.create({
+            text,
+            senderId,
+            receiverId
+          })
+        })
+      })
+
       return res.render('chatroom/private-chat', { chatList, chats, currentUser, chatUser })
     } catch(err) {
       next(err)

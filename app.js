@@ -49,8 +49,6 @@ app.use((req, res, next) => {
   req.io = io
   next()
 })
-// 引入模組並傳遞io對象
-const socket = require('./helpers/socket-helpers')(io)
 
 app.use(routes)
 
