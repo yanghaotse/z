@@ -53,13 +53,13 @@
               <p class="me-5">{{this.repliesCount}}</p>
               {{#if isLiked}}
               <form action="/tweets/{{this.id}}/unlike" method="POST">
-                <button class="btn btn-outline-light" type="submit" style="border:none; background-color:transparent;">
+                <button type="submit" style="background: none; border: none; cursor: pointer;">
                   <i class="fa-solid fa-heart" style="color: #e84545; width: 24px; height: 24px;"></i>
                 </button>
               </form>
               {{else}}
               <form action="/tweets/{{this.id}}/like" method="POST">
-                <button class="btn btn-outline" type="submit" style="border:none; background-color:transparent;">
+                <button type="submit" style="background: none; border: none; cursor: pointer;">
                   <i class="fa-regular fa-heart" style="width: 24px; height: 24px;"></i>
                 </button>
               </form>
