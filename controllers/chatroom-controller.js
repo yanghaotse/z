@@ -96,21 +96,20 @@ const chatroomController = {
       })
       const chatUser = await User.findByPk(chatUserId, { raw: true, nest: true })
       if (!chatUser) throw new Error('使用者不存在')
-
+      // socket 連線
       const sortedId = [currentUserId, chatUserId].sort((a, b) => a - b)
       const chatRoomId = `chatRoom${sortedId}`
+
       io.once('connection', socket => {
-        console.log('a user connected')
+        console.log(`${currentUser.account}  connected`)
         
         socket.join(chatRoomId)
-        console.log(`User joined room: ${chatRoomId}`)
+        console.log(`${currentUser.account} joined room: ${chatRoomId}`)
 
-        // When a user disconnected
         socket.on('disconnect', () => {
-          console.log('user disconnected')
+          console.log(`${currentUser.account} disconnected`)
         })
-
-        // When a user send a message
+        // 接收訊息
         socket.on('chatroom', async(data) => {
           io.to(chatRoomId).emit('private message', data)
           const { text, senderId, receiverId } = data.data

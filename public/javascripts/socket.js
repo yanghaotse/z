@@ -1,9 +1,9 @@
 const socket = io()
 
-const userList = document.querySelector('.user-list')
 const chatContent = document.getElementById('chat-content')
 const currentUserId = parseInt(document.getElementById('current-user-id').innerHTML)
 
+// 進入 chatroom, scroll 置底
 if (chatContent) {
   scrollChatToBottom()
 }
@@ -13,18 +13,15 @@ socket.on('private message', async(data) => {
   try {
     const chatUserId = parseInt(document.getElementById('chat-user-id').innerHTML)
     const { text, senderId, receiverId } = data.data
-    console.log('==============================')
-    console.log('frontReceivedData:', data)
-    scrollChatToBottom()
     const currentTime = getCurrentTime()
-    // 訊息渲染畫面
+    // chatUser 訊息渲染
     if (parseInt(senderId) === chatUserId) {
       const templateMsg = document.querySelector('.chat-user').cloneNode(true)
       templateMsg.children[1].children[0].children[0].textContent = `${text}`
       templateMsg.children[1].children[1].textContent = `${currentTime}`
       chatContent.appendChild(templateMsg)
     }
-    
+    // currentUser 訊息渲染
     if (parseInt(senderId) === currentUserId) {
       const templateMsg = document.createElement('div')
       const currentTime = getCurrentTime()
@@ -53,7 +50,7 @@ if (form) {
     e.preventDefault()
     const chatUserId = parseInt(document.getElementById('chat-user-id').innerHTML)
     const msg = e.target.elements.msg.value
-    // 訊息渲染畫面
+
     if(msg) {
       // 將訊息傳到 server
       const messageData = {
