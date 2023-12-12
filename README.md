@@ -38,59 +38,59 @@
 1. 請先確認「環境建置與需求」第1和2點所提及的程式皆已安裝。
 2. 將此專案 clone 到本地。
 3. 初始化專案－開啟終端機，在專案資料夾執行：
-```
-cd [filePath]  # [filePath]為專案資料夾的路徑
-npm init -y
-```
+  ```
+  cd [filePath]  # [filePath]為專案資料夾的路徑
+  npm init -y
+  ```
 4. 接著在終端機依序安裝套件(請見 package.json 的 dependencies)：
-```
-# 安裝 dependencies 的套件
-# 以"express": "^4.18.2"為例，執行
-npm install express@4.18.2
-```
+  ```
+  # 安裝 dependencies 的套件
+  # 以"express": "^4.18.2"為例，執行
+  npm install express@4.18.2
+  ```
 5. 環境檔－在目標資料夾新增副檔名為**env**的檔案，私密資訊皆紀錄在**env.example**，請自行設定到內文中。
-```
-# .env的內文
-IMGUR_CLIENT_ID=[yourSecret] # [yourSecret]為您的私密資訊
-```
+  ```
+  # .env的內文
+  IMGUR_CLIENT_ID=[yourSecret] # [yourSecret]為您的私密資訊
+  ```
 6. 資料庫設定－請在終端機藉由 Sequelize，將 Migration 和 Model 的設定導入到 MySql 中。
-```
-npx sequelize db:migrate
-```
+  ```
+  npx sequelize db:migrate
+  ```
 7. 種子資料－請將種子資料匯入 DB，做為初始化的測試資料。
-```
-npx sequelize db:seed:all
-```
-##### *預設提供 1 位管理員 以及 10 位一般使用者可以做測試
-| 使用者權限 | account | 密碼 |
-| :---: | :---: | :---: |
-| admin | root | 12345678 |
+  ```
+  npx sequelize db:seed:all
+  ```
+  ##### *預設提供 1 位管理員 以及 10 位一般使用者可以做測試
+  | 使用者權限 | account | 密碼 |
+  | :---: | :---: | :---: |
+  | admin | root | 12345678 |
 
-##### 一般使用者名稱造順序排列，且密碼皆為'12345678'
-| 使用者權限 | account | 密碼 |
-| :---: | :---: | :---: |
-| user | user1 | 12345678 |
-| user | user2 | 12345678 |
-| ... | ... | ... |
-| user | user10 | 12345678 |
+  ##### 一般使用者名稱造順序排列，且密碼皆為'12345678'
+  | 使用者權限 | account | 密碼 |
+  | :---: | :---: | :---: |
+  | user | user1 | 12345678 |
+  | user | user2 | 12345678 |
+  | ... | ... | ... |
+  | user | user10 | 12345678 |
 
 8. 在終端機啟動伺服器，成功或失敗皆會有通知訊息。
-```
-# 啟動方法1
-npm run start (node app.js)
-```
-```
-# 啟動方法2
-npm run dev (nodemon app.js)
-```
-##### 如果在終端機看到以下訊息，就代表順利運行，可以使用此網址進入網頁[http://localhost:3000](http://localhost:3000)
-```
-app is running on http://localhost: 3000
-```
+  ```
+  # 啟動方法1
+  npm run start (node app.js)
+  ```
+  ```
+  # 啟動方法2
+  npm run dev (nodemon app.js)
+  ```
+  ##### 如果在終端機看到以下訊息，就代表順利運行，可以使用此網址進入網頁[http://localhost:3000](http://localhost:3000)
+  ```
+  app is running on http://localhost: 3000
+  ```
 9. 若欲暫停使用
-```
-ctrl + c
-```
+  ```
+  ctrl + c
+  ```
 
 ## 相關設計
 ### 實體關係圖 (ERD)
