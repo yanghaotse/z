@@ -2,7 +2,7 @@ const { Sequelize, Op } = require('sequelize')
 const { User } = require('../models')
 const { getUser } = require('../helpers/auth-helpers')
 
-// 使用者推薦追蹤名單
+// 使用者推薦追蹤(依追蹤者數量)名單
 const getRecommendedFollowings = async(userId) => {
   try {
     const recommendedFollowings = await User.findAll({
@@ -25,11 +25,19 @@ const getRecommendedFollowings = async(userId) => {
       limit: 10
     })
 
-    const recommendedFollowingsData = recommendedFollowings.map(r => ({
-      ...r.toJSON(),
-      isFollowed: r.Followers.some(f=> f.id === userId),
-      isNotUser: r.id !== userId
-    }))
+    const recommendedFollowingsData = recommendedFollowings.map(r => {
+      // right-bar 字元限制: 9
+      const truncatedName = r.name.length > 8 ? `${r.name.slice(0, 8)}...` : r.name
+      const truncatedAccount = r.account.length > 8 ? `${r.account.slice(0, 8)}...` : r.account
+      return {
+        ...r.toJSON(),
+        name: truncatedName,
+        account: truncatedAccount,
+        isFollowed: r.Followers.some(f=> f.id === userId),
+        isNotUser: r.id !== userId
+      }
+      
+    })
 
     return recommendedFollowingsData
   } catch(err) {
