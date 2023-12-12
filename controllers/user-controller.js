@@ -207,6 +207,7 @@ const userController = {
       const user = await User.findByPk(userId, {
         include: [
           // user-profile: user, followingsCount, followersCount
+          Tweet,
           { model: User, as: 'Followings' },
           { model: User, as: 'Followers' },
           // user-likes: repliesCount, likesCount
@@ -220,6 +221,7 @@ const userController = {
         ...rest,
         followingsCount: rest.Followings.length,
         followersCount: rest.Followers.length,
+        tweetsCount: rest.Tweets.length,
         isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
       }
 
