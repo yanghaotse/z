@@ -17,7 +17,7 @@ const Users = [{
 
 const numUsers = 10
 for (let i = 1; i <= numUsers; i++) {
-  const introLength = 160
+  const introLength = 150
   const user = {
     avatar: `https://loremflickr.com/480/320/kitten/?random=${Math.random() * 100}`,
     email: `user${i}@example.com`,
