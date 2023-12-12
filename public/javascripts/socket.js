@@ -16,25 +16,25 @@ socket.on('private message', async(data) => {
     console.log('==============================')
     console.log('frontReceivedData:', data)
     scrollChatToBottom()
-    // const currentTime = getCurrentTime()
+    const currentTime = getCurrentTime()
     // 訊息渲染畫面
     if (parseInt(senderId) === chatUserId) {
       const templateMsg = document.querySelector('.chat-user').cloneNode(true)
       templateMsg.children[1].children[0].children[0].textContent = `${text}`
-      // templateMsg.children[1].children[1].textContent = `${currentTime}`
+      templateMsg.children[1].children[1].textContent = `${currentTime}`
       chatContent.appendChild(templateMsg)
     }
     
     if (parseInt(senderId) === currentUserId) {
       const templateMsg = document.createElement('div')
-      // const currentTime = getCurrentTime()
+      const currentTime = getCurrentTime()
       templateMsg.innerHTML = `
         <div class="current-user d-flex flex-column align-items-end m-1">
           <div class="content p-2" style="border-radius:25px 25px 0 25px; background:#222;">
             <p class="content-text m-0 light">${text}</p>
           </div>
           <div class="time top-100" style="font-size: 13px; color:#657786; text-align:end">
-
+            ${currentTime}
           </div>
         </div>
       `;
@@ -72,11 +72,11 @@ function scrollChatToBottom() {
   chatContent.scrollTop = chatContent.scrollHeight
 }
 // message 時間戳記
-// function getCurrentTime () {
-//   const now = new Date()
-//   const hours = now.getHours()
-//   const minutes = now.getMinutes()
-//   const ampm = hours >= 12 ? 'PM' : 'AM'
-//   const formattedHours = hours % 12 === 0 ? 12 : hours % 12
-//   return `${ampm}${formattedHours}:${String(minutes).padStart(2, '0')} `
-// }
+function getCurrentTime () {
+  const now = new Date()
+  const hours = now.getHours()
+  const minutes = now.getMinutes()
+  const ampm = hours >= 12 ? 'PM' : 'AM'
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12
+  return `${ampm}${formattedHours}:${String(minutes).padStart(2, '0')} `
+}
