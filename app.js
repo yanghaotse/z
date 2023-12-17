@@ -11,7 +11,7 @@ const passport = require('passport')
 const { Server } = require('socket.io')
 const http = require('http')
 
-const { pages } = require('./routes/index')
+const { pages, apis } = require('./routes/index')
 const { getUser } = require('./helpers/auth-helpers')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
@@ -49,6 +49,7 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use('/api', apis)
 app.use(pages)
 
 server.listen(port, () => {
