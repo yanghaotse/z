@@ -1,8 +1,7 @@
-const { User, Tweet, Reply, Like, Followship } = require('../models')
-const { Sequelize, Op } = require('sequelize')
-const { getUser } = require('../helpers/auth-helpers')
-const { getRecommendedFollowings } = require('../services/user-service')
-const { imgurFileHandler } = require('../helpers/file-helpers')
+const { User, Tweet, Reply, Like } = require('../../models')
+const { getUser } = require('../../helpers/auth-helpers')
+const { getRecommendedFollowings } = require('../../services/user-service')
+const { imgurFileHandler } = require('../../helpers/file-helpers')
 
 const tweetController = {
   getTweets: async(req, res, next) => {

@@ -1,6 +1,6 @@
-const { User, PrivateMsg } = require('../models')
+const { User, PrivateMsg } = require('../../models')
 const { Op } = require('sequelize')
-const { getUser } = require('../helpers/auth-helpers')
+const { getUser } = require('../../helpers/auth-helpers')
 
 // 抓出聊天對象和其最新一筆聊天紀錄
 const userChatList = async(req) => {
