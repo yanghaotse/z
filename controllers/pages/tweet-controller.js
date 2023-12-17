@@ -2,35 +2,11 @@ const { User, Tweet, Reply, Like } = require('../../models')
 const { getUser } = require('../../helpers/auth-helpers')
 const { getRecommendedFollowings } = require('../../helpers/user-helpers')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
+const tweetService = require('../../services/tweet-services')
 
 const tweetController = {
   getTweets: async(req, res, next) => {
-    try {
-      // 查詢:當前使用者、推薦使用者、所有貼文
-      const currentUser = getUser(req)
-      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
-
-      const tweets = await Tweet.findAll({
-        include: [
-          User,
-          Reply,
-          { model: User, as: 'LikedUsers' }
-        ],
-        order: [
-          ['createdAt', 'DESC']
-        ]
-      })
-      const tweetsData = tweets.map(tweet => ({
-        ...tweet.toJSON(),
-        repliesCount: tweet.Replies.length,
-        likesCount: tweet.LikedUsers.length,
-        isLiked: tweet.LikedUsers.some( lu => lu.id === currentUser.id)
-      }))
-
-      return res.render('tweets', { tweets: tweetsData, currentUser, recommendFollowings })
-    } catch(err) {
-      next(err)
-    }
+    await tweetService.getTweets(req, (err, data) => err ? next(err) : res.render('tweets', data))
   },
   addLike: async(req, res, next) => {
     try {
