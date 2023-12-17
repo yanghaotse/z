@@ -6,7 +6,7 @@ const tweetService = require('../../services/tweet-services')
 
 const tweetController = {
   getTweets: async(req, res, next) => {
-    await tweetService.getTweets(req, (err, data) => err ? next(err) : res.json(data))
+    await tweetService.getTweets(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   },
   addLike: async(req, res, next) => {
     try {
