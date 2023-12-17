@@ -1,6 +1,5 @@
 const { Sequelize, Op } = require('sequelize')
 const { User } = require('../models')
-const { getUser } = require('../helpers/auth-helpers')
 
 // 使用者推薦追蹤(依追蹤者數量)名單
 const getRecommendedFollowings = async(userId) => {
