@@ -17,6 +17,7 @@ router.post('/tweets/:id/like', authenticated, tweetController.addLike)
 router.post('/tweets/:id/unlike', authenticated, tweetController.removeLike)
 router.get('/tweets/:id/replies', authenticated, tweetController.getTweet)
 router.get('/tweets', authenticated, tweetController.getTweets)
+router.post('/tweets', authenticated, tweetController.postTweet)
 
 router.use('/', apiErrorHandler)
 
