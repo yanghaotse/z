@@ -26,6 +26,9 @@ const adminController = {
   },
   getUsers: async(req, res, next) => {
     await adminService.getUsers(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  deleteTweet: async(req, res, next) => {
+    await adminService.deleteTweet(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 }
 

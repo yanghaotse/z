@@ -5,5 +5,6 @@ const adminController = require('../../../controllers/apis/admin-controller')
 
 router.get('/tweets', adminController.getTweets)
 router.get('/users', adminController.getUsers)
+router.delete('/tweets/:id', adminController.deleteTweet)
 
 module.exports = router
