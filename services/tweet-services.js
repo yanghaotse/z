@@ -31,6 +31,37 @@ const tweetService = {
     } catch(err) {
       cb(err)
     }
+  },
+  addLike: async(req, cb) => {
+    try {
+      const currentUserId = Number(getUser(req).id)
+      const tweetId = Number(req.params.id)
+      if (!tweetId || isNaN(tweetId)) {
+        const err = new Error('推文不存在')
+        err.status = 404
+        throw err
+      }
+
+      const [tweet, created] = await Like.findOrCreate({
+        where: {
+          tweetId: tweetId,
+          userId: currentUserId
+        },
+        defaults: {
+          TweetId: tweetId,
+          UserId: currentUserId
+        }
+      })
+      if (!tweet.toJSON().TweetId) {
+        const err = new Error('推文不存在')
+        err.status = 404
+        throw err
+      }
+
+      return cb(null, { likedTweet: tweet })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

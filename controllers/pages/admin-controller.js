@@ -1,5 +1,3 @@
-const { User, Tweet, Reply, Like } = require('../../models')
-const { Op } = require('sequelize')
 const adminService = require('../../services/admin-services')
 
 const adminController = {

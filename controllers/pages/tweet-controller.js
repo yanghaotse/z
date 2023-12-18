@@ -9,27 +9,7 @@ const tweetController = {
     await tweetService.getTweets(req, (err, data) => err ? next(err) : res.render('tweets', data))
   },
   addLike: async(req, res, next) => {
-    try {
-      const currentUserId = Number(getUser(req).id)
-      const tweetId = Number(req.params.id)
-      if (!tweetId || isNaN(tweetId)) throw new Error('推文不存在')
-
-      const [tweet, created] = await Like.findOrCreate({
-        where: {
-          tweetId: tweetId,
-          userId: currentUserId
-        },
-        defaults: {
-          TweetId: tweetId,
-          UserId: currentUserId
-        }
-      })
-      if (!tweet.toJSON().TweetId) throw new Error('推文不存在')
-
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+    await tweetService.addLike(req, (err, data) => err ? next(err) : res.redirect('back'))
   },
   removeLike: async(req, res, next) => {
     try {
