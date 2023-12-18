@@ -1,20 +1,10 @@
 const { User, Tweet, Reply, Like } = require('../../models')
 const { Op } = require('sequelize')
+const adminService = require('../../services/admin-services')
 
 const adminController = {
   getTweets: async(req, res, next) => {
-    try {
-      const tweets = await Tweet.findAll({
-        include: [User],
-        order: [ ['createdAt', 'DESC'] ],
-        raw: true,
-        nest: true
-      })
-
-      return res.render('admin/tweets', { tweets })
-    } catch(err) {
-      next(err)
-    }
+    await adminService.getTweets(req, (err, data) => err ? next(err) : res.render('admin/tweets', data))
   },
   adminSignInPage: (req, res) => {
     return res.render('admin/signin')

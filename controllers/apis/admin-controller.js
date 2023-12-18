@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const { User, Tweet, Reply, Like } = require('../../models')
 const { Op } = require('sequelize')
 const { getUser } = require('../../helpers/auth-helpers')
+const adminService = require('../../services/admin-services')
 
 const adminController = {
   adminSignIn: async(req, res, next) => {
@@ -19,6 +20,9 @@ const adminController = {
     } catch(err) {
       next(err)
     }
+  },
+  getTweets: async(req, res, next) => {
+    await adminService.getTweets(req, (err, data) => err ? next(err) : res.json({ status: 'success', data}))
   }
 }
 
