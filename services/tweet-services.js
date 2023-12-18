@@ -62,6 +62,27 @@ const tweetService = {
     } catch(err) {
       cb(err)
     }
+  },
+  removeLike: async(req, cb) => {
+    try {
+      const currentUserId = getUser(req).id
+      const tweetId = Number(req.params.id)
+      const likedTweet = await Like.findOne({
+        where: {
+          tweetId,
+          userId: currentUserId
+        }
+      })
+      if (!likedTweet) {
+        const err = new Error('推文不存在')
+        err.status = 404
+        throw err
+      }
+      await likedTweet.destroy()
+      return cb(null, { removeLikedTweet: likedTweet})
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
