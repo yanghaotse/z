@@ -83,6 +83,40 @@ const tweetService = {
     } catch(err) {
       cb(err)
     }
+  },
+  getTweet: async(req, cb) => {
+    try {
+      const tweetId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+
+      const tweet = await Tweet.findByPk(tweetId, {
+        include: [
+          User,
+          Like,
+          { model: User, as: 'LikedUsers'},
+          { model: Reply, include: [User], order: [ ['createdAt', 'DESC'] ] }  
+        ]
+      })
+      if (!tweet) {
+        const err = new Error('推文不存在')
+        err.status = 404
+        throw err
+      }
+
+      const { likesCount, repliesCount, isLiked, ...rest } = tweet.toJSON()
+      const tweetData = {
+        ...rest,
+        likesCount: rest.Likes.length,
+        repliesCount: rest.Replies.length,
+        isLiked: rest.LikedUsers.some(lu => lu.id === currentUser.id)
+      }
+      const replies = tweetData.Replies
+
+      return cb(null, { tweet: tweetData, replies, currentUser, recommendFollowings })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
