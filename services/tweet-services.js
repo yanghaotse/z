@@ -146,6 +146,40 @@ const tweetService = {
     } catch(err) {
       cb(err)
     }
+  },
+  postReply: async(req, cb) => {
+    try {
+      const currentUserId = getUser(req).id
+      const tweetId = req.params.id
+      const { comment } = req.body
+      const tweet = await Tweet.findByPk(tweetId)
+      
+      if (!tweet) {
+        const err = new Error('推文不存在')
+        err.status = 404
+        throw err
+      }
+      if (!comment) {
+        const err = new Error('內容不可空白')
+        err.status = 400
+        throw err
+      }
+      if (comment.length > 140) {
+        const err = new Error('字數超出上限')
+        err.status = 413
+        throw err
+      }
+
+      const reply = await Reply.create({
+        userId: currentUserId,
+        tweetId,
+        comment
+      })
+      
+      return cb(null, { reply })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

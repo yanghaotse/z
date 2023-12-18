@@ -21,26 +21,28 @@ const tweetController = {
     await tweetService.postTweet(req, (err, data) => err ? next(err) : res.redirect('/tweets'))
   },
   postReply: async(req, res, next) => {
-    try {
-      const currentUserId = getUser(req).id
-      const tweetId = req.params.id
-      const { comment } = req.body
-      const tweet = await Tweet.findByPk(tweetId)
+    await tweetService.postReply(req, (err, data) => err ? next(err) : res.redirect('back'))
+  //   try {
+  //     const currentUserId = getUser(req).id
+  //     const tweetId = req.params.id
+  //     const { comment } = req.body
+  //     const tweet = await Tweet.findByPk(tweetId)
       
-      if (!tweet) throw new Error('推文不存在')
-      if (!comment) throw new Error('內容不可空白')
-      if (comment.length > 140) throw new Error('字數超出上限')
+  //     if (!tweet) throw new Error('推文不存在')
+  //     if (!comment) throw new Error('內容不可空白')
+  //     if (comment.length > 140) throw new Error('字數超出上限')
 
-      await Reply.create({
-        userId: currentUserId,
-        tweetId,
-        comment
-      })
+  //     await Reply.create({
+  //       userId: currentUserId,
+  //       tweetId,
+  //       comment
+  //     })
       
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+  //     return res.redirect('back')
+  //   } catch(err) {
+  //     next(err)
+  //   }
+  // }
   }
 }
 
