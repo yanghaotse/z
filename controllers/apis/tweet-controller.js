@@ -12,21 +12,7 @@ const tweetController = {
     await tweetService.addLike(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   },
   removeLike: async(req, res, next) => {
-    try {
-      const currentUserId = getUser(req).id
-      const tweetId = Number(req.params.id)
-      const likedTweet = await Like.findOne({
-        where: {
-          tweetId,
-          userId: currentUserId
-        }
-      })
-      if (!likedTweet) throw new Error('喜愛貼文不存在')
-      await likedTweet.destroy()
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+    await tweetService.removeLike(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   },
   getTweet: async(req, res, next) => {
     try {

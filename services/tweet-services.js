@@ -74,7 +74,7 @@ const tweetService = {
         }
       })
       if (!likedTweet) {
-        const err = new Error('推文不存在')
+        const err = new Error('喜愛推文不存在')
         err.status = 404
         throw err
       }
