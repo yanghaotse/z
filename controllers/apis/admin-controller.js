@@ -22,7 +22,10 @@ const adminController = {
     }
   },
   getTweets: async(req, res, next) => {
-    await adminService.getTweets(req, (err, data) => err ? next(err) : res.json({ status: 'success', data}))
+    await adminService.getTweets(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  getUsers: async(req, res, next) => {
+    await adminService.getUsers(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 }
 
