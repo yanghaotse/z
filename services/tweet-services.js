@@ -117,6 +117,35 @@ const tweetService = {
     } catch(err) {
       cb(err)
     }
+  },
+  postTweet: async(req, cb) => {
+    try {
+      const currentUserId = getUser(req).id
+      const { description }  = req.body
+      const image = req.file ? req.file : null
+      const imgurImage = await imgurFileHandler(image)
+      
+      if (!description) {
+        const err = new Error('內容不可空白')
+        err.status = 400
+        throw err
+      }
+      if (description.length > 140) {
+        const err = new Error('超過字數上限')
+        err.status = 413
+        throw err
+      }
+
+      const newTweet = await Tweet.create({
+        userId: currentUserId,
+        image: imgurImage || null,
+        description
+      })
+
+      return cb(null, newTweet)
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

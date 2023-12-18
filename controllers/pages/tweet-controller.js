@@ -18,25 +18,7 @@ const tweetController = {
     await tweetService.getTweet(req, (err, data) => err ? next(err) : res.render('tweet', data))
   },
   postTweet: async(req, res, next) => {
-    try {
-      const currentUserId = getUser(req).id
-      const { description }  = req.body
-      const image = req.file ? req.file : null
-      const imgurImage = await imgurFileHandler(image)
-      
-      if (!description) throw new Error('內容不可空白')
-      if (description.length > 140) throw new Error('超過字數上限')
-
-      await Tweet.create({
-        userId: currentUserId,
-        image: imgurImage || null,
-        description
-      })
-
-      return res.redirect('/tweets')
-    } catch(err) {
-      next(err)
-    }
+    await tweetService.postTweet(req, (err, data) => err ? next(err) : res.redirect('/tweets'))
   },
   postReply: async(req, res, next) => {
     try {
