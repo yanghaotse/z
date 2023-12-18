@@ -13,6 +13,7 @@ router.post('/admin/signin', passport.authenticate('local', { session: false }),
 router.use('/admin', authenticateAdmin, admin)
 
 router.post('/signin', passport.authenticate('local', { session: false }), userController.signIn)
+router.post('/tweets/:id/like', authenticated, tweetController.addLike)
 router.get('/tweets', authenticated, tweetController.getTweets)
 
 router.use('/', apiErrorHandler)
