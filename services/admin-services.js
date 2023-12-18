@@ -16,6 +16,33 @@ const adminService = {
     } catch(err) {
       next(err)
     }
+  },
+  getUsers: async(req, cb) => {
+    try {
+      const users = await User.findAll({
+        where: {
+          [Op.or]: [{ role: 'user' }, { role: 'null' }]
+        },
+        include: [
+          Tweet,
+          { model: Tweet, as: 'LikedTweets' },
+          { model: User, as: 'Followings' },
+          { model: User, as: 'Followers' }
+        ]
+      })
+      const usersData = users.map(user => {
+        return {
+          ...user.toJSON(),
+          tweetsCount: user.Tweets.length,
+          likesCount: user.LikedTweets.length,
+          followingsCount: user.Followings.length,
+          followersCount: user.Followers.length
+        }
+      })
+      return cb(null, { users: usersData })
+    } catch(err) {
+      next(err)
+    }
   }
 }
 

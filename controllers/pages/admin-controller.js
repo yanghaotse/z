@@ -14,31 +14,7 @@ const adminController = {
     return res.redirect('/admin/tweets')
   },
   getUsers: async(req, res, next) => {
-    try {
-      const users = await User.findAll({
-        where: {
-          [Op.or]: [{ role: 'user' }, { role: 'null' }]
-        },
-        include: [
-          Tweet,
-          { model: Tweet, as: 'LikedTweets' },
-          { model: User, as: 'Followings' },
-          { model: User, as: 'Followers' }
-        ]
-      })
-      const usersData = users.map(user => {
-        return {
-          ...user.toJSON(),
-          tweetsCount: user.Tweets.length,
-          likesCount: user.LikedTweets.length,
-          followingsCount: user.Followings.length,
-          followersCount: user.Followers.length
-        }
-      })
-      return res.render('admin/users', { users: usersData })
-    } catch(err) {
-      next(err)
-    }
+    await adminService.getUsers(req, (err, data) => err ? next(err) : res.render('admin/users', data))
   },
   deleteTweet: async(req, res, next) => {
     try {
