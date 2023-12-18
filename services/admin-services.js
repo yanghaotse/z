@@ -14,7 +14,7 @@ const adminService = {
 
       return cb(null, { tweets })
     } catch(err) {
-      next(err)
+      cb(err)
     }
   },
   getUsers: async(req, cb) => {
@@ -41,7 +41,26 @@ const adminService = {
       })
       return cb(null, { users: usersData })
     } catch(err) {
-      next(err)
+      cb(err)
+    }
+  },
+  deleteTweet: async(req, cb) => {
+    try {
+      const tweetId = req.params.id
+      const tweet = await Tweet.findByPk(tweetId)
+      if (!tweet) {
+        const err = new Error('此篇推文不存在')
+        err.status = 404
+        throw err
+      }
+
+      await Reply.destroy({ where: { TweetId: tweetId } })
+      await Like.destroy({ where: { TweetId: tweetId } })
+      await Tweet.destroy({ where: { id: tweetId } })
+
+      return cb(null, { deleteTweet: tweet })
+    } catch(err) {
+      cb(err)
     }
   }
 }

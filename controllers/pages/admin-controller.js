@@ -17,20 +17,11 @@ const adminController = {
     await adminService.getUsers(req, (err, data) => err ? next(err) : res.render('admin/users', data))
   },
   deleteTweet: async(req, res, next) => {
-    try {
-      const tweetId = req.params.id
-      const tweet = await Tweet.findByPk(tweetId)
-      if (!tweet) throw new Error('此篇推文不存在')
-
-      await Reply.destroy({ where: { TweetId: tweetId } })
-      await Like.destroy({ where: { TweetId: tweetId } })
-      await Tweet.destroy({ where: { id: tweetId } })
-
+    await adminService.deleteTweet(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_messages', '已刪除推文')
       return res.redirect('/admin/tweets')
-    } catch(err) {
-      next(err)
-    }
-
+    })
   }
 }
 
