@@ -260,6 +260,19 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  getUserSetting: async(req, cb) => {
+    try {
+      const currentUser = getUser(req)
+      if (!currentUser) {
+        const err = new Error('使用者不存在')
+        err.status = 404
+        throw err
+      }
+      return cb(null, { currentUser })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

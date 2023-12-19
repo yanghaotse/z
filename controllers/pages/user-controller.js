@@ -45,13 +45,14 @@ const userController = {
     await userService.getUserLikes(req, (err, data) => err ? next(err) : res.render('user/user-likes', data))
   },
   getUserSetting: async(req, res, next) => {
-    try {
-      const currentUser = getUser(req)
-      if (!currentUser) throw new Error('使用者不存在')
-      return res.render('user/user-setting', { currentUser })
-    } catch(err) {
-      next(err)
-    }
+    await userService.getUserSetting(req, (err, data) => err ? next(err) : res.render('user/user-setting', data))
+    // try {
+    //   const currentUser = getUser(req)
+    //   if (!currentUser) throw new Error('使用者不存在')
+    //   return res.render('user/user-setting', { currentUser })
+    // } catch(err) {
+    //   next(err)
+    // }
   },
   addFollowing: async(req, res, next) => {
     try {
