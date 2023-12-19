@@ -450,12 +450,12 @@ const userService = {
         throw err
       } 
       if (name.length > 50 ) {
-        const err = new Error('字數不可超過50字')
+        const err = new Error('名稱不可超過50字')
         err.status = 413
         throw err
       } 
       if (introduction.length > 160) {
-        const err = new Error('字數不可超過160字')
+        const err = new Error('介紹不可超過160字')
         err.status = 413
         throw err
       }
@@ -478,6 +478,31 @@ const userService = {
       })
       updatedUser = updatedUser.toJSON()
       return cb(null, { updatedUser })
+    } catch(err) {
+      cb(err)
+    }
+  },
+  deleteTweet: async(req, cb) => {
+    try {
+      const currentUser = getUser(req)
+      const tweetId = req.body.id
+      const tweet = await Tweet.findByPk(tweetId, {
+        include: [User],
+        raw: true,
+        nest: true 
+      })
+
+      if (tweet.User.id !== currentUser.id) {
+        const err = new Error('無法刪除他人貼文')
+        err.status = 403
+        throw err
+      } else {
+        await Tweet.destroy({ where: { id: tweetId }})
+        await Reply.destroy({ where: { TweetId: tweetId }})
+        await Like.destroy({ where: { TweetId: tweetId }})
+      }
+      
+      return cb(null, { deleteTweet: tweet })
     } catch(err) {
       cb(err)
     }

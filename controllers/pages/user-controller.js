@@ -68,28 +68,7 @@ const userController = {
     })
   },
   deleteTweet: async(req, res, next) => {
-    try {
-      const currentUser = getUser(req)
-      const tweetId = req.body.id
-      const tweet = await Tweet.findByPk(tweetId, {
-        include: [User],
-        raw: true,
-        nest: true 
-      })
-
-      if (tweet.User.id !== currentUser.id) {
-        req.flash('error_messages', '無法刪除他人貼文')
-        return redirect('back')
-      } else {
-        await Tweet.destroy({ where: { id: tweetId }})
-        await Reply.destroy({ where: { TweetId: tweetId }})
-        await Like.destroy({ where: { TweetId: tweetId }})
-      }
-      
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+    await userService.deleteTweet(req, (err, data) => err ? next(err) : res.redirect('back'))
   },
   deleteReply: async(req, res, next) => {
     try {
