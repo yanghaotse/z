@@ -506,6 +506,30 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  deleteReply: async(req, cb) => {
+    try {
+      const currentUserId = getUser(req).id
+      const replyId = req.body.id
+      const reply = await Reply.findByPk(replyId, { raw: true, nest: true })
+      if (!reply) {
+        const err = new Error('回覆內容不存在')
+        err.status = 404
+        throw err
+      }
+
+      if (reply.userId !== currentUserId) {
+        const err = new Error('無法刪除他人留言')
+        err.status = 403
+        throw err
+      } else {
+        await Reply.destroy({ where: { id: replyId }})
+      }
+
+      return cb(null, { deleteReply: reply })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

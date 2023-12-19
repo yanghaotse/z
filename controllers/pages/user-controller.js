@@ -71,23 +71,7 @@ const userController = {
     await userService.deleteTweet(req, (err, data) => err ? next(err) : res.redirect('back'))
   },
   deleteReply: async(req, res, next) => {
-    try {
-      const currentUserId = getUser(req).id
-      const replyId = req.body.id
-      const reply = await Reply.findByPk(replyId, { raw: true, nest: true })
-      if (!reply) throw new Error('回覆內容不存在')
-
-      if (reply.userId !== currentUserId) {
-        req.flash('error_messages', '無法刪除他人留言')
-        return res.redirect('back')
-      } else {
-        await Reply.destroy({ where: { id: replyId }})
-      }
-
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+    await userService.deleteReply(req, (err, data) => err ? next(err) : res.redirect('back'))
   }
 }
 
