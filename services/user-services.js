@@ -281,10 +281,12 @@ const userService = {
     }
   },
   addFollowing: async(req, cb) => {
+    let createFollowShip
     try {
       const currentUserId = Number(getUser(req).id)
       const followingId = Number(req.body.id)
-      let createFollowShip
+      console.log('currentUserId', currentUserId)
+      console.log('followingId', followingId)
       if (!followingId || isNaN(followingId)) {
         const err = new Error('該用戶不存在')
         err.status = 404
