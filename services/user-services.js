@@ -175,6 +175,49 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  getUserReplies: async(req, cb) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+
+      const user = await User.findByPk(userId, {
+        include: [
+          // user-header: tweetsCount
+          Tweet,
+          // user-profile: user
+          { model: User, as: 'Followings' },
+          { model: User, as: 'Followers' },
+          // user-replies: replies 
+          { model:Reply,include: [
+            User,
+            { model: Tweet, include: [User] }
+          ],
+            order:[['createdAt', 'DESC']] 
+          }
+        ]
+      })
+      if (!user) {
+        const err = new Error('使用者資料不存在')
+        err.status = 404
+        throw err
+      }
+
+      const { followingsCount, followersCount, tweetsCount, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        followingsCount: rest.Followings.length,
+        followersCount: rest.Followers.length,
+        tweetsCount: rest.Tweets.length,
+        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
+      }
+      const replies = userData.Replies
+
+      return cb(null, { user: userData, replies, recommendFollowings, currentUser })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
