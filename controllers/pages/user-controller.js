@@ -4,44 +4,18 @@ const { Op } = require('sequelize')
 const { getUser } = require('../../helpers/auth-helpers') 
 const { getRecommendedFollowings } = require('../../helpers/user-helpers')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
-
+const userService = require('../../services/user-services')
 
 const userController = {
   signUpPage: (req, res) => {
     return res.render('signup')
   },
   signUp: async(req, res, next) => {
-    const { account, name, email, password, checkPassword } = req.body
-    try {
-      if (!account || !name || !email || !password || !checkPassword) throw new Error('所有欄位都為必填')
-      if (password !== checkPassword) throw new Error('密碼與確認密碼不符!')
-      if (name.length > 50) throw new Error('字數超出上限!')
-
-      const existingUser = await User.findOne({
-        where: {
-          [Op.or]: [
-            { account: account },
-            { email: email }
-          ]
-        }
-      })
-      if (existingUser) {
-        if (existingUser.toJSON().account === account) throw new Error('帳號已經被使用!')
-        if (existingUser.toJSON().email === email) throw new Error('Email 已經被使用!')
-      }
-      const hashPassword = await bcrypt.hash(password, 10)
-      const createUser = await User.create({
-        account,
-        name,
-        email,
-        password: hashPassword,
-        role: 'user'
-      })
+    await userService.signup(req, (err, data) => {
+      if (err) return next(err)
       req.flash('success_messages', '成功註冊!')
       return res.redirect('/signin')
-    } catch(err) {
-      next(err)
-    }
+    })
   },
   signInPage: (req, res) => {
     return res.render('signin')

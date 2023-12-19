@@ -1,7 +1,3 @@
-const { User, Tweet, Reply, Like } = require('../../models')
-const { getUser } = require('../../helpers/auth-helpers')
-const { getRecommendedFollowings } = require('../../helpers/user-helpers')
-const { imgurFileHandler } = require('../../helpers/file-helpers')
 const tweetService = require('../../services/tweet-services')
 
 const tweetController = {
