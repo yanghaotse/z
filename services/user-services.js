@@ -349,6 +349,89 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  putUserSetting: async(req, cb) => {
+    try {
+      const currentUser = getUser(req)
+      const { account, name, email, password, passwordCheck } = req.body
+
+      if (!account || !name || !email) {
+        const err = new Error ('帳戶、名稱、Email 為必填欄位')
+        err.status = 400
+        throw err
+      }
+      if (password !== passwordCheck) {
+        const err = new Error('密碼與確認密碼不相符')
+        err.status = 412
+        throw err
+      }
+      if (name > 50) {
+        const err = new Error('字數超出上限')
+        err.status = 413
+        throw err
+      }
+
+      // 查詢是否有已存在的 account 或 email(不包含當前使用者account、email)
+      const existingUserData = await User.findOne({
+        where: {
+          [Op.or]: [
+            {
+              [Op.and]: [
+                { account: account },
+                { account: { [Op.notLike]: currentUser.account }}
+              ]
+            },
+            {
+              [Op.and]: [
+                { email: email },
+                { email: { [Op.notLike]: currentUser.email }}
+              ]
+            }
+          ]
+        }
+      })
+      if (existingUserData) {
+        if (existingUserData.toJSON().account === account) {
+          const err = new Error('帳號已經被使用')
+          err.status = 409
+          throw err
+        }
+        if (existingUserData.toJSON().email === email) {
+          const err = new Error('Email 已經被使用')
+          err.status = 409
+          throw err
+        }
+      }
+      let updatedUser
+      // 若使用者有修改密碼
+      if (password) {
+        const hashPassword = await hash.bcrypt(password, 10)
+        updatedUser = await User.update({
+          account,
+          name,
+          email,
+          password: hashPassword
+        }, {
+          where: {
+            id: currentUser.id
+          }
+        })
+      } else {
+        updatedUser = await User.update({
+          account,
+          name,
+          email
+        }, {
+          where: {
+            id: currentUser.id
+          }
+        })
+      }
+
+      return cb(null, { updatedUser })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
