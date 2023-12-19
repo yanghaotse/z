@@ -25,10 +25,10 @@ app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs', helpers: 
 app.set('view engine', 'hbs')
 
 
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
-app.use(express.json())
 app.use(session({ 
   secret: SESSION_SECRET,
   resave: false,

@@ -438,8 +438,11 @@ const userService = {
     try {
       const currentUser = getUser(req)
       const { name, introduction } = req.body
-      const avatar = req.files.avatar ? req.files.avatar[0] : null
-      const cover = req.files.cover ? req.files.cover[0] : null
+      const avatar = req.files?.avatar ? req.files.avatar[0] : null
+      const cover = req.files?.cover ? req.files.cover[0] : null
+      console.log(currentUser)
+      console.log('avatar:', avatar)
+      console.log('cover:', cover)
 
       if (!name) {
         const err = new Error('名稱不可空白')
@@ -470,8 +473,8 @@ const userService = {
       let updatedUser = await user.update({
         name,
         introduction,
-        avatar: imgurAvatar || currentUser.avatar,
-        cover: imgurCover || currentUser.cover
+        avatar: imgurAvatar ? imgurAvatar : currentUser.avatar,
+        cover: imgurCover ? imgurCover : currentUser.cover
       })
       updatedUser = updatedUser.toJSON()
       return cb(null, { updatedUser })

@@ -48,6 +48,9 @@ const userController = {
   },
   putUserSetting: async(req, res, next) => {
     await userService.putUserSetting(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  putUserProfile: async(req, res, next) => {
+    await userService.putUserProfile(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 
 }
