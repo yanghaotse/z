@@ -42,6 +42,9 @@ const userController = {
   },
   addFollowing: async(req, res, next) => {
     await userService.addFollowing(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  removeFollowing: async(req, res, next) => {
+    await userService.removeFollowing(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 
 }

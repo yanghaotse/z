@@ -328,6 +328,27 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  removeFollowing: async(req, cb) => {
+    try {
+      const currentUserId = Number(getUser(req).id)
+      const followingId = Number(req.params.id)
+      const followShip = await Followship.findOne({
+        where: {
+          followingId,
+          followerId: currentUserId
+        }
+      })
+      if (!followShip) {
+        const err = new Error('未追蹤該用戶')
+        err.status = 409
+        throw err
+      }
+      await followShip.destroy()
+      return cb(null, { removeFollowShip: followShip.toJSON() })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

@@ -51,21 +51,7 @@ const userController = {
     await userService.addFollowing(req, (err, data) => err ? next(err) : res.redirect('back'))
   },
   removeFollowing: async(req, res, next) => {
-    try {
-      const currentUser = getUser(req)
-      const followingId = req.params.id
-      const followShip = await Followship.findOne({
-        where: {
-          followingId,
-          followerId: currentUser.id
-        }
-      })
-      if (!followShip) throw new Error('未追蹤該用戶')
-      await followShip.destroy()
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+    await userService.removeFollowing(req, (err, data) => err ? next(err) : res.redirect('back'))
   },
   putUserSetting: async(req, res, next) => {
     try {
