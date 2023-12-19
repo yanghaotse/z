@@ -21,6 +21,9 @@ const userController = {
   },
   signUp: async(req, res, next) => {
     await userService.signup(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  getUserTweets: async(req, res, next) => {
+    await userService.getUserTweets(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 }
 
