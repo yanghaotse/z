@@ -264,9 +264,15 @@ const userService = {
   getUserSetting: async(req, cb) => {
     try {
       const currentUser = getUser(req)
+      const paramsUserId = Number(req.params.id)
       if (!currentUser) {
         const err = new Error('使用者不存在')
         err.status = 404
+        throw err
+      }
+      if (paramsUserId !== currentUser.id) {
+        const err = new Error('無法修改他人資料')
+        err.status = 403
         throw err
       }
       return cb(null, { currentUser })
