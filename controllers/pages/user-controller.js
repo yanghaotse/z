@@ -36,34 +36,7 @@ const userController = {
     await userService.getUserFollowers(req, (err, data) => err ? next(err) : res.render('user/user-followers', data))
   },
   getUserFollowings: async(req, res, next) => {
-    try {
-      const userId = req.params.id
-      const currentUser = getUser(req)
-      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
-
-      const user = await User.findByPk(userId, {
-        include:[
-          Tweet,
-          { model: User, as: 'Followings' }
-        ]
-      })
-      if (!user) throw new Error('使用者資料不存在')
-
-      const { Tweets, ...rest } = user.toJSON()
-      const userData = {
-        ...rest,
-        tweetsCount: Tweets.length
-      }
-      const followings = userData.Followings.map(following => ({
-        ...following,
-        isFollowed: currentUser.Followings.some(cf => cf.id === following.id),
-        isNotUser: following.id !== currentUser.id
-      }))
-
-      return res.render('user/user-followings', { user: userData, followings, recommendFollowings, currentUser })
-    } catch(err) {
-      next(err)
-    }
+    await userService.getUserFollowings(req, (err, data) => err ? next(err) : res.render('user/user-followings', data))
   },
   getUserReplies: async(req, res, next) => {
     try {
