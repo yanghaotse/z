@@ -25,6 +25,7 @@ router.get('/users/:id/likes', authenticated, userController.getUserLikes)
 router.get('/users/:id/setting', authenticated, userController.getUserSetting)
 router.put('/users/:id/setting', authenticated, userController.putUserSetting)
 router.put('/users/:id/edit', authenticated, upload.fields([{ name:'cover', maxCount: 1 }, { name: 'avatar', maxCount: 1 }]), userController.putUserProfile)
+router.delete('/users/tweets', authenticated, userController.deleteTweet)
 router.delete('/followships/:id', authenticated, userController.removeFollowing)
 router.post('/followships', authenticated, userController.addFollowing)
 

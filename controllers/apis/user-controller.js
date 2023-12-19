@@ -51,6 +51,9 @@ const userController = {
   },
   putUserProfile: async(req, res, next) => {
     await userService.putUserProfile(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  deleteTweet: async(req, res, next) => {
+    await userService.deleteTweet(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 
 }
