@@ -27,6 +27,9 @@ const userController = {
   },
   getUserFollowers: async(req, res, next) => {
     await userService.getUserFollowers(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  getUserFollowings: async(req, res, next) => {
+    await userService.getUserFollowings(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 }
 
