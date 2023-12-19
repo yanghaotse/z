@@ -54,8 +54,10 @@ const userController = {
   },
   deleteTweet: async(req, res, next) => {
     await userService.deleteTweet(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  deleteReply: async(req, res, next) => {
+    await userService.deleteReply(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
-
 }
 
 
