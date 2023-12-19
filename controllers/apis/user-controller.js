@@ -1,11 +1,6 @@
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { User, Tweet, Reply, Followship, Like } = require('../../models')
-const { Op } = require('sequelize')
 const { getUser } = require('../../helpers/auth-helpers') 
-const { getRecommendedFollowings } = require('../../helpers/user-helpers')
-const { imgurFileHandler } = require('../../helpers/file-helpers')
-
+const userService = require('../../services/user-services')
 
 const userController = {
   signIn: async(req, res, next) => {
@@ -23,6 +18,9 @@ const userController = {
     } catch(err) {
       next(err)
     }
+  },
+  signUp: async(req, res, next) => {
+    await userService.signup(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 }
 

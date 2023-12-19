@@ -13,10 +13,13 @@ router.post('/admin/signin', passport.authenticate('local', { session: false }),
 router.use('/admin', authenticateAdmin, admin)
 
 router.post('/signin', passport.authenticate('local', { session: false }), userController.signIn)
+router.post('/signup', userController.signUp)
+
 router.post('/tweets/:id/like', authenticated, tweetController.addLike)
 router.post('/tweets/:id/unlike', authenticated, tweetController.removeLike)
 router.post('/tweets/:id/replies', authenticated, tweetController.postReply)
 router.get('/tweets/:id/replies', authenticated, tweetController.getTweet)
+
 router.get('/tweets', authenticated, tweetController.getTweets)
 router.post('/tweets', authenticated, tweetController.postTweet)
 
