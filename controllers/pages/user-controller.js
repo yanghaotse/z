@@ -48,37 +48,7 @@ const userController = {
     await userService.getUserSetting(req, (err, data) => err ? next(err) : res.render('user/user-setting', data))
   },
   addFollowing: async(req, res, next) => {
-    try {
-      const currentUserId = Number(getUser(req).id)
-      const followingId = Number(req.body.id)
-      if (!followingId || isNaN(followingId)) throw new Error('該用戶不存在')
-
-      if (followingId === currentUserId) {
-        req.flash('error_messages', '不能追蹤自己')
-        return res.redirect('back')
-      } else {
-        const [user, followShip] = await Promise.all([
-          User.findByPk(currentUserId),
-          Followship.findOne({
-            where: {
-              followingId,
-              followerId: currentUserId
-            }
-          })
-        ])
-        if (!user) throw new Error('使用者不存在')
-        if (followShip) throw new Error('已追蹤用戶')
-
-        await Followship.create({
-          followingId,
-          followerId: currentUserId
-        })
-      }
-
-      return res.redirect('back')
-    } catch(err) {
-      next(err)
-    }
+    await userService.addFollowing(req, (err, data) => err ? next(err) : res.redirect('back'))
   },
   removeFollowing: async(req, res, next) => {
     try {

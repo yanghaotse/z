@@ -279,6 +279,53 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  addFollowing: async(req, cb) => {
+    try {
+      const currentUserId = Number(getUser(req).id)
+      const followingId = Number(req.body.id)
+      let createFollowShip
+      if (!followingId || isNaN(followingId)) {
+        const err = new Error('該用戶不存在')
+        err.status = 404
+        throw err
+      }
+
+      if (followingId === currentUserId) {
+        const err = new Error('不能追蹤自己')
+        err.status = 409
+        throw err
+      } else {
+        const [user, followShip] = await Promise.all([
+          User.findByPk(currentUserId),
+          Followship.findOne({
+            where: {
+              followingId,
+              followerId: currentUserId
+            }
+          })
+        ])
+        if (!user) {
+          const err = new Error('使用者不存在')
+          err.status = 404
+          throw err
+        }
+        if (followShip) {
+          const err = new Error('已追蹤用戶')
+          err.status = 409
+          throw err
+        }
+
+        createFollowShip = await Followship.create({
+          followingId,
+          followerId: currentUserId
+        })
+      }
+
+      return cb(null, { createFollowShip: createFollowShip.toJSON() })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
