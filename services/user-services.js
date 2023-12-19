@@ -218,6 +218,48 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  getUserLikes: async(req, cb) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+      const user = await User.findByPk(userId, {
+        include: [
+          // user-profile: user, followingsCount, followersCount
+          Tweet,
+          { model: User, as: 'Followings' },
+          { model: User, as: 'Followers' },
+          // user-likes: repliesCount, likesCount
+          { model: Tweet, as: 'LikedTweets', include: [User, Reply, Like]}
+        ]
+      })
+      if (!user) {
+        const err = new Error('使用者資料不存在')
+        err.status = 404
+        throw err
+      }
+
+      const { followingsCount, followers, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        followingsCount: rest.Followings.length,
+        followersCount: rest.Followers.length,
+        tweetsCount: rest.Tweets.length,
+        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
+      }
+
+      const likedTweets = userData.LikedTweets.map(lt => ({
+        ...lt,
+        repliesCount: lt.Replies.length,
+        likesCount: lt.Likes.length
+      }))
+      likedTweets.sort((a, b) => b.Like.createdAt - a.Like.createdAt)
+
+      return cb(null, { user: userData, likedTweets, recommendFollowings, currentUser })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 

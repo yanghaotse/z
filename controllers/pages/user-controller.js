@@ -42,42 +42,7 @@ const userController = {
     await userService.getUserReplies(req, (err, data) => err ? next(err) : res.render('user/user-replies', data))
   },
   getUserLikes: async(req, res, next) => {
-    try {
-      const userId = req.params.id
-      const currentUser = getUser(req)
-      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
-      const user = await User.findByPk(userId, {
-        include: [
-          // user-profile: user, followingsCount, followersCount
-          Tweet,
-          { model: User, as: 'Followings' },
-          { model: User, as: 'Followers' },
-          // user-likes: repliesCount, likesCount
-          { model: Tweet, as: 'LikedTweets', include: [User, Reply, Like]}
-        ]
-      })
-      if (!user) throw new Error('使用者資料不存在')
-
-      const { followingsCount, followers, ...rest } = user.toJSON()
-      const userData = {
-        ...rest,
-        followingsCount: rest.Followings.length,
-        followersCount: rest.Followers.length,
-        tweetsCount: rest.Tweets.length,
-        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
-      }
-
-      const likedTweets = userData.LikedTweets.map(lt => ({
-        ...lt,
-        repliesCount: lt.Replies.length,
-        likesCount: lt.Likes.length
-      }))
-      likedTweets.sort((a, b) => b.Like.createdAt - a.Like.createdAt)
-
-      return res.render('user/user-likes', { user: userData, likedTweets, recommendFollowings, currentUser })
-    } catch(err) {
-      next(err)
-    }
+    await userService.getUserLikes(req, (err, data) => err ? next(err) : res.render('user/user-likes', data))
   },
   getUserSetting: async(req, res, next) => {
     try {
