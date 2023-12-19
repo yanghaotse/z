@@ -402,31 +402,32 @@ const userService = {
           throw err
         }
       }
+
+      const user = await User.findByPk(currentUser.id)
+      if (!user) {
+        const err = new Error('使用者不存在')
+        err.status = 404
+        throw err
+      }
+
       let updatedUser
-      // 若使用者有修改密碼
+      // 若使用者有更改密碼
       if (password) {
-        const hashPassword = await hash.bcrypt(password, 10)
-        updatedUser = await User.update({
+        updatedUser = await user.update({
           account,
           name,
           email,
-          password: hashPassword
-        }, {
-          where: {
-            id: currentUser.id
-          }
+          password: await hash.bcrypt(password, 10)
         })
       } else {
-        updatedUser = await User.update({
+        updatedUser = await user.update({
           account,
           name,
           email
-        }, {
-          where: {
-            id: currentUser.id
-          }
         })
       }
+      updatedUser = updatedUser.toJSON()
+      delete updatedUser.password
 
       return cb(null, { updatedUser })
     } catch(err) {

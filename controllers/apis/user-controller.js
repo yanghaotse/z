@@ -45,6 +45,9 @@ const userController = {
   },
   removeFollowing: async(req, res, next) => {
     await userService.removeFollowing(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  putUserSetting: async(req, res, next) => {
+    await userService.putUserSetting(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 
 }
