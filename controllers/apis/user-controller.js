@@ -30,6 +30,9 @@ const userController = {
   },
   getUserFollowings: async(req, res, next) => {
     await userService.getUserFollowings(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+  },
+  getUserReplies: async(req, res, next) => {
+    await userService.getUserReplies(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
   }
 }
 

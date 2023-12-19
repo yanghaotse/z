@@ -17,6 +17,7 @@ router.post('/signup', userController.signUp)
 router.get('/users/:id/tweets', authenticated, userController.getUserTweets)
 router.get('/users/:id/followers', authenticated, userController.getUserFollowers)
 router.get('/users/:id/followings', authenticated, userController.getUserFollowings)
+router.get('/users/:id/replies', authenticated, userController.getUserReplies)
 
 router.post('/tweets/:id/like', authenticated, tweetController.addLike)
 router.post('/tweets/:id/unlike', authenticated, tweetController.removeLike)
