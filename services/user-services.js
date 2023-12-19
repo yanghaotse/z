@@ -413,11 +413,12 @@ const userService = {
       let updatedUser
       // 若使用者有更改密碼
       if (password) {
+        const hashPassword = await bcrypt.hash(password, 10)
         updatedUser = await user.update({
           account,
           name,
           email,
-          password: await hash.bcrypt(password, 10)
+          password: hashPassword
         })
       } else {
         updatedUser = await user.update({
@@ -427,7 +428,6 @@ const userService = {
         })
       }
       updatedUser = updatedUser.toJSON()
-      delete updatedUser.password
 
       return cb(null, { updatedUser })
     } catch(err) {
