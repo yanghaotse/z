@@ -108,6 +108,39 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  getUserFollowers: async(req, cb) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+      const user = await User.findByPk(userId, {
+        include: [
+          Tweet,
+          { model: User, as: 'Followers'}
+        ]
+      })
+      if (!user) {
+        const err = new Error('使用者資料不存在')
+        err.status = 404
+        throw err
+      }
+
+      const { Tweets, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        tweetsCount: Tweets.length
+      }
+      const followers = userData.Followers.map(follower => ({
+        ...follower,
+        isFollowed: currentUser.Followings.some(cf => cf.id === follower.id),
+        isNotUser: follower.id !== currentUser.id
+      }))
+
+      return cb(null, { user: userData, followers, recommendFollowings, currentUser })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
