@@ -433,6 +433,51 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  putUserProfile: async(req, cb) => {
+    try {
+      const currentUser = getUser(req)
+      const { name, introduction } = req.body
+      const avatar = req.files.avatar ? req.files.avatar[0] : null
+      const cover = req.files.cover ? req.files.cover[0] : null
+
+      if (!name) {
+        const err = new Error('名稱不可空白')
+        err.status = 400
+        throw err
+      } 
+      if (name.length > 50 ) {
+        const err = new Error('字數不可超過50字')
+        err.status = 413
+        throw err
+      } 
+      if (introduction.length > 160) {
+        const err = new Error('字數不可超過160字')
+        err.status = 413
+        throw err
+      }
+
+      const user = await User.findByPk(currentUser.id)
+      if (!user) {
+        const err = new Error('使用者不存在')
+        err.status = 404
+        throw err
+      }
+
+      const imgurAvatar = await imgurFileHandler(avatar)
+      const imgurCover = await imgurFileHandler(cover)
+
+      let updatedUser = await user.update({
+        name,
+        introduction,
+        avatar: imgurAvatar || currentUser.avatar,
+        cover: imgurCover || currentUser.cover
+      })
+      updatedUser = updatedUser.toJSON()
+      return cb(null, { updatedUser })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
