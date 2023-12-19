@@ -58,6 +58,56 @@ const userService = {
     } catch(err) {
       cb(err)
     }
+  },
+  getUserTweets: async(req, cb) => {
+    try {
+      const userId = req.params.id
+      const currentUser = getUser(req)
+      const recommendFollowings = await getRecommendedFollowings(currentUser.id)
+
+      const user = await User.findByPk(userId, {
+        include: [
+          // user-profile
+          { model: User, as: 'Followers' },
+          { model: User, as: 'Followings' },
+          { model: Tweet, as: 'LikedTweets' },
+          // user-tweets
+          { model: Tweet, include: [
+            User,
+            Reply,
+            { model: User, as: 'LikedUsers' }
+          ],
+          order: [
+            ['createdAt', 'DESC']
+          ]}
+        ]
+      })
+      if (!user) {
+        const err = new Error('使用者不存在')
+        err.status = 404
+        throw err
+      }
+      // user-profile
+      const { followingsCount, followersCount, tweetsCount, ...rest } = user.toJSON()
+      const userData = {
+        ...rest,
+        followingsCount: rest.Followings.length,
+        followersCount: rest.Followers.length,
+        tweetsCount: rest.Tweets.length,
+        isFollowed: currentUser.Followings.some(cf => cf.id === rest.id)
+      }
+      // user-tweets
+      const tweetsData = user.Tweets.map( tweet => ({
+        ...tweet.toJSON(),
+        repliesCount: tweet.Replies.length,
+        likesCount: tweet.LikedUsers.length,
+        isLiked: tweet.LikedUsers.some(lu => lu.id === currentUser.id)
+      }))
+
+      return cb(null, { user: userData, tweets: tweetsData, currentUser, recommendFollowings })
+    } catch(err) {
+      cb(err)
+    }
   }
 }
 
