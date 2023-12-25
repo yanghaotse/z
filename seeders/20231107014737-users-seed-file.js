@@ -5,7 +5,7 @@ const faker = require('faker')
 
 // 建立 User: root * 1, user * 10
 const Users = [{
-  avatar: `https://loremflickr.com/480/320/kitten/?random=${Math.random() * 100}`,
+  avatar: `https://loremflickr.com/320/240/animal/?random=${Math.random() * 100}`,
   email: 'root@example.com.tw',
   password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10)),
   role: 'admin',
@@ -19,7 +19,7 @@ const numUsers = 10
 for (let i = 1; i <= numUsers; i++) {
   const introLength = 150
   const user = {
-    avatar: `https://loremflickr.com/480/320/kitten/?random=${Math.random() * 100}`,
+    avatar: `https://loremflickr.com/320/240/animal/?random=${Math.random() * 100}`,
     email: `user${i}@example.com`,
     password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10)),
     role: 'user',
