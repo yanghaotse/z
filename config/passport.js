@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 const JWTStrategy = passoprtJWT.Strategy
 const ExtractJWT = passoprtJWT.ExtractJwt
 const { User, Tweet } = require('../models')
+const JWT_SECRET = process.env.JWT_SECRET || 'SECRET'
 
 // set up Passport strategy
 passport.use(new LocalStrategy(
@@ -35,7 +36,7 @@ passport.use(new LocalStrategy(
 // JWT strategy
 const jwtOptions = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET
+  secretOrKey: JWT_SECRET
 }
 passport.use(new JWTStrategy(jwtOptions, async(jwtPayload, cb) => {
   try {
